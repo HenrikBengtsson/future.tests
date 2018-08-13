@@ -4,8 +4,8 @@
 \alias{strategies}
 \title{Get and Set Future Strategies to Test Over}
 \usage{
-strategies(cores = availableCores(), excl = c("multiprocess", "cluster"),
-  ...)
+strategies(cores = availableCores(), excl = c("multiprocess",
+  "cluster"), ...)
 }
 \arguments{
 \item{cores}{(integer) The number of cores.}

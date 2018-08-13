@@ -4,6 +4,7 @@ db_state <- local({
   original_vars <- list()
   original_envs <- list()
   original_opts <- list()
+  original_devs <- NULL
   original_plan <- NULL
   test_title <- NULL
   
@@ -16,6 +17,7 @@ db_state <- local({
       original_envs <<- list()
       original_opts <<- list()
       original_plan <<- NULL
+      original_devs <<- NULL
       test_title <<- NULL
     } else if (action == "list") {
       list(
@@ -24,6 +26,7 @@ db_state <- local({
         vars = original_vars,
         envs = original_envs,
         opts = original_opts,
+        devs = original_devs,
         plan = original_plan
       )
     } else if (action == "push") {
@@ -33,9 +36,16 @@ db_state <- local({
       original_vars <<- mget(ls(envir = envir), envir = envir)
       original_envs <<- Sys.getenv()
       original_opts <<- options()
+      original_devs <<- dev.list()
       original_plan <<- plan()
       message("*** ", test_title, " ...")
     } else if (action == "pop") {
+      ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      ## Undo graphics devices
+      ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      added <- setdiff(dev.list(), original_devs)
+      lapply(added, FUN = dev.off)
+      
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo options
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -53,7 +63,6 @@ db_state <- local({
       ## Assert that everything was properly undone
       stopifnot(identical(options(), original_opts))
 
-      
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo system environment variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -101,7 +110,6 @@ db_state <- local({
           original_vars[[name]]
         ))
       }
-
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo future strategy

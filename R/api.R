@@ -1,4 +1,4 @@
-#' Setup and Teardown a Package Test
+#' Set Up and Tear Down of a Package Test
 #' 
 #' @param title A character string for the test title.
 #' 
@@ -21,13 +21,20 @@ begin <- function(title, package = "future", attach = TRUE,
 
   ## Default options for tests
   options(
-    warn = 1L,
+    ## Use at most two cores
     mc.cores = 2L,
+
+    ## Warn immediately
+    warn = 1L,
+
+    ## Debug output
     future.debug = TRUE,
+    
     ## Reset the following during testing in case
     ## they are set on the test system
     future.availableCores.system = NULL,
     future.availableCores.fallback = NULL,
+    
     ## To be nicer to test environments (e.g. CRAN, Travis CI, AppVeyor CI, ...),
     ## timeout much earlier than the default 30 days.  This will also give a more
     ## informative error message produced by R itself, rather than whatever the
@@ -40,10 +47,13 @@ begin <- function(title, package = "future", attach = TRUE,
   Sys.unsetenv(c(
     "R_FUTURE_AVAILABLECORES_SYSTEM",
     "R_FUTURE_AVAILABLECORES_FALLBACK",
+    
     ## SGE
     "NSLOTS", "PE_HOSTFILE",
+    
     ## Slurm
     "SLURM_CPUS_PER_TASK",
+    
     ## TORQUE / PBS
     "PBS_NUM_PPN", "PBS_NODEFILE", "PBS_NP", "PBS_NUM_NODES"
   ))
@@ -98,14 +108,17 @@ is_solaris <- function() grepl("^solaris", R.version$os)
 
 max_cores <- function(max) {
   stopifnot(is.numeric(max), length(max) == 1L, !is.na(max), max > 0)
+  
   options(
     mc.cores = max,
     future.availableCores.fallback = max,
     future.availableCores.system = max
   )
+  
   Sys.setenv(MC_CORES = max)
   Sys.setenv(R_FUTURE_AVAILABLECORES_SYSTEM = max)
   Sys.setenv(R_FUTURE_AVAILABLECORES_FALLBACK = max)
+  
   if (max > 2) {
     chk <- tolower(Sys.getenv("_R_CHECK_LIMIT_CORES_", ""))
     chk <- (nzchar(chk) && (chk != "false"))

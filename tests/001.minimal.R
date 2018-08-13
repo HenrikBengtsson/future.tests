@@ -24,6 +24,7 @@ future.tests::context("Dropped object")
 rm(list = "a")
 future.tests::end()
 stopifnot(identical(a, 42L))
+rm(list = "a")
 
 
 ## Environment variables
@@ -61,6 +62,7 @@ future.tests::context("Changed environment variable")
 options(future.test.a = 3.14)
 future.tests::end()
 stopifnot(identical(getOption("future.test.a"), 42L))
+options(future.test.a = NULL)
 
 options(future.test.a = 42L)
 future.tests::begin("future.tests API")
@@ -68,3 +70,4 @@ future.tests::context("Dropped environment variable")
 options(future.test.a = NULL)
 future.tests::end()
 stopifnot(identical(getOption("future.test.a"), 42L))
+options(future.test.a = NULL)

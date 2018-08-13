@@ -4,9 +4,10 @@
 \alias{begin}
 \alias{end}
 \alias{context}
-\title{Setup and Teardown a Package Test}
+\title{Set Up and Tear Down of a Package Test}
 \usage{
-begin(title, package = "future", attach = TRUE, envir = parent.frame())
+begin(title, package = "future", attach = TRUE,
+  envir = parent.frame())
 
 end()
 
@@ -28,5 +29,5 @@ it only loaded.}
 Nothing.
 }
 \description{
-Setup and Teardown a Package Test
+Set Up and Tear Down of a Package Test
 }
