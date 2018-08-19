@@ -1,4 +1,4 @@
-library(future)
+future.tests::begin("Core API: futureCall()", package = "future")
 
 future.tests::context("- futureCall() - sequential + lazy")
 
@@ -89,4 +89,4 @@ future.tests::along_cores({
   })
 })
 
-
+future.tests::end()
