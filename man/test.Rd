@@ -2,12 +2,17 @@
 % Please edit documentation in R/api.R
 \name{test}
 \alias{test}
-\title{Runs a Future Test}
+\title{Run a Future Test}
 \usage{
-test(path, ...)
+test(path, ..., root = getOption("future.tests.root",
+  Sys.getenv("R_FUTURE_TESTS_ROOT", system.file("tests", package =
+  "future.tests", mustWork = TRUE))))
 }
 \arguments{
 \item{path}{A character string specifying a test script.}
+
+\item{root}{(internal) An alternative file directory from where
+\pkg{future.tests} tests are sourced.}
 
 \item{\ldots}{Additional arguments passed to \link[base:source]{base::source}.}
 }
@@ -15,5 +20,5 @@ test(path, ...)
 Nothing
 }
 \description{
-Runs a Future Test
+Run a Future Test
 }

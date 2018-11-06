@@ -18,3 +18,37 @@ attach_package <- function(pkg) {
 }
 
 is_covr <- function() "covr" %in% loadedNamespaces()
+
+
+stop_if_not <- function(...) {
+  res <- list(...)
+  for (ii in 1L:length(res)) {
+    res_ii <- .subset2(res, ii)
+    if (length(res_ii) != 1L || is.na(res_ii) || !res_ii) {
+        mc <- match.call()
+        call <- deparse(mc[[ii + 1]], width.cutoff = 60L)
+        if (length(call) > 1L) call <- paste(call[1L], "....")
+        stop(sprintf("%s is not TRUE", sQuote(call)),
+             call. = FALSE, domain = NA)
+    }
+  }
+  
+  NULL
+}
+
+
+mdebug <- function(..., appendLF = TRUE) {
+  if (!getOption("future.tests.debug", FALSE)) return()
+  msg <- sprintf(...)
+  msg <- paste(msg, collapse = "\n")
+  message(msg, appendLF = appendLF)
+}
+
+#' @importFrom utils capture.output str
+mstr <- function(..., appendLF = appendLF) {
+  if (!getOption("future.tests.debug", FALSE)) return()
+  msg <- capture.output(str(...))
+  msg <- paste(msg, collapse = "\n")
+  message(msg, appendLF = appendLF)
+}
+

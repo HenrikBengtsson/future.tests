@@ -74,17 +74,25 @@ end <- function() {
 }
 
 
-#' Runs a Future Test
+#' Run a Future Test
 #' 
 #' @param path A character string specifying a test script.
 #'
 #' @param \ldots Additional arguments passed to [base::source].
 #'
+#' @param root (internal) An alternative file directory from where
+#' \pkg{future.tests} tests are sourced.
+#'
 #' @return Nothing
-#' 
+#'
+#' @importFrom utils file_test
 #' @export
-test <- function(path, ...) {
-  path <- system.file("tests", path, package = "future.tests", mustWork = TRUE)
+test <- function(path, ..., root = getOption("future.tests.root", Sys.getenv("R_FUTURE_TESTS_ROOT", system.file("tests", package = "future.tests", mustWork = TRUE)))) {
+  stop_if_not(file_test("-d", root))
+  
+  path <- file.path(root, path)
+  stop_if_not(file_test("-f", path))
+  
   source(path, ...)
 }
 
