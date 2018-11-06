@@ -1,54 +1,72 @@
 #' @importFrom grDevices dev.list dev.off
 #' @importFrom future plan
 db_state <- local({
-  original_envir <- new.env()
-  original_vars <- list()
-  original_envs <- list()
-  original_opts <- list()
-  original_devs <- NULL
-  original_plan <- NULL
-  test_title <- NULL
+  state <- list(
+    title = NULL,
+    envir = new.env(),
+    vars  = character(0L),
+    envs  = list(),
+    opts  = list(),
+    devs  = NULL,
+    plan  = NULL
+  )
+  stack <- list(state)
   
   function(action = c("reset", "list", "push", "pop"), title = NULL, envir = parent.frame()) {
     action <- match.arg(action)
 
     debug <- getOption("future.tests.debug", FALSE)
 
-    if (debug) mdebug("db_state('%s') ...", action)
+    if (debug) {
+      mdebug("db_state('%s') ...", action)
+      mdebug("- stack depth: %d", length(stack))
+    }
 
+    res <- NULL
+    
     if (action == "reset") {
-      original_envir <<- new.env()
-      original_vars <<- list()
-      original_envs <<- list()
-      original_opts <<- list()
-      original_plan <<- NULL
-      original_devs <<- NULL
-      test_title <<- NULL
+      stack <<- list(
+        title = NULL,
+        envir = new.env(),
+        vars  = list(),
+        envs  = list(),
+        opts  = list(),
+        plan  = NULL,
+        devs  = NULL
+      )	
+      stop_if_not(length(stack) == 0L)
     } else if (action == "list") {
-      list(
-        title = test_title,
-        envir = original_envir,
-        vars = original_vars,
-        envs = original_envs,
-        opts = original_opts,
-        devs = original_devs,
-        plan = original_plan
-      )
+      return(stack)
     } else if (action == "push") {
       ## Record original state of ls(), env vars, and options
-      test_title <<- title
-      original_envir <<- envir
-      original_vars <<- mget(ls(envir = envir), envir = envir)
-      original_envs <<- Sys.getenv()
-      original_opts <<- options()
-      original_devs <<- dev.list()
-      original_plan <<- plan()
-      message("*** ", test_title, " ...")
+      state <- list(
+        title = title,
+        envir = envir,
+        vars  = mget(ls(envir = envir), envir = envir),
+        envs  = Sys.getenv(),
+        opts  = options(),
+        devs  = dev.list(),
+        plan  = plan()
+      )
+      message("*** ", state$title, " ...")
+
+      if (debug) utils::str(state)
+      old_depth <- length(stack)
+      if (debug) utils::str(stack)
+      stack <<- c(list(state), stack)
+      if (debug) utils::str(stack)
+      stop_if_not(length(stack) == old_depth + 1L)
     } else if (action == "pop") {
+      stop_if_not(length(stack) >= 1L)
+
+      old_depth <- length(stack)
+      state <- stack[[1L]]
+      if (debug) utils::str(state)
+      
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo graphics devices
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      added <- setdiff(dev.list(), original_devs)
+      added <- setdiff(dev.list(), state$devs)
       if (length(added) > 0) {
 	if (debug) {
 	  labels <- sprintf("%s (%d)", sQuote(names(added)), added)
@@ -62,7 +80,7 @@ db_state <- local({
       ## Undo options
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## If new options were added, then remove them
-      added <- setdiff(names(options()), names(original_opts))
+      added <- setdiff(names(options()), names(state$opts))
       if (length(added) > 0) {
         opts <- vector("list", length = length(added))
         names(opts) <- added
@@ -72,23 +90,23 @@ db_state <- local({
 #          mstr(opts)
 	}
 
-        ## Try to remove options one by one, because some cannot be removed
-#	for (name in names(opts)) try(options(opts[name]), silent = TRUE)
+        ## Remove options
+        options(opts)
       }
 
       ## Reset to originally, recorded options
-      options(original_opts)
+      options(state$opts)
       
       ## Assert that everything was properly undone
       ## NOTE: This is not possible, because not all options can be unset
-##      stop_if_not(identical(options(), original_opts))
+      stop_if_not(identical(options(), state$opts))
 
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo system environment variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## If new env vars were added, then remove them
       envs <- Sys.getenv()
-      added <- setdiff(names(envs), names(original_envs))
+      added <- setdiff(names(envs), names(state$envs))
       if (length(added) > 0) {
 	if (debug) {
 	  mdebug("Removing newly added environment variables: %s",
@@ -98,70 +116,73 @@ db_state <- local({
       }	
       
       ## If env vars were dropped, add then back
-      missing <- setdiff(names(original_envs), names(envs))
+      missing <- setdiff(names(state$envs), names(envs))
       if (length(missing) > 0)
-        do.call(Sys.setenv, as.list(original_envs[missing]))
+        do.call(Sys.setenv, as.list(state$envs[missing]))
       
       ## If env vars were Modified, reset them
-      for (name in intersect(names(envs), names(original_envs))) {
+      for (name in intersect(names(envs), names(state$envs))) {
         ## WORKAROUND: On Linux Wine, base::Sys.getenv() may
         ## return elements with empty names. /HB 2016-10-06
         if (nchar(name) == 0) next
         
-        if (!identical(envs[[name]], original_envs[[name]]))
-          do.call(Sys.setenv, as.list(original_envs[name]))
+        if (!identical(envs[[name]], state$envs[[name]]))
+          do.call(Sys.setenv, as.list(state$envs[name]))
       }
       
       ## Assert that everything was properly undone
-#FIXME#      if (debug) mstr(Sys.getenv())
-#FIXME#      stop_if_not(identical(Sys.getenv(), original_envs))
+      stop_if_not(identical(Sys.getenv(), state$envs))
 
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## If new objects were added, then remove them
-      added <- c(setdiff(ls(envir = original_envir), original_vars))
+      added <- c(setdiff(ls(envir = state$envir), state$vars))
       if (length(added) > 0) {
 	if (debug) {
 	  mdebug("Removing newly added variables: %s",
 	         paste(sQuote(added), collapse = ", "))
 	}
-        rm(list = added, envir = original_envir, inherits = FALSE)
+        rm(list = added, envir = state$envir, inherits = FALSE)
       }	
 
       ## If objects were modified or dropped, reset them
-      for (name in names(original_vars))
-        assign(name, original_vars[[name]], envir = original_envir)
+      for (name in names(state$vars))
+        assign(name, state$vars[[name]], envir = state$envir)
       
       ## Assert that everything was properly undone
-#FIXME#      stop_if_not(identical(ls(envir = original_envir), names(original_vars)))
-#FIXME#      for (name in names(original_vars)) {
-#FIXME#        stop_if_not(identical(
-#FIXME#          get(name, envir = original_envir, inherits = FALSE),
-#FIXME#          original_vars[[name]]
-#FIXME#        ))
-#FIXME#      }
+      stop_if_not(identical(ls(envir = state$envir), names(state$vars)))
+      for (name in names(state$vars)) {
+        stop_if_not(identical(
+          get(name, envir = state$envir, inherits = FALSE),
+          state$vars[[name]]
+        ))
+      }
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo future strategy
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if (!is.null(original_plan)) {
-        plan(original_plan)
+      if (!is.null(state$plan)) {
+        plan(state$plan)
         
         ## Assert that everything was properly undone
-        stop_if_not(identical(plan(original_plan), original_plan))
+        stop_if_not(identical(plan(state$plan), state$plan))
       }
 
-      message("*** ", test_title, " ... DONE")
-      
-      ## Done
-      db_state("reset")
+      message("*** ", state$title, " ... DONE")
+
+      ## Drop old state
+      stack <<- stack[-1L]
+      stop_if_not(length(stack) == old_depth - 1L)
+    }
+    
+    if (debug) {
+      mdebug("- stack depth: %d", length(stack))
+      mdebug("db_state('%s') ... done", action)
     }
 
-    if (debug) mdebug("db_state('%s') ... done", action)
-
-    invisible()
+    invisible(res)
   }
 })
 
