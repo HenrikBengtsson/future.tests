@@ -45,16 +45,8 @@ add_test_plan(plan(multisession, workers = 2L))
 test_plans <- test_plans()
 print(test_plans)
 
-res <- vector("list", length = length(test_plans))
-names(res) <- names(test_plans)
-
-for (pp in seq_along(test_plans)) {
-  name <- names(test_plans)[pp]
-  message(sprintf("- future plan #%d", pp))
-  eval(test_plans[[pp]])
-  print(plan())
-
-  res_pp <- list()
+res <- along_test_plans({
+  res_plan <- list()
   for (lazy in c(FALSE, TRUE)) {
     lazy_tag <- sprintf("lazy=%s", lazy)
     
@@ -67,14 +59,13 @@ for (pp in seq_along(test_plans)) {
     res_tt <- run_tests(tests_tt)
     print(res_tt)
 
-    res_pp[[lazy_tag]] <- res_tt
+    res_plan[[lazy_tag]] <- res_tt
 
     message(sprintf("Running tests that supports lazy = %s ... OK", lazy))
   }
 
-  res[[pp]] <- res_pp
-}
-
-plan(sequential)
+  res_plan
+})
+print(res)
 
 message("Running all tests across different future plans ... DONE")

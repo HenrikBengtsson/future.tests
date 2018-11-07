@@ -40,6 +40,48 @@ register_test <- function(test) {
 
 
 
+#' Run a Test
+#'
+#' @param test A Test.
+#'
+#' @param envir The environment where tests are run.
+#'
+#' @param local Should tests be evaluated in a local environment or not.
+#'
+#' @return Value of test expression and benchmark information.
+#'
+#' @export
+evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE) {
+  stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
+  
+  res <- list(
+    expr = expr,
+    local = local,
+    error = NULL,
+    value = NULL,
+    visible = NA,
+    time_start = Sys.time(), time_end = NULL
+  )
+  
+  ## Evaluate test in a local environment?
+  if (local) envir <- new.env(parent = envir)
+  
+  result <- tryCatch({
+    withVisible(eval(expr, envir = envir))
+  }, error = identity)
+
+  if (inherits(result, "error")) {
+    res$error <- result
+  } else {
+    res["value"] <- list(result$value)
+    res$visible <- result$visible
+  }
+  
+  res$time_end <- Sys.time()
+
+  res
+} ## evaluate_expr()
+
 
 #' Run a Test
 #'
@@ -56,16 +98,6 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   
-  stats <- list(
-    test = test,
-    args = list(),
-    local = local,
-    error = NULL,
-    value = NULL,
-    visible = NA,
-    time_start = Sys.time(), time_end = NULL
-  )
-  
   ## Record arguments used
   if (length(test$args) > 0L) {
     names <- names(test$args)
@@ -74,26 +106,17 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
       names <- names[missing]
       stop(sprintf("Cannot run test %s. One or more of the required arguments do not exist: %s", sQuote(test$title), paste(sQuote(names), collapse = ", ")))
     }
-    stats$args <- mget(names, envir = envir, inherits = TRUE)
+    args <- mget(names, envir = envir, inherits = TRUE)
   }
 
-  ## Evaluate test in a local environment?
-  if (local) envir <- new.env(parent = envir)
-  
-  result <- tryCatch({
-    withVisible(eval(test$expr, envir = envir))
-  }, error = identity)
+  res <- evaluate_expr(test$expr, envir = envir, local = local)
 
-  if (inherits(result, "error")) {
-    stats$error <- result
-  } else {
-    stats["value"] <- list(result$value)
-    stats$visible <- result$visible
-  }
-  
-  stats$time_end <- Sys.time()
+  res <- c(list(
+    test = test,
+    args = args
+  ), res)
 
-  stats
+  res
 }
 
 
