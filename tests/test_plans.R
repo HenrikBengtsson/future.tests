@@ -1,4 +1,5 @@
 library(future.tests)
+library(future)
 
 test_plans <- test_plans()
 print(test_plans)
