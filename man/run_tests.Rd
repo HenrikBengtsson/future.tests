@@ -4,12 +4,15 @@
 \alias{run_tests}
 \title{Run All Tests}
 \usage{
-run_tests(tests = test_db(), ..., envir = parent.frame())
+run_tests(tests = test_db(), ..., envir = parent.frame(),
+  local = TRUE)
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
 
 \item{envir}{The environment where tests are run.}
+
+\item{local}{Should tests be evaluated in a local environment or not.}
 
 \item{\ldots}{(optional) Named arguments to test over.}
 }

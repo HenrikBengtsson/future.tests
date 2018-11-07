@@ -47,15 +47,19 @@ register_test <- function(test) {
 #'
 #' @param envir The environment where tests are run.
 #'
+#' @param local Should tests be evaluated in a local environment or not.
+#'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-run_test <- function(test, envir = parent.frame()) {
+run_test <- function(test, envir = parent.frame(), local = TRUE) {
   stopifnot(inherits(test, "Test"))
-
+  stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
+  
   stats <- list(
     test = test,
     args = list(),
+    local = local,
     error = NULL,
     value = NULL,
     visible = NA,
@@ -72,6 +76,9 @@ run_test <- function(test, envir = parent.frame()) {
     }
     stats$args <- mget(names, envir = envir, inherits = TRUE)
   }
+
+  ## Evaluate test in a local environment?
+  if (local) envir <- new.env(parent = envir)
   
   result <- tryCatch({
     withVisible(eval(test$expr, envir = envir))
@@ -99,7 +106,7 @@ run_test <- function(test, envir = parent.frame()) {
 #' @return (invisibly) the internal list of Test:s.
 #'
 #' @export
-#' @keyword internal
+#' @keywords internal
 test_db <- local({
   db <- list()
   
@@ -172,17 +179,19 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
 #'
 #' @param envir The environment where tests are run.
 #'
+#' @param local Should tests be evaluated in a local environment or not.
+#'
 #' @return List of test results.
 #' 
 #' @export
-run_tests <- function(tests = test_db(), ..., envir = parent.frame()) {
+run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE) {
   args <- list(...)
   if (length(args) > 0) stopifnot(!is.null(names(args)))
   
   res <- vector("list", length = length(tests))
   for (kk in seq_along(tests)) {
     test <- tests[[kk]]
-    res[[kk]] <- run_test(test, envir = envir)
+    res[[kk]] <- run_test(test, envir = envir, local = local)
   }
 
   res
@@ -192,14 +201,12 @@ run_tests <- function(tests = test_db(), ..., envir = parent.frame()) {
 #'
 #' @param tests A list of tests to subset.
 #'
-#' @param \ldots (optional) Named arguments with set of values to test against.
+#' @param args Named arguments with sets of values to test against.
 #'
-#' @return A list of tests.
+#' @return A list of tests that support specified arguments.
 #'
 #' @export
-subset_tests_by_args <- function(tests = test_db(), ...) {
-  args <- list(...)
-
+subset_tests_by_args <- function(tests = test_db(), args) {
   ## Nothing to do?
   if (length(args) == 0) return(tests)
   
