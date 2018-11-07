@@ -37,6 +37,28 @@ stop_if_not <- function(...) {
 }
 
 
+printf <- function(...) {
+  cat(sprintf(...))
+}
+
+mprintf <- function(..., appendLF = TRUE) {
+  message(sprintf(...), appendLF = appendLF)
+}
+
+#' @importFrom utils capture.output
+mprint <- function(..., appendLF = appendLF) {
+  msg <- capture.output(print(...))
+  msg <- paste(msg, collapse = "\n")
+  message(msg, appendLF = appendLF)
+}
+
+#' @importFrom utils capture.output str
+mstr <- function(..., appendLF = appendLF) {
+  msg <- capture.output(str(...))
+  msg <- paste(msg, collapse = "\n")
+  message(msg, appendLF = appendLF)
+}
+
 mdebug <- function(..., appendLF = TRUE) {
   if (!getOption("future.tests.debug", FALSE)) return()
   msg <- sprintf(...)
@@ -44,11 +66,4 @@ mdebug <- function(..., appendLF = TRUE) {
   message(msg, appendLF = appendLF)
 }
 
-#' @importFrom utils capture.output str
-mstr <- function(..., appendLF = appendLF) {
-  if (!getOption("future.tests.debug", FALSE)) return()
-  msg <- capture.output(str(...))
-  msg <- paste(msg, collapse = "\n")
-  message(msg, appendLF = appendLF)
-}
 

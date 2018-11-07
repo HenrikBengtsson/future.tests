@@ -151,18 +151,7 @@ seq_along_cores <- function() seq_len(availableCores())
 #' 
 #' @importFrom future availableCores
 #' @export
-along_cores <- function(expr, envir = parent.frame()) {
-  set_cores <- function(cores) {
-    options(
-      mc.cores = cores,
-      future.availableCores.fallback = cores,
-      future.availableCores.system = cores
-    )
-    Sys.setenv(MC_CORES = cores)
-    Sys.setenv(R_FUTURE_AVAILABLECORES_SYSTEM = cores)
-    Sys.setenv(R_FUTURE_AVAILABLECORES_FALLBACK = cores)
-  }
-  
+along_cores <- function(expr, envir = parent.frame()) { 
   expr <- substitute(expr)
   res <- list()
 
@@ -173,13 +162,13 @@ along_cores <- function(expr, envir = parent.frame()) {
   for (cores in seq_len(ncores)) {
     set_cores(cores)
     
-    message(sprintf("Testing with %d cores out of %d ...", cores, ncores))
-    message(sprintf("- Updated availableCores(): %d", availableCores()))
+    mprintf("Testing with %d cores out of %d ...", cores, ncores)
+    mprintf("- Updated availableCores(): %d", availableCores())
     stopifnot(availableCores() == cores)
 
-    res[[sprintf("cores=%d", cores)]] <- eval(expr, envir = envir)
+    res[[sprintf("cores=%d", cores)]] <- test_eval(expr, envir = envir)
     
-    message(sprintf("Testing with %d cores ... DONE", cores))
+    mprintf("Testing with %d cores ... DONE", cores)
   }
 
   invisible(res)
@@ -249,13 +238,53 @@ along_strategies <- function(expr, envir = parent.frame()) {
   on.exit(plan(original_strategy))
   
   for (strategy in strategies()) {
-    message(sprintf("Testing with future plan %s ...", sQuote(strategy)))
-    plan(strategy)
+    mprintf("Testing with future plan %s ...", sQuote(strategy))
+    set_plan(strategy)
+
+    res[[sprintf("strategy=%s", strategy)]] <- test_eval(expr, envir = envir)
     
-    res[[sprintf("strategy=%s", strategy)]] <- eval(expr, envir = envir)
-    
-    message(sprintf("Testing with future plan %s ... DONE", sQuote(strategy)))
+    mprintf("Testing with future plan %s ... DONE", sQuote(strategy))
   }
 
   invisible(res)
+}
+
+
+#' @importFrom utils capture.output
+#' @importFrom future plan nbrOfWorkers
+test_eval <- function(expr, envir) {
+  tryCatch({
+    eval(expr, envir = envir)
+  }, error = function(ex) {
+    msg <- c(
+      "plan():",
+      paste(capture.output(plan()), collapse="\n"),
+      sprintf("nbrOfWorkers(): %d", nbrOfWorkers()),
+      "Error message:",
+      conditionMessage(ex)
+    )
+    msg <- paste(sprintf("%s", msg), collapse = "\n")
+    ruler <- paste(rep("*", times = getOption("width", 80) - 2), collapse = "")
+    msg <- sprintf("%s\nTEST ERROR:\n%s\n%s", ruler, msg, ruler)
+    ex$message <- msg
+    stop(ex)
+  })
+}    
+
+
+set_cores <- function(cores) {
+  options(
+    mc.cores = cores,
+    future.availableCores.fallback = cores,
+    future.availableCores.system = cores
+  )
+  Sys.setenv(MC_CORES = cores)
+  Sys.setenv(R_FUTURE_AVAILABLECORES_SYSTEM = cores)
+  Sys.setenv(R_FUTURE_AVAILABLECORES_FALLBACK = cores)
+}
+
+
+#' @importFrom future plan
+set_plan <- function(strategy) {
+  plan(strategy)
 }
