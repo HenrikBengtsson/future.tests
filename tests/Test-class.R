@@ -10,11 +10,18 @@ recursive <- FALSE
 tests <- load_tests()
 message("Number of tests: ", length(tests))
 
+df_tests <- do.call(rbind, tests)
+print(df_tests)
+
+
 message("Run first three tests ...")
 
 library(future)
-res <- run_tests(head(tests, 3L))
-print(res)
+results <- run_tests(head(tests, 3L))
+print(results)
+
+df_results <- do.call(rbind, results)
+print(df_results)
 
 message("Run first three tests ... DONE")
 

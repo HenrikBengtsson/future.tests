@@ -46,14 +46,14 @@ as.data.frame.TestResult <- function(x, ..., arg_names = NULL) {
   for (name in arg_names) res[[name]] <- x$args[[name]]
   res$time <- difftime(x$time_end, x$time_start, units = "secs")
   res$success <- !inherits(x$error, "error")
-  as.data.frame(res)
+  as.data.frame(res, check.names = FALSE, stringsAsFactors = FALSE)
 }
 
 #' @export
 rbind.TestResult <- function(...) {
   args <- list(...)
   
-  df <- lapply(args, FUN = as.data.frame)
+  df <- lapply(args, FUN = as.data.frame, ...)
   
   ## Intersection of all column names
   names <- unique(unlist(lapply(df, names)))

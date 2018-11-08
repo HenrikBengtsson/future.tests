@@ -66,3 +66,49 @@ print.Test <- function(x, head = Inf, tail = head, ...) {
   s <- paste(c(s, ""), collapse = "\n")
   cat(s)
 }
+
+
+#' @export
+as.data.frame.Test <- function(x, ..., expand = TRUE, arg_names = NULL) {
+  title <- x$title
+  tags <- list(x$tags)
+  
+  args <- x$args
+  nargs <- length(args)
+
+  if (expand) {
+    if (nargs == 0) {
+      args <- NULL
+    } else {
+      args <- do.call(expand.grid, args)
+      n <- nrow(args)
+      title <- rep(title, times = n)
+      tags <- rep(tags, times = n)
+    }
+  } else {
+    args <- data.frame(args = I(list(args)))
+  }
+
+  if (is.data.frame(args)) {
+    data.frame(title = title, tags = I(tags), args, check.names = FALSE, stringsAsFactors = FALSE)
+  } else {
+    data.frame(title = title, tags = I(tags), check.names = FALSE, stringsAsFactors = FALSE)
+  }
+}
+
+#' @export
+rbind.Test <- function(...) {
+  args <- list(...)
+  df <- lapply(args, FUN = as.data.frame, ...)
+  
+  ## Intersection of all column names
+  names <- unique(unlist(lapply(df, names)))
+
+  ## Expand all data.frame:s to have the same set of columns
+  df <- lapply(df, function(df) { df[setdiff(names, names(df))] <- NA; df })
+
+  ## Reduce to one data.frame
+  df <- Reduce(rbind, df)
+  
+  df
+}
