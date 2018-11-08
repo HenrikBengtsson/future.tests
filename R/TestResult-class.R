@@ -36,6 +36,36 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
 
 
 
+
+#' @export
+as.data.frame.TestResult <- function(x, arg_names = NULL, ...) {
+  res <- list(title = x$test$title)
+  if (is.null(arg_names)) arg_names <- names(x$args)
+  for (name in arg_names) res[[name]] <- x$args[[name]]
+  res$time <- difftime(x$time_end, x$time_start, units = "secs")
+  res$success <- !inherits(x$error, "error")
+  as.data.frame(res)
+}
+
+#' @export
+rbind.TestResult <- function(...) {
+  args <- list(...)
+  
+  df <- lapply(args, FUN = as.data.frame)
+  
+  ## Intersection of all column names
+  names <- unique(unlist(lapply(df, names)))
+
+  ## Expand all data.frame:s to have the same set of columns
+  df <- lapply(df, function(df) { df[setdiff(names, names(df))] <- NA; df })
+
+  ## Reduce to one data.frame
+  df <- Reduce(rbind, df)
+  
+  df
+}
+
+
 #' @importFrom utils capture.output
 #' @export
 print.TestResult <- function(x, head = Inf, tail = head, ...) {
