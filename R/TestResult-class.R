@@ -6,18 +6,24 @@
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
+#' @param defaults (optional) Named list with default argument values.
+#'
 #' @param output If TRUE, standard output is captured, otherwise not.
 #'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-run_test <- function(test, envir = parent.frame(), local = TRUE, output = "stdout+stderr") {
+run_test <- function(test, envir = parent.frame(), local = TRUE, defaults = list(), output = "stdout+stderr") {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
+  if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
+
+  args <- defaults
+  for (name in names(args)) args[name] <- list(test$args[name])
   
   ## Record arguments used
-  if (length(test$args) > 0L) {
-    names <- names(test$args)
+  if (length(args) > 0L) {
+    names <- names(args)
     missing <- !sapply(names, FUN = exists, envir = envir, inherits = TRUE)
     if (any(missing)) {
       names <- names[missing]
@@ -131,19 +137,31 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
+#' @param defaults (optional) Named list with default argument values.
+#'
 #' @param output If TRUE, standard output is captured, otherwise not.
 #'
 #' @return List of test results.
 #' 
 #' @export
-run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE, output = "stdout+stderr") {
+run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE, defaults = list(), output = "stdout+stderr") {
   args <- list(...)
   if (length(args) > 0) stopifnot(!is.null(names(args)))
-  
+
+  if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
+
+  ## Make use of default argument values?
+  if (is.null(defaults)) {
+    args <- test$args
+  } else {
+    args <- defaults
+    for (name in names(args)) args[name] <- list(defaults[name])
+  }
+
   res <- vector("list", length = length(tests))
   for (kk in seq_along(tests)) {
     test <- tests[[kk]]
-    res[[kk]] <- run_test(test, envir = envir, local = local, output = output)
+    res[[kk]] <- run_test(test, envir = envir, local = local, defaults = defaults, output = output)
   }
 
   res

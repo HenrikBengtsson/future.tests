@@ -91,16 +91,20 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
 #'
 #' @param args Named arguments with sets of values to test against.
 #'
+#' @param defaults (optional) Named list with default argument values.
+#'
 #' @return A list of tests that support specified arguments.
 #'
 #' @export
-subset_tests <- function(tests = test_db(), tags = NULL, args = NULL) {
+subset_tests <- function(tests = test_db(), tags = NULL, args = NULL, defaults = list()) {
   if (!is.null(tags)) stopifnot(is.character(tags))
-  
   names <- names(args)
   if (length(args) > 0) stopifnot(!is.null(names))
+  if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
+
 #  message("names = ", paste(sQuote(names), collapse = ", "))
 
+  tests_subset <- tests
   keep <- logical(length = length(tests))
   for (ii in seq_along(tests)) {
     test <- tests[[ii]]
@@ -108,14 +112,22 @@ subset_tests <- function(tests = test_db(), tags = NULL, args = NULL) {
     ## Require tags?
     if (length(tags) > 0 && !all(tags %in% test$tags)) next
 
-    names_req <- intersect(names(test$args), names)
+    test_args <- test$args
+    if (length(defaults) > 0) {
+      args_t <- defaults
+      for (name in names(args)) args_t[name] <- args[name]
+      test_args <- args_t
+    }
+  
+    names_req <- intersect(names(test_args), names)
 #    message("Test #", ii)
-#    message("test_names = ", paste(sQuote(names(test$args)), collapse = ", "))
+#    message("test_names = ", paste(sQuote(names(test_args)), collapse = ", "))
 #    message("names_req = ", paste(sQuote(names_req), collapse = ", "))
     
-    ## Test does not have any required arguments?
+    ## No arguments to subset against for this test?
     if (length(names_req) == 0L) {
       keep[ii] <- TRUE
+      tests_subset[[ii]] <- test
       next
     }
 
@@ -126,7 +138,7 @@ subset_tests <- function(tests = test_db(), tags = NULL, args = NULL) {
       values <- args[[name]]
       stopifnot(length(values) > 0L)
 
-      values_test <- test$args[[name]]
+      values_test <- test_args[[name]]
       stopifnot(length(values_test) > 0L)
 
       for (kk in seq_along(values)) {
@@ -140,7 +152,10 @@ subset_tests <- function(tests = test_db(), tags = NULL, args = NULL) {
       if (!keep_ii) break
     }
     keep[ii] <- keep_ii
+    if (keep_ii) {
+      tests_subset[[ii]] <- test
+    }
   }
 
-  tests[keep]
+  tests_subset[keep]
 }
