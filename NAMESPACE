@@ -3,6 +3,7 @@
 S3method(as.data.frame,TestResult)
 S3method(print,Test)
 S3method(print,TestResult)
+S3method(rbind,TestResult)
 export(add_test_plan)
 export(along_cores)
 export(along_strategies)

@@ -6,10 +6,12 @@
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
+#' @param stdout If TRUE, standard output is captured, otherwise not.
+#'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-run_test <- function(test, envir = parent.frame(), local = TRUE) {
+run_test <- function(test, envir = parent.frame(), local = TRUE, stdout = TRUE) {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   
@@ -26,7 +28,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
     args <- NULL
   }
 
-  res <- evaluate_expr(test$expr, envir = envir, local = local)
+  res <- evaluate_expr(test$expr, envir = envir, local = local, stdout = stdout)
 
   structure(c(list(
     test = test,
@@ -118,17 +120,19 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
+#' @param stdout If TRUE, standard output is captured, otherwise not.
+#'
 #' @return List of test results.
 #' 
 #' @export
-run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE) {
+run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE, stdout = TRUE) {
   args <- list(...)
   if (length(args) > 0) stopifnot(!is.null(names(args)))
   
   res <- vector("list", length = length(tests))
   for (kk in seq_along(tests)) {
     test <- tests[[kk]]
-    res[[kk]] <- run_test(test, envir = envir, local = local)
+    res[[kk]] <- run_test(test, envir = envir, local = local, stdout = stdout)
   }
 
   res

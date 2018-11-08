@@ -4,7 +4,8 @@
 \alias{evaluate_expr}
 \title{Evaluate an R Expression}
 \usage{
-evaluate_expr(expr, envir = parent.frame(), local = TRUE)
+evaluate_expr(expr, envir = parent.frame(), local = TRUE,
+  stdout = TRUE)
 }
 \arguments{
 \item{expr}{An expression}
@@ -12,6 +13,8 @@ evaluate_expr(expr, envir = parent.frame(), local = TRUE)
 \item{envir}{The environment where tests are run.}
 
 \item{local}{Should tests be evaluated in a local environment or not.}
+
+\item{stdout}{If TRUE, standard output is captured, otherwise not.}
 }
 \value{
 Value of test expression and benchmark information.

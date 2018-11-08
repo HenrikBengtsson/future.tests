@@ -76,7 +76,6 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
     source(path, local = TRUE)
   } else if (file_test("-d", path)) {
     pathnames <- dir(path = path, recursive = recursive, pattern = pattern, full.names = TRUE)
-    print(pathnames)
     for (pathname in pathnames) source(pathname, local = TRUE)
   }
 

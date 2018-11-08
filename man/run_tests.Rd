@@ -5,7 +5,7 @@
 \title{Run All Tests}
 \usage{
 run_tests(tests = test_db(), ..., envir = parent.frame(),
-  local = TRUE)
+  local = TRUE, stdout = TRUE)
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
@@ -13,6 +13,8 @@ run_tests(tests = test_db(), ..., envir = parent.frame(),
 \item{envir}{The environment where tests are run.}
 
 \item{local}{Should tests be evaluated in a local environment or not.}
+
+\item{stdout}{If TRUE, standard output is captured, otherwise not.}
 
 \item{\ldots}{(optional) Named arguments to test over.}
 }

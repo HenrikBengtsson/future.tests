@@ -4,7 +4,7 @@
 \alias{run_test}
 \title{Run a Test}
 \usage{
-run_test(test, envir = parent.frame(), local = TRUE)
+run_test(test, envir = parent.frame(), local = TRUE, stdout = TRUE)
 }
 \arguments{
 \item{test}{A Test.}
@@ -12,6 +12,8 @@ run_test(test, envir = parent.frame(), local = TRUE)
 \item{envir}{The environment where tests are run.}
 
 \item{local}{Should tests be evaluated in a local environment or not.}
+
+\item{stdout}{If TRUE, standard output is captured, otherwise not.}
 }
 \value{
 Value of test expression and benchmark information.
