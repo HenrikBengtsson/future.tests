@@ -1,4 +1,4 @@
-make_test(title = "futureCall() with and without lazy evaluation", args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy"), expr = {
+make_test(title = "futureCall() with and without lazy evaluation", args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy"), {
   f1 <- future(do.call(rnorm, args = list(n = 100)), lazy = lazy)
   f2 <- futureCall(rnorm, args = list(n = 100), lazy = lazy)
 
@@ -21,7 +21,7 @@ make_test(title = "futureCall() with and without lazy evaluation", args = list(l
 })
 
 
-make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), global = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"),  expr = {
+make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), global = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"),  {
   a <- 3
   args <- list(x = 42, y = 12)
   v0 <- do.call(function(x, y) a * (x - y), args = args)
@@ -44,7 +44,7 @@ make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), global = c(
 })
 
 
-make_test(title = 'futureCall() - globals = "a"', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), expr = {
+make_test(title = 'futureCall() - globals = "a"', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), {
   a <- 3
   args <- list(x = 42, y = 12)
   f <- futureCall(function(x, y) a * (x - y), args = args, globals = "a", lazy = lazy)
@@ -63,7 +63,7 @@ make_test(title = 'futureCall() - globals = "a"', args = list(lazy = c(FALSE, TR
   }
 })
 
-make_test(title = 'futureCall() - globals = list(a = 3)', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), expr = {
+make_test(title = 'futureCall() - globals = list(a = 3)', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), {
   a <- 3
   args <- list(x = 42, y = 12)
   f <- futureCall(function(x, y) a * (x - y), args = args, globals = list(a = 3), lazy = lazy)

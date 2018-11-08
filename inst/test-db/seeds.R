@@ -1,4 +1,4 @@
-make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "seed"), expr = {
+make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "seed"), {
   ## A valid L'Ecuyer-CMRG RNG seed
   seed <- c(407L, 1420090545L, 65713854L, -990249945L,
             1780737596L, -1213437427L, 1082168682L)
@@ -57,7 +57,7 @@ fsample <- function(x, size = 4L, seed = NULL, what = c("future", "%<-%"), lazy 
 } # fsample()
 
 
-make_test(title = 'Random Number Generation (RNG)', args = list(lazy = c(FALSE, TRUE)), tags = c("rng", "seed", "lazy"), expr = bquote({
+make_test(title = 'Random Number Generation (RNG)', args = list(lazy = c(FALSE, TRUE)), tags = c("rng", "seed", "lazy"), bquote({
   fsample <- .(fsample)
   
   dummy <- sample(0:3, size = 1L)

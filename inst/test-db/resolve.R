@@ -1,4 +1,4 @@
-make_test(title = "resolve()", args = list(lazy = c(FALSE, TRUE), value = c(FALSE, TRUE), recursive = c(FALSE, TRUE)), tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve()", args = list(lazy = c(FALSE, TRUE), value = c(FALSE, TRUE), recursive = c(FALSE, TRUE)), tags = c("resolve", "lazy"), {
   f <- future({
     Sys.sleep(0.5)
     list(a = 1, b = 42L)
@@ -8,14 +8,14 @@ make_test(title = "resolve()", args = list(lazy = c(FALSE, TRUE), value = c(FALS
 })
 
 
-make_test(title = "resolve() - run-time exception", args = list(lazy = c(FALSE, TRUE), value = c(FALSE, TRUE), recursive = c(FALSE, TRUE)), tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve() - run-time exception", args = list(lazy = c(FALSE, TRUE), value = c(FALSE, TRUE), recursive = c(FALSE, TRUE)), tags = c("resolve", "lazy"), {
   f <- future(list(a = 1, b = 42L, c = stop("Nah!")), lazy = lazy)
   res <- resolve(f, value = value, recursive = recursive)
   stopifnot(identical(res, f))
 })
 
 
-make_test(title = "resolve(<list of futures and values>)", args = list(lazy = c(FALSE, TRUE)), tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve(<list of futures and values>)", args = list(lazy = c(FALSE, TRUE)), tags = c("resolve", "lazy"), {
   x <- list()
   x$a <- future(1, lazy = lazy)
   x$b <- future(2, lazy = lazy)
@@ -27,7 +27,7 @@ make_test(title = "resolve(<list of futures and values>)", args = list(lazy = c(
 })
 
 
-make_test(title = "resolve(<list of futures>)", args = list(lazy = c(FALSE, TRUE)), tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve(<list of futures>)", args = list(lazy = c(FALSE, TRUE)), tags = c("resolve", "lazy"), {
   x <- list()
   x$a <- future(1, lazy =  lazy)
   x$b <- future(2, lazy = !lazy)
@@ -39,7 +39,7 @@ make_test(title = "resolve(<list of futures>)", args = list(lazy = c(FALSE, TRUE
 })
 
 
-make_test(title = "resolve(<named matrix list of futures and values>) - time ordering", tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve(<named matrix list of futures and values>) - time ordering", tags = c("resolve", "lazy"), {
   x <- list()
   x$a <- future(1)
   x$b <- future({Sys.sleep(0.5); 2})
@@ -64,7 +64,7 @@ make_test(title = "resolve(<named matrix list of futures and values>) - time ord
 })
 
 
-make_test(title = "resolve(<list of futures>)", args = list(lazy = FALSE), tags = c("resolve", "lazy"), expr = {
+make_test(title = "resolve(<list of futures>)", args = list(lazy = FALSE), tags = c("resolve", "lazy"), {
   x <- list()
   x$a <- future(1, lazy =  lazy)
   x$b <- future(2, lazy = !lazy)

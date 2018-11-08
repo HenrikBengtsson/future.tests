@@ -1,4 +1,4 @@
-make_test(title = "future() - standard output", args = list(stdout = c(FALSE, TRUE)), tags = c("future", "stdout"), expr = {
+make_test(title = "future() - standard output", args = list(stdout = c(FALSE, TRUE)), tags = c("future", "stdout"), {
   truth_rows <- utils::capture.output({
     print(1:50)
     str(1:50)
@@ -35,7 +35,7 @@ make_test(title = "future() - standard output", args = list(stdout = c(FALSE, TR
 })
 
 
-make_test(title = "%<-% - standard output", args = list(stdout = c(FALSE, TRUE)), tags = c("%<-%", "stdout"), expr = {
+make_test(title = "%<-% - standard output", args = list(stdout = c(FALSE, TRUE)), tags = c("%<-%", "stdout"), {
   truth_rows <- utils::capture.output({
     print(1:50)
     str(1:50)
