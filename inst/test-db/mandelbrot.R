@@ -1,4 +1,4 @@
-make_test(.title = 'demo("mandelbrot", package = "future")', lazy = c(FALSE, TRUE), .tags = c("demo", "mandelbrot"), .expr = {
+make_test(title = 'demo("mandelbrot", package = "future")', args = list(lazy = c(FALSE, TRUE)), tags = c("demo", "mandelbrot"), expr = {
   if (getRversion() <= "3.2.0") {
     message("Test requires R (>= 3.2.0). Skipping")
     return()
@@ -8,7 +8,7 @@ make_test(.title = 'demo("mandelbrot", package = "future")', lazy = c(FALSE, TRU
   options(future.demo.mandelbrot.resolution = 50L)
   options(future.demo.mandelbrot.delay = FALSE)
 
-  ## FIXME: Should evaluate_expr() capture this?
+  ## FIXME: Should evaluateexpr() capture this?
   on.exit(grDevices::graphics.off())
   
   demo("mandelbrot", package = "future", ask = FALSE)

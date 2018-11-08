@@ -1,4 +1,4 @@
-make_test(.title = "futureAssign() - lazy evaluation", args = list(lazy = TRUE), .tags = c("futureAssign", "lazy"), .expr = {
+make_test(title = "futureAssign() - lazy evaluation", args = list(lazy = TRUE), tags = c("futureAssign", "lazy"), expr = {
   delayedAssign("a", {
     cat("Delayed assignment evaluated\n")
     1
@@ -9,12 +9,12 @@ make_test(.title = "futureAssign() - lazy evaluation", args = list(lazy = TRUE),
     2
   }, lazy = lazy)
   
-  ## Because "lazy future" is used, the expression/value
+  ## Because "lazy future" is used, theexpression/value
   ## for 'b' will be not resolved at the point.  For other
   ## types of futures, it may already have been resolved
   cat(sprintf("b = %s\n", b))
   
-  ## The expression/value of 'a' is resolved at this point,
+  ## Theexpression/value of 'a' is resolved at this point,
   ## because a delayed assignment (promise) was used.
   cat(sprintf("a = %s\n", a))
   
@@ -23,7 +23,7 @@ make_test(.title = "futureAssign() - lazy evaluation", args = list(lazy = TRUE),
 })
 
 
-make_test(.title = "futureAssign() - potential task name clashes", .tags = c("futureAssign"), .expr = {
+make_test(title = "futureAssign() - potential task name clashes", tags = c("futureAssign"), expr = {
   ## Potential task name clashes
   u <- new.env()
   v <- new.env()
@@ -39,7 +39,7 @@ make_test(.title = "futureAssign() - potential task name clashes", .tags = c("fu
 
 
 
-make_test(.title = "futureAssign() - global variables with and without lazy evaluation", args = list(lazy = c(FALSE, TRUE)), .tags = c("futureAssign", "lazy"), .expr = {
+make_test(title = "futureAssign() - global variables with and without lazy evaluation", args = list(lazy = c(FALSE, TRUE)), tags = c("futureAssign", "lazy"), expr = {
   ## Global variables
   a <- 1
   futureAssign("b", { 2 * a })
@@ -55,7 +55,7 @@ make_test(.title = "futureAssign() - global variables with and without lazy eval
 })
 
 
-make_test(.title = "futureAssign() - lazy evaluation via disposable option", args = list(lazy = c(FALSE, TRUE)), .tags = c("futureAssign", "lazy"), .expr = {
+make_test(title = "futureAssign() - lazy evaluation via disposable option", args = list(lazy = c(FALSE, TRUE)), tags = c("futureAssign", "lazy"), expr = {
   ## Set 'lazy' via disposable option
   options(future.disposable = list(lazy = lazy))
   ## FIXME: Automatically undo

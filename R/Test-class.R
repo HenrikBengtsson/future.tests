@@ -1,28 +1,28 @@
 #' Make a Test
 #'
-#' @param .expr,.substitute The expression to be tested and
+#' @param expr,substitute The expression to be tested and
 #' whether it is passes as an expression already or not.
 #'
 #' @param title (character) The title of the test.
 #'
-#' @param .tags (optional) Character vector of tags.
+#' @param tags (optional) Character vector of tags.
 #'
 #' @param args (optional) Named arguments.
 #'
-#' @param .register If TRUE, the test is registered in the test database, otherwise not.
+#' @param register If TRUE, the test is registered in the test database, otherwise not.
 #'
 #' @return (invisibly) A Test.
 #'
 #' @export
-make_test <- function(.expr, title = NA_character_, args = list(), .tags = NULL, .substitute = TRUE, .register = TRUE) {
+make_test <- function(expr, title = NA_character_, args = list(), tags = NULL, substitute = TRUE, register = TRUE) {
   title <- as.character(title)
   stopifnot(length(title) == 1L, nzchar(title))
   if (length(args) > 0) stopifnot(is.list(args), !is.null(names(args)))
-  if (length(.tags) > 0) stopifnot(is.character(.tags))
-  if (.substitute) .expr <- substitute(.expr)
-  test <- structure(list(title = title, args = args, tags = .tags, expr = .expr), class = "Test")
+  if (length(tags) > 0) stopifnot(is.character(tags))
+  if (substitute) expr <- substitute(expr)
+  test <- structure(list(title = title, args = args, tags = tags, expr = expr), class = "Test")
 
-  if (.register) register_test(test)
+  if (register) register_test(test)
 
   invisible(test)
 }
