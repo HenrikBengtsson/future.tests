@@ -4,18 +4,20 @@
 \alias{make_test}
 \title{Make a Test}
 \usage{
-make_test(.title = NA_character_, ..., .expr, .substitute = TRUE,
-  .register = TRUE)
+make_test(.expr, title = NA_character_, args = list(), .tags = NULL,
+  .substitute = TRUE, .register = TRUE)
 }
 \arguments{
-\item{.title}{(character) The title of the test.}
-
 \item{.expr, .substitute}{The expression to be tested and
 whether it is passes as an expression already or not.}
 
-\item{.register}{If TRUE, the test is registered in the test database, otherwise not.}
+\item{title}{(character) The title of the test.}
 
-\item{\ldots}{(optional) Named arguments.}
+\item{args}{(optional) Named arguments.}
+
+\item{.tags}{(optional) Character vector of tags.}
+
+\item{.register}{If TRUE, the test is registered in the test database, otherwise not.}
 }
 \value{
 (invisibly) A Test.

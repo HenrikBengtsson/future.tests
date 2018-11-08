@@ -1,4 +1,4 @@
-make_test(.title = 'demo("mandelbrot", package = "future")', lazy = c(FALSE, TRUE), .expr = {
+make_test(.title = 'demo("mandelbrot", package = "future")', lazy = c(FALSE, TRUE), .tags = c("demo", "mandelbrot"), .expr = {
   if (getRversion() <= "3.2.0") {
     message("Test requires R (>= 3.2.0). Skipping")
     return()

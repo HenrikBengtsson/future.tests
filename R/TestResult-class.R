@@ -40,7 +40,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, stdout = TRUE) 
 
 
 #' @export
-as.data.frame.TestResult <- function(x, arg_names = NULL, ...) {
+as.data.frame.TestResult <- function(x, ..., arg_names = NULL) {
   res <- list(title = x$test$title)
   if (is.null(arg_names)) arg_names <- names(x$args)
   for (name in arg_names) res[[name]] <- x$args[[name]]

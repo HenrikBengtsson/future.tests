@@ -87,14 +87,15 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
 #'
 #' @param tests A list of tests to subset.
 #'
+#' @param tags (optional) A character vector of tags that tests must have.
+#'
 #' @param args Named arguments with sets of values to test against.
 #'
 #' @return A list of tests that support specified arguments.
 #'
 #' @export
-subset_tests_by_args <- function(tests = test_db(), args) {
-  ## Nothing to do?
-  if (length(args) == 0) return(tests)
+subset_tests_by_args <- function(tests = test_db(), tags = NULL, args = NULL) {
+  if (!is.null(tags)) stopifnot(is.character(tags))
   
   names <- names(args)
   if (length(args) > 0) stopifnot(!is.null(names))
@@ -103,6 +104,10 @@ subset_tests_by_args <- function(tests = test_db(), args) {
   keep <- logical(length = length(tests))
   for (ii in seq_along(tests)) {
     test <- tests[[ii]]
+
+    ## Require tags?
+    if (length(tags) > 0 && !all(tags %in% names(test$tags))) next
+
     names_req <- intersect(names(test$args), names)
 #    message("Test #", ii)
 #    message("test_names = ", paste(sQuote(names(test$args)), collapse = ", "))

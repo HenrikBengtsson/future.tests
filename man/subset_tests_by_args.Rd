@@ -4,10 +4,12 @@
 \alias{subset_tests_by_args}
 \title{Identify Subset of Tests that Support Specified Argument Settings}
 \usage{
-subset_tests_by_args(tests = test_db(), args)
+subset_tests_by_args(tests = test_db(), tags = NULL, args = NULL)
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
+
+\item{tags}{(optional) A character vector of tags that tests must have.}
 
 \item{args}{Named arguments with sets of values to test against.}
 }
