@@ -30,7 +30,14 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, stdout = T
   if (stdout) {
     stdout_con <- rawConnection(raw(0L), open = "w")
     sink(stdout_con, type = "output")
+    on.exit({
+      if (inherits(stdout_con, "connection")) {
+        sink(type = "output")
+        close(stdout_con)
+      }
+    })
   }
+  
   result <- tryCatch({
     withVisible(eval(expr, envir = envir))
   }, error = identity)
@@ -38,7 +45,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, stdout = T
   if (stdout) {
     res$stdout <- rawToChar(rawConnectionValue(stdout_con))
     sink(type = "output")
-    close(stdout_con)
+    stdout_con <- close(stdout_con)
   }
 
   if (inherits(result, "error")) {
