@@ -6,13 +6,14 @@
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
-#' @param stdout If TRUE, standard output is captured, otherwise not.
+#' @param output Specifies whether standard output, standard error, or both should be captured or not.
 #'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, stdout = TRUE) {
+evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c("stdout+stderr", "stdout", "none")) {
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
+  output <- match.arg(output)
   
   res <- list(
     expr = expr,
@@ -20,32 +21,47 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, stdout = T
     error = NULL,
     value = NULL,
     visible = NA,
-    stdout = NULL,
+    output = NULL,
     time_start = Sys.time(), time_end = NULL
   )
   
   ## Evaluate test in a local environment?
   if (local) envir <- new.env(parent = envir)
 
-  if (stdout) {
-    stdout_con <- rawConnection(raw(0L), open = "w")
-    sink(stdout_con, type = "output")
+  if (output == "stdout") {
+    output_con <- rawConnection(raw(), open = "w")
+    sink(output_con, type = "output")
     on.exit({
-      if (inherits(stdout_con, "connection")) {
+      if (inherits(output_con, "connection")) {
         sink(type = "output")
-        close(stdout_con)
+        close(output_con)
+      }
+    })
+  } else if (output == "stdout+stderr") {
+    output_con <- rawConnection(raw(), open = "w")
+    sink(output_con, type = "output")
+    sink(output_con, type = "message")
+    on.exit({
+      if (inherits(output_con, "connection")) {
+        sink(type = "output")
+        sink(type = "message")
+        close(output_con)
       }
     })
   }
-  
+
   result <- tryCatch({
     withVisible(eval(expr, envir = envir))
-  }, error = identity)
+  }, error = function(ex) {
+     ex$traceback <- sys.calls()
+     ex
+  })
 
-  if (stdout) {
+  if (output != "none") {
     sink(type = "output")
-    res$stdout <- rawToChar(rawConnectionValue(stdout_con))
-    stdout_con <- close(stdout_con)
+    if (output == "stdout+stderr") sink(type = "message")
+    res$output <- rawToChar(rawConnectionValue(output_con))
+    output_con <- close(output_con)
   }
 
   if (inherits(result, "error")) {
