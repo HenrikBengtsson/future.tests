@@ -83,7 +83,7 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
 }
 
 
-#' Identify Subset of Tests that Support Specified Argument Settings
+#' Identify Subset of Tests with Specified Tags and that Support Specified Argument Settings
 #'
 #' @param tests A list of tests to subset.
 #'
@@ -94,7 +94,7 @@ load_tests <- function(path = ".", recursive = TRUE, pattern = "[.]R$", root = g
 #' @return A list of tests that support specified arguments.
 #'
 #' @export
-subset_tests_by_args <- function(tests = test_db(), tags = NULL, args = NULL) {
+subset_tests <- function(tests = test_db(), tags = NULL, args = NULL) {
   if (!is.null(tags)) stopifnot(is.character(tags))
   
   names <- names(args)
@@ -106,7 +106,7 @@ subset_tests_by_args <- function(tests = test_db(), tags = NULL, args = NULL) {
     test <- tests[[ii]]
 
     ## Require tags?
-    if (length(tags) > 0 && !all(tags %in% names(test$tags))) next
+    if (length(tags) > 0 && !all(tags %in% test$tags)) next
 
     names_req <- intersect(names(test$args), names)
 #    message("Test #", ii)

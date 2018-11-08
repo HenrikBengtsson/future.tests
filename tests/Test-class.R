@@ -13,7 +13,6 @@ message("Number of tests: ", length(tests))
 df_tests <- do.call(rbind, tests)
 print(df_tests)
 
-
 message("Run first three tests ...")
 
 library(future)
@@ -26,7 +25,9 @@ print(df_results)
 message("Run first three tests ... DONE")
 
 
-message("Run all tests across different future plans ...")
+message("Run a few tests across different future plans ...")
+
+tests <- tests[seq(from = 1L, to = length(tests), length.out = 5L)]
 
 library(future)
 
@@ -51,12 +52,13 @@ res <- along_test_plans({
         args_tag <- paste(sprintf("%s=%s", names(args), args), collapse = ",")
         message(sprintf("Running tests with (%s) ...", args_tag))
     
-        tests_tt <- subset_tests_by_args(tests, args = args)
+        tests_tt <- subset_tests(tests, args = args)
         ntests_tt <- length(tests_tt)
         message(sprintf(" - Number of tests: %d out of %d", ntests_tt, ntests))
       
         res_tt <- run_tests(tests_tt)
         print(res_tt)
+	stopifnot(is.list(res_tt))
     
         res_plan[[args_tag]] <- res_tt
   
@@ -64,8 +66,9 @@ res <- along_test_plans({
       }
     }
   }
+  stopifnot(is.list(res_plan), length(res_plan) == 2*2*2)
   res_plan
 })
 print(res)
 
-message("Run all tests across different future plans ... DONE")
+message("Run a few tests across different future plans ... DONE")

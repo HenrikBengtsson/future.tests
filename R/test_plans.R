@@ -89,7 +89,7 @@ along_test_plans <- function(expr, substitute = TRUE, envir = parent.frame(), lo
   
   for (pp in seq_along(plans)) {
     name <- names(plans)[pp]
-    message(sprintf("Evaluating expression under future plan #%d ...", pp))
+    mprintf("Evaluating expression under future plan #%d of %d ...", pp, length(plans))
 
     ## Set future plan
     eval(plans[[pp]])
@@ -97,10 +97,10 @@ along_test_plans <- function(expr, substitute = TRUE, envir = parent.frame(), lo
 
     res_pp <- evaluate_expr(expr, envir = envir, local = local)
     
-    res[[pp]] <- res_pp
+    res[[pp]] <- res_pp$value
     
     res_pp <- NULL
-    message(sprintf("Evaluating expression under future plan #%d ... DONE", pp))
+    mprintf("Evaluating expression under future plan #%d of %d ... DONE", pp, length(plans))
   }
 
   ## Reset any existing plan and cleanup if needed

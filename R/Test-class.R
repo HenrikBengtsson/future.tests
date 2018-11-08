@@ -34,6 +34,8 @@ print.Test <- function(x, head = Inf, tail = head, ...) {
   
   s <- c(s, sprintf("- Title: %s", sQuote(x$title)))
 
+  s <- c(s, sprintf("- Tags: %s", paste(sQuote(x$tags), collapse = ", ")))
+
   s <- c(s, "- Arguments:")
   args <- x$args
   nargs <- length(args)

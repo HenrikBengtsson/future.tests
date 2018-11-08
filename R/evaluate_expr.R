@@ -43,8 +43,8 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, stdout = T
   }, error = identity)
 
   if (stdout) {
-    res$stdout <- rawToChar(rawConnectionValue(stdout_con))
     sink(type = "output")
+    res$stdout <- rawToChar(rawConnectionValue(stdout_con))
     stdout_con <- close(stdout_con)
   }
 
