@@ -28,7 +28,6 @@ make_test <- function(.title = NA_character_, ..., .expr, .substitute = TRUE, .r
 
 #' @export
 print.Test <- function(x, head = Inf, tail = head, ...) {
-  stopifnot(inherits(x, "Test"))
   s <- sprintf("%s:", class(x)[1])
   
   s <- c(s, sprintf("- Title: %s", sQuote(x$title)))

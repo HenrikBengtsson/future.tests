@@ -22,6 +22,8 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
       stop(sprintf("Cannot run test %s. One or more of the required arguments do not exist: %s", sQuote(test$title), paste(sQuote(names), collapse = ", ")))
     }
     args <- mget(names, envir = envir, inherits = TRUE)
+  } else {
+    args <- NULL
   }
 
   res <- evaluate_expr(test$expr, envir = envir, local = local)
@@ -30,6 +32,49 @@ run_test <- function(test, envir = parent.frame(), local = TRUE) {
     test = test,
     args = args
   ), res), class = "TestResult")
+}
+
+
+
+#' @importFrom utils capture.output
+#' @export
+print.TestResult <- function(x, head = Inf, tail = head, ...) {
+  s <- sprintf("%s:", class(x)[1])
+  
+  s_test <- capture.output(print(x$test))
+  prefix <- rep("  ", times = length(s_test)); prefix[1] <- "- "
+  s <- c(s, paste0(prefix, s_test))
+
+  s <- c(s, "- Arguments tested:")
+  args <- x$args
+  nargs <- length(args)
+  if (nargs == 0) {
+      s <- c(s, "    <none>")
+  } else {
+    for (kk in seq_along(args)) {
+      name <- names(args)[kk]
+      value <- args[[kk]]
+      s <- c(s, sprintf("  %3d. %s: %s", kk, name, deparse(value)))
+    }
+  }
+
+  s <- c(s, sprintf("- Local evaluation: %s", x$local))
+  
+  s <- c(s, sprintf("- Result:"))
+  if (inherits(x$error, "error")) {
+    s <- c(s, sprintf("  - Error: %s", conditionMessage(x$error)))
+  } else {
+    s <- c(s, sprintf("  - Value: %s", hpaste(deparse(x$value))))
+    s <- c(s, sprintf("  - Visible: %s", x$visible))
+  }
+
+  s <- c(s, sprintf("- Success: %s", !inherits(x$error, "error")))
+
+  dt <- difftime(x$time_end, x$time_start)
+  s <- c(s, sprintf("- Processing time: %s", sprintf("%.3f %s", dt, attr(dt, "units"))))
+  
+  s <- paste(c(s, ""), collapse = "\n")
+  cat(s)
 }
 
 
