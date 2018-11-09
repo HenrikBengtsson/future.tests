@@ -4,8 +4,8 @@
 \alias{run_tests}
 \title{Run All Tests}
 \usage{
-run_tests(tests = test_db(), ..., envir = parent.frame(),
-  local = TRUE, defaults = list(), output = "stdout+stderr")
+run_tests(tests = test_db(), envir = parent.frame(), local = TRUE,
+  defaults = list(), output = "stdout+stderr")
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
@@ -17,8 +17,6 @@ run_tests(tests = test_db(), ..., envir = parent.frame(),
 \item{defaults}{(optional) Named list with default argument values.}
 
 \item{output}{If TRUE, standard output is captured, otherwise not.}
-
-\item{\ldots}{(optional) Named arguments to test over.}
 }
 \value{
 List of test results.

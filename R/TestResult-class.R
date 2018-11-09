@@ -18,22 +18,28 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, defaults = list
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
 
-  args <- defaults
-  for (name in names(args)) args[name] <- list(test$args[name])
-  
+  arg_names <- unique(c(names(test$args), names(defaults)))
   ## Record arguments used
-  if (length(args) > 0L) {
-    names <- names(args)
-    missing <- !sapply(names, FUN = exists, envir = envir, inherits = TRUE)
+  if (length(arg_names) > 0L) {
+    missing <- !sapply(arg_names, FUN = exists, envir = envir, inherits = TRUE)
     if (any(missing)) {
-      names <- names[missing]
+      names <- arg_names[missing]
       stop(sprintf("Cannot run test %s. One or more of the required arguments do not exist: %s", sQuote(test$title), paste(sQuote(names), collapse = ", ")))
     }
-    args <- mget(names, envir = envir, inherits = TRUE)
+    args <- mget(arg_names, envir = envir, inherits = TRUE)
   } else {
     args <- NULL
   }
 
+  ## Does the test support the test arguments?
+  if (length(args) > 0 && length(test$args) > 0) {
+    for (name in names(test$args)) {
+      if (!args[[name]] %in% test$args[[name]]) {
+        return(structure(list(test = test, args = args), class = "TestResult"))
+      }	
+    }
+  }
+  
   res <- evaluate_expr(test$expr, envir = envir, local = local, output = output)
 
   structure(c(list(
@@ -50,8 +56,13 @@ as.data.frame.TestResult <- function(x, ..., arg_names = NULL) {
   res <- list(title = x$test$title)
   if (is.null(arg_names)) arg_names <- names(x$args)
   for (name in arg_names) res[[name]] <- x$args[[name]]
-  res$time <- difftime(x$time_end, x$time_start, units = "secs")
-  res$success <- !inherits(x$error, "error")
+  if (is.null(x$time_end)) {
+    res$time <- Sys.time() - Sys.time() + NA
+    res$success <- NA
+  } else {
+    res$time <- difftime(x$time_end, x$time_start, units = "secs")
+    res$success <- !inherits(x$error, "error")
+  }
   as.data.frame(res, check.names = FALSE, stringsAsFactors = FALSE)
 }
 
@@ -131,8 +142,6 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
 #'
 #' @param tests A list of tests to subset.
 #'
-#' @param \ldots (optional) Named arguments to test over.
-#'
 #' @param envir The environment where tests are run.
 #'
 #' @param local Should tests be evaluated in a local environment or not.
@@ -144,10 +153,7 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
 #' @return List of test results.
 #' 
 #' @export
-run_tests <- function(tests = test_db(), ..., envir = parent.frame(), local = TRUE, defaults = list(), output = "stdout+stderr") {
-  args <- list(...)
-  if (length(args) > 0) stopifnot(!is.null(names(args)))
-
+run_tests <- function(tests = test_db(), envir = parent.frame(), local = TRUE, defaults = list(), output = "stdout+stderr") {
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
 
   ## Make use of default argument values?

@@ -2,12 +2,12 @@ library(future.tests)
 library(future)
 
 tests <- load_tests()
+tests_tbl <- do.call(rbind, tests)
+print(tests_tbl)
 message("Number of tests: ", length(tests))
-print(do.call(rbind, tests))
+message("Minimal number of test combinations: ", nrow(tests_tbl))
 
 message("Run all tests ...")
-
-# tests <- subset_tests(tests, tags = "futureCall")
 
 library(future)
 
@@ -28,6 +28,7 @@ for (lazy in c(FALSE, TRUE)) {
 
       results <- run_tests(tests_t, defaults = defaults)
       df_results <- do.call(rbind, results)
+#      df_results <- subset(df_results, !is.na(success))
       print(df_results)
     }
   }
