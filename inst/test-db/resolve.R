@@ -64,7 +64,7 @@ make_test(title = "resolve(<named matrix list of futures and values>) - time ord
 })
 
 
-make_test(title = "resolve(<list of futures>)", args = list(lazy = FALSE), tags = c("resolve", "lazy"), {
+make_test(title = "resolve(<list of futures>)", args = list(lazy = c(FALSE, TRUE)), tags = c("resolve", "lazy"), {
   x <- list()
   x$a <- future(1, lazy =  lazy)
   x$b <- future(2, lazy = !lazy)
@@ -74,4 +74,3 @@ make_test(title = "resolve(<list of futures>)", args = list(lazy = FALSE), tags 
   stopifnot(resolved(x$a))
   stopifnot(resolved(x[["b"]]))
 })
-

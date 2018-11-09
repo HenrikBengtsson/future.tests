@@ -1,4 +1,4 @@
-make_test(title = "futureAssign() - lazy evaluation", args = list(lazy = TRUE), tags = c("futureAssign", "lazy"), {
+make_test(title = "futureAssign() - lazy evaluation", args = list(lazy = c(FALSE, TRUE)), tags = c("futureAssign", "lazy"), {
   delayedAssign("a", {
     cat("Delayed assignment evaluated\n")
     1
