@@ -1,11 +1,10 @@
 suppressPackageStartupMessages({
-library(future.tests)
-library(future)
-library(cli)
+  library(future.tests)
+  library(future)
+  library(cli)
 })
 
 tests <- load_tests()
-
 #tests <- subset_tests(tests, tags = "%<-%")
 
 add_test_plan(plan(sequential))
@@ -14,9 +13,6 @@ add_test_plan(plan(multisession, workers = 2L))
 
 test_plans <- test_plans()
 #print(test_plans)
-
-#value <- TRUE
-#recursive <- FALSE
 
 defaults <- list(lazy = FALSE, globals = TRUE, stdout = TRUE)
 
@@ -56,14 +52,10 @@ for (pp in seq_along(test_plans)) {
       cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
       args <- as.list(sets_of_args[aa, ])
       args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
-#      cat(sprintf("\nArguments (%s) with %s:\n", args_tag, plan_str))
-      for (name in names(args)) assign(name, args[[name]], envir = environment())
       result <- suppressWarnings({
-        run_test(test, defaults = defaults)
+        run_test(test, args = args, defaults = defaults)
       })
-#      str(result)
       status[[aa]] <- !inherits(result$error, "error")
-#      print(result)
     }
     unit <- if (length(status) == 1) "test" else "tests"
     count <- crayon::silver(sprintf("(%d %s)", length(status), unit))

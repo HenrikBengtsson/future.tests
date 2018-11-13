@@ -6,6 +6,8 @@
 #'
 #' @param local Should tests be evaluated in a local environment or not.
 #'
+#' @param args Arguments used in this test.
+#'
 #' @param defaults (optional) Named list with default argument values.
 #'
 #' @param output If TRUE, standard output is captured, otherwise not.
@@ -13,10 +15,13 @@
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-run_test <- function(test, envir = parent.frame(), local = TRUE, defaults = list(), output = "stdout+stderr") {
+run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), defaults = list(), output = "stdout+stderr") {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
+
+  if (local) envir <- new.env(parent = envir)
+  for (name in names(args)) assign(name, args[[name]], envir = envir)
 
   arg_names <- unique(c(names(test$args), names(defaults)))
   ## Record arguments used
@@ -43,7 +48,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, defaults = list
   push_state(title = test$title)
   on.exit(pop_state())
   
-  res <- evaluate_expr(test$expr, envir = envir, local = local, output = output)
+  res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output)
 
   structure(c(list(
     test = test,
