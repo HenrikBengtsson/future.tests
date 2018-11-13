@@ -26,7 +26,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     value = NULL,
     visible = NA,
     output = NULL,
-    time_start = Sys.time(), time_end = NULL
+    time = Sys.time()
   )
   
   ## Evaluate test in a local environment?
@@ -94,7 +94,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     res$visible <- result$visible
   }
   
-  res$time_end <- Sys.time()
+  res$time <- c(res$time, Sys.time())
 
   res
 }

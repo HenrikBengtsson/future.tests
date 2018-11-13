@@ -8,7 +8,7 @@
 #'
 #' @return Nothing.
 #'
-#' @importFrom crayon green red silver yellow
+#' @importFrom crayon cyan green red silver yellow
 #' @importFrom cli get_spinner rule symbol
 #' @export
 check <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30)) {
@@ -42,6 +42,7 @@ check <- function(tests = test_db(), defaults = list(), timeout = getOption("fut
     sets_of_args <- do.call(expand.grid, test_args)
 
     status <- rep("OK", times = nrow(sets_of_args))
+    dts <- double(length = length(status))
     for (aa in seq_len(nrow(sets_of_args))) {
       step <- silver(sprintf("(%d/%d)", aa, nrow(sets_of_args)))
       cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
@@ -55,13 +56,18 @@ check <- function(tests = test_db(), defaults = list(), timeout = getOption("fut
       } else if (inherits(result$error, "error")) {
         status[[aa]] <- "ERROR"
       }
+      dts[aa] <- difftime(result$time[length(result$time)], result$time[1], units = "secs")
     }
+
+    dt <- sum(dts, na.rm = TRUE)
+    total_time <- cyan(sprintf("(%.1fs)", dt))
+    
     unit <- if (length(status) == 1) "test" else "tests"
     count <- silver(sprintf("(%d %s)", length(status), unit))
     if (all(status == "OK")) {
-      cat(sprintf("\r%s %s %s\n", ok, text, count))
+      cat(sprintf("\r%s %s %s %s\n", ok, text, count, total_time))
     } else {
-      cat(sprintf("\r%s %s %s\n", error, text, count))
+      cat(sprintf("\r%s %s %s %s\n", error, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
         args <- as.list(sets_of_args[aa, ])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")

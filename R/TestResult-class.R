@@ -65,11 +65,11 @@ as.data.frame.TestResult <- function(x, ..., arg_names = NULL) {
   res <- list(title = x$test$title)
   if (is.null(arg_names)) arg_names <- names(x$args)
   for (name in arg_names) res[[name]] <- x$args[[name]]
-  if (is.null(x$time_end)) {
+  if (length(x$time) < 2) {
     res$time <- Sys.time() - Sys.time() + NA
     res$success <- NA
   } else {
-    res$time <- difftime(x$time_end, x$time_start, units = "secs")
+    res$time <- difftime(x$time[length(x$time)], x$time[1], units = "secs")
     res$success <- !inherits(x$error, "error")
   }
   as.data.frame(res, check.names = FALSE, stringsAsFactors = FALSE)
@@ -139,7 +139,7 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
 
   s <- c(s, sprintf("- Success: %s", !inherits(x$error, "error")))
 
-  dt <- difftime(x$time_end, x$time_start)
+  dt <- difftime(x$time[length(x$time)], x$time[1])
   s <- c(s, sprintf("- Processing time: %s", sprintf("%.3f %s", dt, attr(dt, "units"))))
   
   s <- paste(c(s, ""), collapse = "\n")
