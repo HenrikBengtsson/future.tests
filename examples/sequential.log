@@ -1,0 +1,40 @@
+── Running 30 tests with plan(sequential) ───────────────────────────────────────────────────────────────────────────────
+- ‘Argument '...'’\ ‘Argument '...'’ (1/1)✔ ‘Argument '...'’ (1 test) (0.0s)
+- ‘Argument '...' from parent function’\ ‘Argument '...' from parent function’ (1/1)✔ ‘Argument '...' from parent function’ (1 test) (0.0s)
+- ‘Argument '...' - non existing’\ ‘Argument '...' - non existing’ (1/1)✔ ‘Argument '...' - non existing’ (1 test) (0.0s)
+- ‘Argument '...' - exception’\ ‘Argument '...' - exception’ (1/1)✔ ‘Argument '...' - exception’ (1 test) (0.0s)
+- ‘Early signaling of errors’\ ‘Early signaling of errors’ (1/4)| ‘Early signaling of errors’ (2/4)/ ‘Early signaling of errors’ (3/4)- ‘Early signaling of errors’ (4/4)✔ ‘Early signaling of errors’ (4 tests) (0.0s)
+- ‘%<-% - local evaluation’\ ‘%<-% - local evaluation’ (1/2)| ‘%<-% - local evaluation’ (2/2)✔ ‘%<-% - local evaluation’ (2 tests) (0.0s)
+- ‘%<-% - local evaluation & global variable’\ ‘%<-% - local evaluation & global variable’ (1/2)| ‘%<-% - local evaluation & global variable’ (2/2)✔ ‘%<-% - local evaluation & global variable’ (2 tests) (0.0s)
+- ‘%<-% - errors’\ ‘%<-% - errors’ (1/2)| ‘%<-% - errors’ (2/2)✔ ‘%<-% - errors’ (2 tests) (0.0s)
+- ‘%<-% - errors and listenv’\ ‘%<-% - errors and listenv’ (1/2)| ‘%<-% - errors and listenv’ (2/2)✔ ‘%<-% - errors and listenv’ (2 tests) (0.0s)
+- ‘%<-% & %->%’\ ‘%<-% & %->%’ (1/2)| ‘%<-% & %->%’ (2/2)✔ ‘%<-% & %->%’ (2 tests) (0.0s)
+- ‘%<-% - nested’\ ‘%<-% - nested’ (1/1)✔ ‘%<-% - nested’ (1 test) (0.0s)
+- ‘futureAssign() - lazy evaluation’\ ‘futureAssign() - lazy evaluation’ (1/2)| ‘futureAssign() - lazy evaluation’ (2/2)✔ ‘futureAssign() - lazy evaluation’ (2 tests) (0.0s)
+- ‘futureAssign() - potential task name clashes’\ ‘futureAssign() - potential task name clashes’ (1/1)✔ ‘futureAssign() - potential task name clashes’ (1 test) (0.0s)
+- ‘futureAssign() - global variables with and without lazy evaluation’\ ‘futureAssign() - global variables with and without lazy evaluation’ (1/2)| ‘futureAssign() - global variables with and without lazy evaluation’ (2/2)✔ ‘futureAssign() - global variables with and without lazy evaluation’ (2 tests) (0.0s)
+- ‘futureAssign() - lazy evaluation via disposable option’\ ‘futureAssign() - lazy evaluation via disposable option’ (1/2)| ‘futureAssign() - lazy evaluation via disposable option’ (2/2)✔ ‘futureAssign() - lazy evaluation via disposable option’ (2 tests) (0.0s)
+- ‘futureCall() with and without lazy evaluation’\ ‘futureCall() with and without lazy evaluation’ (1/2)| ‘futureCall() with and without lazy evaluation’ (2/2)✖ ‘futureCall() with and without lazy evaluation’ (2 tests) (0.0s)
+  ✖ lazy=FALSE, globals=TRUE, stdout=TRUE
+  ✔ lazy=TRUE, globals=TRUE, stdout=TRUE
+- ‘futureCall()’\ ‘futureCall()’ (1/4)| ‘futureCall()’ (2/4)/ ‘futureCall()’ (3/4)- ‘futureCall()’ (4/4)✔ ‘futureCall()’ (4 tests) (0.1s)
+- ‘futureCall() - globals = list(a = 3)’\ ‘futureCall() - globals = list(a = 3)’ (1/2)| ‘futureCall() - globals = list(a = 3)’ (2/2)✔ ‘futureCall() - globals = list(a = 3)’ (2 tests) (0.0s)
+- ‘futureCall() - globals = "a"’\ ‘futureCall() - globals = "a"’ (1/2)| ‘futureCall() - globals = "a"’ (2/2)✖ ‘futureCall() - globals = "a"’ (2 tests) (0.0s)
+  ✔ lazy=FALSE, globals=TRUE, stdout=TRUE
+  ✖ lazy=TRUE, globals=TRUE, stdout=TRUE
+- ‘demo("mandelbrot", package = "future")’\ ‘demo("mandelbrot", package = "future")’ (1/2)| ‘demo("mandelbrot", package = "future")’ (2/2)✔ ‘demo("mandelbrot", package = "future")’ (2 tests) (0.2s)
+- ‘nbrOfWorkers()’\ ‘nbrOfWorkers()’ (1/1)✔ ‘nbrOfWorkers()’ (1 test) (0.0s)
+- ‘resolve()’\ ‘resolve()’ (1/8)| ‘resolve()’ (2/8)/ ‘resolve()’ (3/8)- ‘resolve()’ (4/8)\ ‘resolve()’ (5/8)| ‘resolve()’ (6/8)/ ‘resolve()’ (7/8)- ‘resolve()’ (8/8)✔ ‘resolve()’ (8 tests) (4.1s)
+- ‘resolve() - run-time exception’\ ‘resolve() - run-time exception’ (1/8)| ‘resolve() - run-time exception’ (2/8)/ ‘resolve() - run-time exception’ (3/8)- ‘resolve() - run-time exception’ (4/8)\ ‘resolve() - run-time exception’ (5/8)| ‘resolve() - run-time exception’ (6/8)/ ‘resolve() - run-time exception’ (7/8)- ‘resolve() - run-time exception’ (8/8)✔ ‘resolve() - run-time exception’ (8 tests) (0.0s)
+- ‘resolve(<list of futures and values>)’\ ‘resolve(<list of futures and values>)’ (1/2)| ‘resolve(<list of futures and values>)’ (2/2)✔ ‘resolve(<list of futures and values>)’ (2 tests) (0.0s)
+- ‘resolve(<list of futures>)’\ ‘resolve(<list of futures>)’ (1/2)| ‘resolve(<list of futures>)’ (2/2)✔ ‘resolve(<list of futures>)’ (2 tests) (0.0s)
+- ‘resolve(<named matrix list of futures and values>) - time ordering’\ ‘resolve(<named matrix list of futures and values>) - time ordering’ (1/1)✔ ‘resolve(<named matrix list of futures and values>) - time ordering’ (1 test) (0.5s)
+- ‘Random Number Generation (RNG) - seeds’\ ‘Random Number Generation (RNG) - seeds’ (1/1)✔ ‘Random Number Generation (RNG) - seeds’ (1 test) (0.0s)
+- ‘Random Number Generation (RNG)’\ ‘Random Number Generation (RNG)’ (1/2)| ‘Random Number Generation (RNG)’ (2/2)✔ ‘Random Number Generation (RNG)’ (2 tests) (0.3s)
+- ‘future() - standard output’\ ‘future() - standard output’ (1/2)| ‘future() - standard output’ (2/2)✔ ‘future() - standard output’ (2 tests) (0.0s)
+- ‘%<-% - standard output’\ ‘%<-% - standard output’ (1/2)| ‘%<-% - standard output’ (2/2)✔ ‘%<-% - standard output’ (2 tests) (0.0s)
+
+Duration: 6s
+
+Results: 2 errors ✖ | 0 timeouts ✔
+
