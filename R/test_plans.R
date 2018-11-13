@@ -29,7 +29,7 @@ test_plans <- local({
 	}
       }
       if (!skip) {
-        message("Adding plan")
+#        message("Adding plan")
 #	print(expr)
         new_plan <- list(expr)
         db <<- c(db, new_plan)
