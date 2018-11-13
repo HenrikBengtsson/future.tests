@@ -7,6 +7,14 @@ R package future.tests is only available via [GitHub](https://github.com/HenrikB
 source('http://callr.org/install#HenrikBengtsson/future.tests')
 ```
 
+## Usage
+
+This package is work in progress (WIP) and under heavy development.  Please come back later.
+
+
+## Example
+
+![](screencast.gif)
 
 
 
