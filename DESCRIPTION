@@ -4,7 +4,9 @@ Version: 0.0.0.9000
 Authors@R: person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"), email = "henrikb@braju.com")
 Description: Backends implementing the Future API should use the tests provided by this package to validate that they meet the minimal requirements of the Future API.  These tests are written so that they can easily be called from the backend package's test scripts.
 Imports:
-    future
+    future,
+    cli,
+    crayon
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true
