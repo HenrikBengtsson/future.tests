@@ -4,7 +4,7 @@
 \alias{run_test}
 \title{Run a Test}
 \usage{
-run_test(test, envir = parent.frame(), local = TRUE,
+run_test(test, envir = parent.frame(), local = TRUE, args = list(),
   defaults = list(), output = "stdout+stderr")
 }
 \arguments{
@@ -13,6 +13,8 @@ run_test(test, envir = parent.frame(), local = TRUE,
 \item{envir}{The environment where tests are run.}
 
 \item{local}{Should tests be evaluated in a local environment or not.}
+
+\item{args}{Arguments used in this test.}
 
 \item{defaults}{(optional) Named list with default argument values.}
 
