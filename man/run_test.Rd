@@ -20,6 +20,8 @@ run_test(test, envir = parent.frame(), local = TRUE, args = list(),
 \item{defaults}{(optional) Named list with default argument values.}
 
 \item{output}{If TRUE, standard output is captured, otherwise not.}
+
+\item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
 }
 \value{
 Value of test expression and benchmark information.

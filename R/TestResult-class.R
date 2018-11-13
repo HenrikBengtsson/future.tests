@@ -12,6 +12,8 @@
 #'
 #' @param output If TRUE, standard output is captured, otherwise not.
 #'
+#' @param timeout Maximum time allowed for evaluation before a timeout error is produced.
+#'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export

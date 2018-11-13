@@ -4,7 +4,8 @@
 \alias{test_plans}
 \title{Manage the Set of Future Plans to Test Against}
 \usage{
-test_plans(action = c("list", "add"), expr = NULL, substitute = TRUE)
+test_plans(action = c("list", "add", "reset"), expr = NULL,
+  substitute = TRUE)
 }
 \arguments{
 \item{action}{...}

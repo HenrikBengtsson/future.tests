@@ -13,12 +13,14 @@
 test_plans <- local({
   db <- list()
   
-  function(action = c("list", "add"), expr = NULL, substitute = TRUE) {
+  function(action = c("list", "add", "reset"), expr = NULL, substitute = TRUE) {
     action <- match.arg(action)
     if (substitute) expr <- substitute(expr)
     
     if (action == "list") {
       return(db)
+    } else if (action == "reset") {
+      db <<- list()
     } else if (action == "add") {
       stopifnot(is.language(expr))
       skip <- FALSE

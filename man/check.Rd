@@ -2,21 +2,26 @@
 % Please edit documentation in R/check.R
 \name{check}
 \alias{check}
-\title{Run All Tests}
+\title{Run All Tests Across Future Plans}
 \usage{
-check(tests = test_db(), defaults = list(),
-  timeout = getOption("future.tests.timeout", 30))
+check(args = commandArgs())
 }
 \arguments{
-\item{tests}{A list of tests to subset.}
-
-\item{defaults}{(optional) Named list with default argument values.}
-
-\item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
+\item{args}{Character vector of command-line arguments.}
 }
 \value{
 Nothing.
 }
 \description{
-Run All Tests
+Run All Tests Across Future Plans
 }
+\section{Command-line interface (CLI)}{
+
+Some examples on how to call this function from the command line:
+\preformatted{
+Rscript -e future.tests::check --args --test-plan=sequential
+Rscript -e future.tests::check --args --test-plan=multicore,workers=2
+Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
+}
+}
+

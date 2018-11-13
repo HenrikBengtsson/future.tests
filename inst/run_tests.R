@@ -1,14 +1,20 @@
 suppressPackageStartupMessages(library(future.tests))
-
 library(future)
 
-#options(future.tests.timeout = 2)
-#add_test_plan(plan(future.batchtools::batchtools_local))
-#add_test_plan(plan(future.callr::callr))
-
-add_test_plan(plan(future::sequential))
-if (supportsMulticore()) add_test_plan(plan(future::multicore, workers = 2L))
-add_test_plan(plan(future::multisession, workers = 2L))
+## Parse optional CLI arguments
+cmd_args <- commandArgs()
+for (kk in seq_along(cmd_args)) {
+  arg <- cmd_args[kk]
+  if (grepl("--test-timeout=.*", arg)) {
+    timeout <- as.numeric(gsub("--test-timeout=", "", arg))
+    stopifnot(!is.na(timeout), timeout > 0)
+    options(future.tests.timeout = timeout)
+  } else if (grepl("--test-plan=.*", arg)) {
+    plan <- gsub("--test-plan=", "", arg)
+    expr <- parse(text = plan)
+    add_test_plan(expr, substitute = FALSE)
+  }
+}
 
 test_plans <- test_plans()
 for (pp in seq_along(test_plans)) {
@@ -20,4 +26,3 @@ for (pp in seq_along(test_plans)) {
   ## Shutdown current plan
   plan(sequential)
 }
-
