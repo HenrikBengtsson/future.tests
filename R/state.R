@@ -48,7 +48,7 @@ db_state <- local({
         devs  = dev.list(),
         plan  = plan()
       )
-      message("*** ", state$title, " ...")
+#      message("*** ", state$title, " ...")
 
       if (debug) utils::str(state)
       old_depth <- length(stack)
@@ -170,7 +170,7 @@ db_state <- local({
         stop_if_not(identical(plan(state$plan), state$plan))
       }
 
-      message("*** ", state$title, " ... DONE")
+#      message("*** ", state$title, " ... DONE")
 
       ## Drop old state
       stack <<- stack[-1L]

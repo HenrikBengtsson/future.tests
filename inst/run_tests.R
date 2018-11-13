@@ -27,9 +27,6 @@ error <- crayon::red(cli::symbol[["cross"]])
 for (pp in seq_along(test_plans)) {
   test_plan <- test_plans[[pp]]
   
-  ## FIXME: Reset state after run_test()
-  options(future.debug = FALSE)
-  
   eval(test_plan)
   plan_str <- deparse(attr(plan(), "call"))
 
@@ -96,9 +93,6 @@ for (pp in seq_along(test_plans)) {
     errors <- crayon::red(sprintf("%d errors %s", total["ERROR"], cli::symbol[["cross"]]))
   }
   cat(sprintf("\nResults: %s\n\n", errors))
-
-  ## FIXME: Reset state after run_test()
-  options(future.debug = FALSE)
 
   ## Shutdown current plan
   plan(sequential)

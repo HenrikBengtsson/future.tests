@@ -39,6 +39,9 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, defaults = list
       }	
     }
   }
+
+  push_state(title = test$title)
+  on.exit(pop_state())
   
   res <- evaluate_expr(test$expr, envir = envir, local = local, output = output)
 
