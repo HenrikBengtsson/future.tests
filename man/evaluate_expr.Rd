@@ -15,6 +15,8 @@ evaluate_expr(expr, envir = parent.frame(), local = TRUE,
 \item{local}{Should tests be evaluated in a local environment or not.}
 
 \item{output}{Specifies whether standard output, standard error, or both should be captured or not.}
+
+\item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
 }
 \value{
 Value of test expression and benchmark information.

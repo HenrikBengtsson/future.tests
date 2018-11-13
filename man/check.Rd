@@ -4,12 +4,15 @@
 \alias{check}
 \title{Run All Tests}
 \usage{
-check(tests = test_db(), defaults = list())
+check(tests = test_db(), defaults = list(),
+  timeout = getOption("future.tests.timeout", 30))
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
 
 \item{defaults}{(optional) Named list with default argument values.}
+
+\item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
 }
 \value{
 Nothing.

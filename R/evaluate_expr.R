@@ -8,6 +8,8 @@
 #'
 #' @param output Specifies whether standard output, standard error, or both should be captured or not.
 #'
+#' @param timeout Maximum time allowed for evaluation before a timeout error is produced.
+#'
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
@@ -15,7 +17,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   output <- match.arg(output)
   stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
-  
+
   res <- list(
     expr = expr,
     local = local,
@@ -69,8 +71,10 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
       pattern <- sprintf("reached %s time limit", c("elapsed", "CPU"))
       pattern <- gettext(pattern, domain = "R")
       pattern <- paste(pattern, collapse = "|")
-      if (grepl(pattern, conditionMessage(ex)))
+      if (grepl(pattern, conditionMessage(ex))) {
+        attr(ex, "timeout") <- timeout
         class(ex) <- c("TimeoutError", class(ex))
+      }	
     }	
        
     ex
