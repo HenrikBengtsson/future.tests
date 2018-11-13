@@ -11,13 +11,15 @@
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c("stdout+stderr", "stdout", "none")) {
+evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c("stdout+stderr", "stdout", "none"), timeout = +Inf) {
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   output <- match.arg(output)
+  stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
   
   res <- list(
     expr = expr,
     local = local,
+    timeout = timeout,
     error = NULL,
     value = NULL,
     visible = NA,
@@ -50,11 +52,28 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     })
   }
 
+  if (timeout < Inf) {
+    setTimeLimit(cpu = timeout, elapsed = timeout, transient = TRUE)
+    on.exit({
+      setTimeLimit(cpu = Inf, elapsed = Inf, transient = FALSE)
+    }, add = TRUE)
+  }
+
   result <- tryCatch({
     withVisible(eval(expr, envir = envir))
   }, error = function(ex) {
-     ex$traceback <- sys.calls()
-     ex
+    ex$traceback <- sys.calls()
+
+    ## A timeout?
+    if (timeout < Inf) {
+      pattern <- sprintf("reached %s time limit", c("elapsed", "CPU"))
+      pattern <- gettext(pattern, domain = "R")
+      pattern <- paste(pattern, collapse = "|")
+      if (grepl(pattern, conditionMessage(ex)))
+        class(ex) <- c("TimeoutError", class(ex))
+    }	
+       
+    ex
   })
 
   if (output != "none") {

@@ -5,7 +5,7 @@
 \title{Evaluate an R Expression}
 \usage{
 evaluate_expr(expr, envir = parent.frame(), local = TRUE,
-  output = c("stdout+stderr", "stdout", "none"))
+  output = c("stdout+stderr", "stdout", "none"), timeout = +Inf)
 }
 \arguments{
 \item{expr}{An expression}

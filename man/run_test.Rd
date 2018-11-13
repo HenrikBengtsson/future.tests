@@ -5,7 +5,8 @@
 \title{Run a Test}
 \usage{
 run_test(test, envir = parent.frame(), local = TRUE, args = list(),
-  defaults = list(), output = "stdout+stderr")
+  defaults = list(), output = "stdout+stderr",
+  timeout = getOption("future.tests.timeout", 30))
 }
 \arguments{
 \item{test}{A Test.}

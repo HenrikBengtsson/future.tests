@@ -15,11 +15,12 @@
 #' @return Value of test expression and benchmark information.
 #'
 #' @export
-run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), defaults = list(), output = "stdout+stderr") {
+run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), defaults = list(), output = "stdout+stderr", timeout = getOption("future.tests.timeout", 30)) {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
-
+  stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
+  
   if (local) envir <- new.env(parent = envir)
   for (name in names(args)) assign(name, args[[name]], envir = envir)
 
@@ -47,9 +48,9 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
 
   push_state(title = test$title)
   on.exit(pop_state())
-  
-  res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output)
 
+  res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output, timeout = timeout)
+  
   structure(c(list(
     test = test,
     args = args
