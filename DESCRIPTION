@@ -6,7 +6,8 @@ Description: Backends implementing the Future API should use the tests provided 
 Imports:
     future,
     cli,
-    crayon
+    crayon,
+    prettyunits
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true

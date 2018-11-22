@@ -10,6 +10,7 @@
 #'
 #' @importFrom crayon cyan green red silver yellow
 #' @importFrom cli get_spinner rule symbol
+#' @importFrom prettyunits pretty_sec pretty_dt
 #' @export
 check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30)) {
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
@@ -60,7 +61,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     }
 
     dt <- sum(dts, na.rm = TRUE)
-    total_time <- cyan(sprintf("(%.1fs)", dt))
+    total_time <- cyan(sprintf("(%s)", pretty_sec(dt)))
     
     unit <- if (length(status) == 1) "test" else "tests"
     count <- silver(sprintf("(%d %s)", length(status), unit))
@@ -78,7 +79,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
           cat(sprintf("  %s %s\n", error, args_tag))
 	  total["ERROR"] <- total["ERROR"] + 1L
 	} else if (status[aa] == "TIMEOUT") {
-          cat(sprintf("  %s %s %s\n", timeout_error, args_tag, yellow(sprintf("(> %gs)", timeout))))
+          cat(sprintf("  %s %s %s\n", timeout_error, args_tag, yellow(sprintf("(> %s)", pretty_sec(timeout)))))
 	  total["TIMEOUT"] <- total["TIMEOUT"] + 1L
         }        
       }
@@ -88,9 +89,9 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   time <- c(time, Sys.time())
   dt <- difftime(time[length(time)], time[1], units = "secs")
   if (total["TIMEOUT"] == 0) {
-    cat(sprintf("\nDuration: %.0fs\n", dt))
+    cat(sprintf("\nDuration: %s\n", pretty_dt(dt)))
   } else {
-    cat(sprintf("\nDuration: %.0fs (including %.0fs timeouts)\n", dt - total["TIMEOUT"], timeout))
+    cat(sprintf("\nDuration: %s (including %s timeouts)\n", pretty_dt(dt), total["TIMEOUT"]))
   }
   
   if (total["ERROR"] == 0L) {
