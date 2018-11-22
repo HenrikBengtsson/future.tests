@@ -20,6 +20,7 @@
 run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), defaults = list(), output = "stdout+stderr", timeout = getOption("future.tests.timeout", 30)) {
   stopifnot(inherits(test, "Test"))
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
+  if (length(args) > 0) stopifnot(is.list(args), !is.null(names(args)))
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
   stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
   

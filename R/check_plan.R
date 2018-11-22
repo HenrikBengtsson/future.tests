@@ -46,7 +46,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     for (aa in seq_len(nrow(sets_of_args))) {
       step <- silver(sprintf("(%d/%d)", aa, nrow(sets_of_args)))
       cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
-      args <- as.list(sets_of_args[aa, ])
+      args <- as.list(sets_of_args[aa, , drop = FALSE])
       result <- suppressWarnings({
         run_test(test, args = args, defaults = defaults, timeout = timeout)
       })
