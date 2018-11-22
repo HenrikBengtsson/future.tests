@@ -35,20 +35,14 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     text <- sQuote(test$title)
     cat(sprintf("%s %s", spinner[1], text))
     
-    ## Test arguments
-    test_args <- defaults
-    for (name in names(test$args)) test_args[[name]] <- test$args[[name]]
-
     ## All combinations of arguments to test over
-    sets_of_args <- do.call(expand.grid, test_args)
-
+    sets_of_args <- do.call(expand.grid, test$args)
     status <- rep("OK", times = nrow(sets_of_args))
     dts <- double(length = length(status))
     for (aa in seq_len(nrow(sets_of_args))) {
       step <- silver(sprintf("(%d/%d)", aa, nrow(sets_of_args)))
       cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
       args <- as.list(sets_of_args[aa, ])
-      args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
       result <- suppressWarnings({
         run_test(test, args = args, defaults = defaults, timeout = timeout)
       })
@@ -70,7 +64,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     } else {
       cat(sprintf("\r%s %s %s %s\n", error, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
-        args <- as.list(sets_of_args[aa, ])
+        args <- as.list(sets_of_args[aa, , drop = FALSE])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
 	if (status[aa] == "OK") {
           cat(sprintf("  %s %s\n", ok, args_tag))
