@@ -24,6 +24,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
   stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
   
   if (local) envir <- new.env(parent = envir)
+  for (name in names(defaults)) assign(name, defaults[[name]], envir = envir)
   for (name in names(args)) assign(name, args[[name]], envir = envir)
 
   arg_names <- unique(c(names(test$args), names(defaults)))
