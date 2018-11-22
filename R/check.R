@@ -18,6 +18,8 @@ check <- function(args = commandArgs()) {
   suppressPackageStartupMessages(require(pkg, character.only = TRUE)) || stop("Package not found: ", sQuote(pkg))
   
   test_plans("reset")
+
+  tags <- NULL
   
   ## Parse optional CLI arguments
   for (kk in seq_along(args)) {
@@ -31,15 +33,22 @@ check <- function(args = commandArgs()) {
       if (!grepl("^plan(.*)$", plan)) plan <- sprintf("plan(%s)", plan)
       expr <- parse(text = plan)
       add_test_plan(expr, substitute = FALSE)
+    } else if (grepl("--test-tags=.*", arg)) {
+      tags_kk <- gsub("--test-tags=", "", arg)
+      tags_kk <- unlist(strsplit(tags_kk, split = ",", fixed = TRUE))
+      tags <- unique(c(tags, tags_kk))
     }
   }
 
+  tests <- test_db()
+  if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
+  
   test_plans <- test_plans()
   for (pp in seq_along(test_plans)) {
     test_plan <- test_plans[[pp]]
     
     eval(test_plan)
-    check_plan(defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE))
+    check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE))
     
     ## Shutdown current plan
     plan(sequential)
