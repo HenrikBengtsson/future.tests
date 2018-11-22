@@ -23,7 +23,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
 
   plan_str <- deparse(attr(plan(), "call"))
 
-  print(rule(left = sprintf("Running %d tests with %s", length(tests), plan_str), col = "cyan"))
+  print(rule(left = sprintf("Running %d test sets with %s", length(tests), plan_str), col = "cyan"))
 
   total <- c(OK = 0L, ERROR = 0L, TIMEOUT = 0L)
 
@@ -36,7 +36,11 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     cat(sprintf("%s %s", spinner[1], text))
     
     ## All combinations of arguments to test over
-    sets_of_args <- do.call(expand.grid, test$args)
+    if (length(test$args) == 0) {
+     sets_of_args <- as.data.frame(defaults)
+    } else {
+     sets_of_args <- do.call(expand.grid, test$args)
+    }
     status <- rep("OK", times = nrow(sets_of_args))
     dts <- double(length = length(status))
     for (aa in seq_len(nrow(sets_of_args))) {
@@ -61,6 +65,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     count <- silver(sprintf("(%d %s)", length(status), unit))
     if (all(status == "OK")) {
       cat(sprintf("\r%s %s %s %s\n", ok, text, count, total_time))
+      total["OK"] <- total["OK"] + length(status)
     } else {
       cat(sprintf("\r%s %s %s %s\n", error, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
@@ -79,6 +84,8 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       }
     }    
   } ## for (tt ...)
+
+  cat(sprintf("\nNumber of tests: %d\n", sum(total)))
 
   time <- c(time, Sys.time())
   dt <- difftime(time[length(time)], time[1], units = "secs")
