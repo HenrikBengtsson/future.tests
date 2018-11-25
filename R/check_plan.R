@@ -18,10 +18,13 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   spinner <- silver(get_spinner("line")$frame)
   ok <- green(symbol[["tick"]])
   error <- red(symbol[["cross"]])
-#  timeout_error <- yellow(symbol[["info"]])
   timeout_error <- yellow("T")
 
-  plan_str <- deparse(attr(plan(), "call"))
+  plan <- plan()
+  plan_str <- deparse(attr(plan, "call"))
+
+  test_results <- list()
+  attr(test_results, "plan") <- plan
 
   print(rule(left = sprintf("Running %d test sets with %s", length(tests), plan_str), col = "cyan"))
 
@@ -56,6 +59,8 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
         status[[aa]] <- "ERROR"
       }
       dts[aa] <- difftime(result$time[length(result$time)], result$time[1], units = "secs")
+
+      test_results[[aa]] <- result
     }
 
     dt <- sum(dts, na.rm = TRUE)
@@ -112,4 +117,6 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   }
 
   cat(sprintf("\nResults: %s | %s\n\n", errors, timeouts))
+
+  invisible(test_results)
 }

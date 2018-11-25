@@ -56,9 +56,11 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
   res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output, timeout = timeout)
   
   structure(c(list(
-    test = test,
-    args = args
-  ), res), class = "TestResult")
+    test     = test,
+    args     = args,
+    defaults = defaults),
+    res
+  ), class = "TestResult")
 }
 
 
