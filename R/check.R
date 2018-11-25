@@ -12,6 +12,9 @@
 #' Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
 #' }
 #'
+#' @importFrom crayon cyan
+#' @importFrom cli rule
+#' @importFrom sessioninfo session_info
 #' @export
 check <- function(args = commandArgs()) {
   pkg <- "future"
@@ -40,9 +43,17 @@ check <- function(args = commandArgs()) {
     }
   }
 
+
+  print(rule(left = "Settings", col = "cyan"))
+  cat(sprintf("- future.tests version      : %s\n", packageVersion("future.tests")))
+  cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
+  cat(sprintf("- Option 'future.tests.root': %s\n", getOption("future.tests.root", "NULL")))
+  cat(sprintf("- Default test set folder   : %s\n", system.file("test-db", package = "future.tests", mustWork = TRUE)))
+  cat("\n")
+
   tests <- test_db()
   if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
-  
+
   test_plans <- test_plans()
   for (pp in seq_along(test_plans)) {
     test_plan <- test_plans[[pp]]
@@ -53,4 +64,7 @@ check <- function(args = commandArgs()) {
     ## Shutdown current plan
     plan(sequential)
   }
+
+  si <- session_info()
+  print(si)
 }

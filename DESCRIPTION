@@ -7,7 +7,8 @@ Imports:
     future,
     cli,
     crayon,
-    prettyunits
+    prettyunits,
+    sessioninfo
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 LazyData: true
