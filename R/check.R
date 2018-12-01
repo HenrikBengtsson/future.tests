@@ -15,6 +15,7 @@
 #' @importFrom crayon cyan
 #' @importFrom cli rule
 #' @importFrom sessioninfo session_info
+#' @importFrom utils packageVersion
 #' @export
 check <- function(args = commandArgs()) {
   pkg <- "future"

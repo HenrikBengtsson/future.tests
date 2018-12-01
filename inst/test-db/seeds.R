@@ -65,6 +65,8 @@ make_test(title = 'Random Number Generation (RNG)', args = list(lazy = c(FALSE, 
 
   ## Reference sample with fixed random seed
   y0 <- local({
+    print(unclass(plan))
+    utils::str(plan)
     old_plan <- plan()
     plan("sequential")
     on.exit(plan(old_plan))

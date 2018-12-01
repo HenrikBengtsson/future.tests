@@ -5,7 +5,8 @@
 \title{Run All Tests}
 \usage{
 check_plan(tests = test_db(), defaults = list(),
-  timeout = getOption("future.tests.timeout", 30))
+  timeout = getOption("future.tests.timeout", 30),
+  envir = parent.frame())
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
@@ -13,6 +14,8 @@ check_plan(tests = test_db(), defaults = list(),
 \item{defaults}{(optional) Named list with default argument values.}
 
 \item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
+
+\item{envir}{The environment where tests are run.}
 }
 \value{
 Nothing.

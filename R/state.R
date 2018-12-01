@@ -1,5 +1,6 @@
 #' @importFrom grDevices dev.list dev.off
 #' @importFrom future plan
+#' @importFrom utils packageVersion str
 db_state <- local({
   state <- list(
     title = NULL,
@@ -50,18 +51,18 @@ db_state <- local({
       )
 #      message("*** ", state$title, " ...")
 
-      if (debug) utils::str(state)
+      if (debug) str(state)
       old_depth <- length(stack)
-      if (debug) utils::str(stack)
+      if (debug) str(stack)
       stack <<- c(list(state), stack)
-      if (debug) utils::str(stack)
+      if (debug) str(stack)
       stop_if_not(length(stack) == old_depth + 1L)
     } else if (action == "pop") {
       stop_if_not(length(stack) >= 1L)
 
       old_depth <- length(stack)
       state <- stack[[1L]]
-      if (debug) utils::str(state)
+      if (debug) str(state)
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo graphics devices
@@ -164,10 +165,19 @@ db_state <- local({
       ## Undo future strategy
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (!is.null(state$plan)) {
-        plan(state$plan)
-        
+        plan(state$plan, .call = NULL)
+
+        ## WORKAROUND: Fix bug in future::plan()
+	if (packageVersion("future") < "1.11.0") {
+          state_plan <- plan()
+	  if (sum(class(state_plan) == "FutureStrategy") > 1L) {
+	    class(state_plan) <- setdiff(class(state_plan), "FutureStrategy")
+            plan(state_plan, .call = NULL)
+	  }
+	}
+
         ## Assert that everything was properly undone
-        stop_if_not(identical(plan(state$plan), state$plan))
+        stop_if_not(identical(plan(), state$plan))
       }
 
 #      message("*** ", state$title, " ... DONE")

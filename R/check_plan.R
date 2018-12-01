@@ -6,13 +6,15 @@
 #'
 #' @param timeout Maximum time allowed for evaluation before a timeout error is produced.
 #'
+#' @param envir The environment where tests are run.
+#'
 #' @return Nothing.
 #'
 #' @importFrom crayon cyan green red silver yellow
 #' @importFrom cli get_spinner rule symbol
 #' @importFrom prettyunits pretty_sec pretty_dt
 #' @export
-check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30)) {
+check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30), envir = parent.frame()) {
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
 
   spinner <- silver(get_spinner("line")$frame)
@@ -52,7 +54,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
       args <- as.list(sets_of_args[aa, , drop = FALSE])
       result <- suppressWarnings({
-        run_test(test, args = args, defaults = defaults, timeout = timeout)
+        run_test(test, args = args, defaults = defaults, timeout = timeout, envir = envir)
       })
       if (inherits(result$error, "TimeoutError")) {
         status[[aa]] <- "TIMEOUT"
