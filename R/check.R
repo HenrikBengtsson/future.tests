@@ -47,6 +47,8 @@ check <- function(args = commandArgs()) {
       tags <- unique(c(tags, tags_kk))
     } else if ("--session-info" == arg) {
       sections <- c(sections, "session_info")
+    } else if ("--debug" == arg) {
+      sections <- c(sections, "debug")
     }
   }
 
@@ -85,11 +87,12 @@ check <- function(args = commandArgs()) {
   tests <- test_db()
   if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
 
+  test_results <- list()
   for (pp in seq_along(test_plans)) {
     test_plan <- test_plans[[pp]]
     
     eval(test_plan)
-    test_results <- check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE))
+    test_results[[pp]] <- check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE))
     
     ## Shutdown current plan
     plan(sequential)
@@ -98,6 +101,10 @@ check <- function(args = commandArgs()) {
   if ("session_info" %in% sections) {
     si <- session_info()
     print(si)
+  }
+
+  if ("debug" %in% sections) {
+    print(test_results)
   }
   
   invisible()

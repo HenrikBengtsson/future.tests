@@ -34,6 +34,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   
   for (tt in seq_along(tests)) {
     test <- tests[[tt]]
+    test_results[[tt]] <- list()
 
     text <- sQuote(test$title)
     cat(sprintf("%s %s", spinner[1], text))
@@ -60,7 +61,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       }
       dts[aa] <- difftime(result$time[length(result$time)], result$time[1], units = "secs")
 
-      test_results[[aa]] <- result
+      test_results[[tt]][[aa]] <- result
     }
 
     dt <- sum(dts, na.rm = TRUE)
