@@ -23,11 +23,15 @@ check <- function(args = commandArgs()) {
   test_plans("reset")
 
   tags <- NULL
-  
+
+  action <- "check"
+
   ## Parse optional CLI arguments
   for (kk in seq_along(args)) {
     arg <- args[kk]
-    if (grepl("--test-timeout=.*", arg)) {
+    if (grepl("--help", arg)) {
+      action <- "help"
+    } else if (grepl("--test-timeout=.*", arg)) {
       timeout <- as.numeric(gsub("--test-timeout=", "", arg))
       stopifnot(!is.na(timeout), timeout > 0)
       options(future.tests.timeout = timeout)
@@ -43,7 +47,28 @@ check <- function(args = commandArgs()) {
     }
   }
 
+  test_plans <- test_plans()
+  if (length(test_plans) == 0L) {
+    action <- "help"
+  }
 
+  if (action == "help") {
+    cat("Usage: Rscript -e future.tests::check --args <options>\n")
+    cat("\n")
+    cat("Options:\n")
+    cat(" --help                   Display this help\n")
+    cat(" --test-timeout=<seconds> Sets per-test timeout in seconds\n")
+    cat(" --test-tags=<tags>       Comma-separated tags specifying tests to include\n")
+    cat(" --test-plan=<plan>       Future plan to test against\n")
+    cat("\n")
+    cat("Example:\n")
+    cat(" Rscript -e future.tests::check --args --help\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=sequential\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=multisession,workers=2\n")
+    
+    return(invisible())
+  }
+  
   print(rule(left = "Settings", col = "cyan"))
   cat(sprintf("- future.tests version      : %s\n", packageVersion("future.tests")))
   cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
@@ -54,7 +79,6 @@ check <- function(args = commandArgs()) {
   tests <- test_db()
   if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
 
-  test_plans <- test_plans()
   for (pp in seq_along(test_plans)) {
     test_plan <- test_plans[[pp]]
     
