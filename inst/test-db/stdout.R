@@ -28,7 +28,7 @@ make_test(title = "future() - standard output", args = list(stdout = c(FALSE, TR
     stopifnot(identical(r$stdout, truth))
   } else {
     print(r)
-    print(plan())
+#    print(plan())
     message(sprintf("- stdout = %s", stdout))
     stopifnot(is.null(r$stdout))
   }
