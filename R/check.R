@@ -25,7 +25,8 @@ check <- function(args = commandArgs()) {
   tags <- NULL
 
   action <- "check"
-
+  sections <- c("settings")
+  
   ## Parse optional CLI arguments
   for (kk in seq_along(args)) {
     arg <- args[kk]
@@ -44,6 +45,8 @@ check <- function(args = commandArgs()) {
       tags_kk <- gsub("--test-tags=", "", arg)
       tags_kk <- unlist(strsplit(tags_kk, split = ",", fixed = TRUE))
       tags <- unique(c(tags, tags_kk))
+    } else if ("--session-info" == arg) {
+      sections <- c(sections, "session_info")
     }
   }
 
@@ -60,6 +63,7 @@ check <- function(args = commandArgs()) {
     cat(" --test-timeout=<seconds> Sets per-test timeout in seconds\n")
     cat(" --test-tags=<tags>       Comma-separated tags specifying tests to include\n")
     cat(" --test-plan=<plan>       Future plan to test against\n")
+    cat(" --session-info           Output session information at the end\n")
     cat("\n")
     cat("Example:\n")
     cat(" Rscript -e future.tests::check --args --help\n")
@@ -68,13 +72,15 @@ check <- function(args = commandArgs()) {
     
     return(invisible())
   }
-  
-  print(rule(left = "Settings", col = "cyan"))
-  cat(sprintf("- future.tests version      : %s\n", packageVersion("future.tests")))
-  cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
-  cat(sprintf("- Option 'future.tests.root': %s\n", getOption("future.tests.root", "NULL")))
-  cat(sprintf("- Default test set folder   : %s\n", system.file("test-db", package = "future.tests", mustWork = TRUE)))
-  cat("\n")
+
+  if ("settings" %in% sections) {
+    print(rule(left = "Settings", col = "cyan"))
+    cat(sprintf("- future.tests version      : %s\n", packageVersion("future.tests")))
+    cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
+    cat(sprintf("- Option 'future.tests.root': %s\n", getOption("future.tests.root", "NULL")))
+    cat(sprintf("- Default test set folder   : %s\n", system.file("test-db", package = "future.tests", mustWork = TRUE)))
+    cat("\n")
+  }
 
   tests <- test_db()
   if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
@@ -89,6 +95,10 @@ check <- function(args = commandArgs()) {
     plan(sequential)
   }
 
-  si <- session_info()
-  print(si)
+  if ("session_info" %in% sections) {
+    si <- session_info()
+    print(si)
+  }
+  
+  invisible()
 }
