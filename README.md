@@ -1,12 +1,5 @@
 # future.tests: Test Suite for Future API Backends
 
-
-## Installation
-R package future.tests is only available via [GitHub](https://github.com/HenrikBengtsson/future.tests) and can be installed in R as:
-```r
-source('http://callr.org/install#HenrikBengtsson/future.tests')
-```
-
 ## Usage
 
 This package is work in progress (WIP) and under heavy development.  Please come back later.
@@ -15,6 +8,13 @@ This package is work in progress (WIP) and under heavy development.  Please come
 ## Example
 
 ![](screencast.gif)
+
+## Installation
+R package future.tests is only available via [GitHub](https://github.com/HenrikBengtsson/future.tests) and can be installed in R as:
+```r
+remotes::install_github("HenrikBengtsson/future.tests")
+```
+
 
 
 
