@@ -28,7 +28,7 @@ cache:
 build_script:
   - Rscript -e "c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())"
   - echo Current directory=%CD%
-  - travis-tool.sh install_r future, cli, crayon, prettyunits, sessioninfo
+  - travis-tool.sh install_r future cli crayon prettyunits sessioninfo
   
 test_script:
   - travis-tool.sh run_tests
