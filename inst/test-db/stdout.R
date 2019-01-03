@@ -30,7 +30,7 @@ make_test(title = "future() - standard output", args = list(stdout = c(FALSE, TR
     print(r)
     print(plan())
     message(sprintf("- stdout = %s", stdout))
-    stopifnot(is.null(r$stdout))
+    stopifnot(is.null(r$stdout) || r$stdout == "")
   }
 })
 

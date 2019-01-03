@@ -92,15 +92,20 @@ db_state <- local({
 	}
 
         ## Remove options
-        options(opts)
+	## WORKAROUND: Not all options can be removed, e.g. option
+	## 'warnPartialMatchArgs' does not exists in a fresh R session,
+	## but cannot be removed; it can only be set to FALSE or TRUE.
+	## Because of this, we need to use tryCatch().
+        tryCatch(options(opts), error = identity)
       }
 
       ## Reset to originally, recorded options
       options(state$opts)
       
       ## Assert that everything was properly undone
-      ## NOTE: This is not possible, because not all options can be unset
-      stop_if_not(identical(options(), state$opts))
+      ## NOTE: This is not possible, because not all options can be unset,
+      ## e.g. 'warnPartialMatchArgs' (see above)
+      ## stop_if_not(identical(options(), state$opts))
 
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo system environment variables
