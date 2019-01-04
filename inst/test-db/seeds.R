@@ -99,9 +99,5 @@ make_test(title = 'Random Number Generation (RNG)', args = list(lazy = c(FALSE, 
     ## No seed
     y3 <- fsample(0:3, what = what, lazy = lazy)
     print(y3)
-
-    ## No seed
-    y4 <- fsample(0:3, what = what, lazy = lazy)
-    print(y4)
   }
 }), substitute = FALSE)
