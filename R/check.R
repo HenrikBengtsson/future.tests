@@ -16,6 +16,7 @@
 #' @importFrom cli rule
 #' @importFrom sessioninfo session_info
 #' @importFrom utils packageVersion
+#' @importFrom future availableCores
 #' @export
 check <- function(args = commandArgs()) {
   pkg <- "future"
@@ -66,12 +67,13 @@ check <- function(args = commandArgs()) {
     cat(" --test-timeout=<seconds> Sets per-test timeout in seconds\n")
     cat(" --test-tags=<tags>       Comma-separated tags specifying tests to include\n")
     cat(" --test-plan=<plan>       Future plan to test against\n")
+    cat(" --cores=<n>              Max number of cores to use (default: 2)\n")
     cat(" --session-info           Output session information at the end\n")
     cat("\n")
     cat("Example:\n")
     cat(" Rscript -e future.tests::check --args --help\n")
     cat(" Rscript -e future.tests::check --args --test-plan=sequential\n")
-    cat(" Rscript -e future.tests::check --args --test-plan=multisession,workers=2\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=multisession,workers=4\n")
     
     return(invisible())
   }
@@ -82,6 +84,7 @@ check <- function(args = commandArgs()) {
     cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
     cat(sprintf("- Option 'future.tests.root': %s\n", getOption("future.tests.root", "NULL")))
     cat(sprintf("- Default test set folder   : %s\n", system.file("test-db", package = "future.tests", mustWork = TRUE)))
+    cat(sprintf("- Max number of workers     : %s\n", availableCores()))
     cat("\n")
   }
 

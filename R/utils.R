@@ -98,3 +98,32 @@ hpaste <- function(..., sep = "", collapse = ", ", lastCollapse = NULL, maxHead 
 
   x
 } # hpaste()
+
+
+parseCmdArgs <- function() {
+  cmdargs <- getOption("future.cmdargs", commandArgs())
+  args <- list()
+
+  ## Option --cores=<n>
+  idx <- grep("^(--cores=.*)$", cmdargs)
+  if (length(idx) > 0) {
+    ## Use only last, iff multiple are given
+    if (length(idx) > 1) idx <- idx[length(idx)]
+    cmdarg <- cmdargs[idx]
+    value <- as.integer(gsub("--cores=", "", cmdarg))
+
+    max <- availableCores(methods = "system")
+    if (is.na(value) || value <= 0L) {
+      msg <- sprintf("future: Ignoring invalid number of processes specified in command-line option: %s", cmdarg)
+      warning(msg, call. = FALSE, immediate. = TRUE)
+    } else if (value > max) {
+      msg <- sprintf("future: Ignoring requested number of processes, because it is greater than the number of cores/child processes avai
+lable (= %d) to this R process: %s", max, cmdarg)
+      warning(msg, call. = FALSE, immediate. = TRUE)
+    } else {
+      args$cores <- value
+    }
+  }
+
+  args
+} # parseCmdArgs()
