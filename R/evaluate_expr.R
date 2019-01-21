@@ -44,6 +44,15 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   } else if (output == "stdout+stderr") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
+    ## IMPORTANT: Note that capturing standard error (stderr) as done here will
+    ## work throughout the full evaluation of the expression 'expr' if no code
+    ## used by that expression also captures/sink the stderr.  If it does, then
+    ## the capturing done here will stop working in that same moment.  See
+    ## https://github.com/HenrikBengtsson/Wishlist-for-R/issues/55 for details.
+    ## REAL EXAMPLE: 'clustermq' uses capture.output(type = "message")
+    ## internally that breaks the sinking of stderr done here.
+    ## WORKAROUND: Because of this, we use a suppressMessages() when running
+    ## the tests.  It was specifically introduced due to 'future.clustermq'.
     sink(output_con, type = "message")
     on.exit({
       if (inherits(output_con, "connection")) {
@@ -62,7 +71,9 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   }
 
   result <- tryCatch({
-    withVisible(eval(expr, envir = envir))
+    suppressMessages({
+      withVisible(eval(expr, envir = envir))
+    })
   }, error = function(ex) {
     ex$traceback <- sys.calls()
 
