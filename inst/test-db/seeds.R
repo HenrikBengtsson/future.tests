@@ -57,47 +57,48 @@ fsample <- function(x, size = 3L, seed = NULL, what = c("future", "%<-%"), lazy 
 } # fsample()
 
 
-make_test(title = 'Random Number Generation (RNG)', args = list(lazy = c(FALSE, TRUE)), tags = c("rng", "seed", "lazy"), bquote({
-  fsample <- .(fsample)
+for (what in c("future", "%<-%")) {
+  make_test(title = sprintf('Random Number Generation (RNG) - %s', what), args = list(lazy = c(FALSE, TRUE)), tags = c("rng", "seed", "lazy", what), bquote({
+    fsample <- .(fsample)
+    
+    dummy <- sample(0:3, size = 1L)
+    seed0 <- .Random.seed
   
-  dummy <- sample(0:3, size = 1L)
-  seed0 <- .Random.seed
-
-  ## Reference sample with fixed random seed
-  y0 <- local({
-    print(unclass(plan))
-    utils::str(plan)
-    old_plan <- plan()
-    plan("sequential")
-    on.exit(plan(old_plan))
-    fsample(0:3, seed = 42L)
-  })
-  
-  ## Assert that random seed is reset
-  stopifnot(identical(.GlobalEnv$.Random.seed, seed0))
-
-  for (what in c("future", "%<-%")) {
-    .GlobalEnv$.Random.seed <- seed0
-
-    ## Fixed random seed
-    y1 <- fsample(0:3, seed = 42L, what = what, lazy = lazy)
-    print(y1)
-    stopifnot(identical(y1, y0))
-
+    ## Reference sample with fixed random seed
+    y0 <- local({
+      print(unclass(plan))
+      utils::str(plan)
+      old_plan <- plan()
+      plan("sequential")
+      on.exit(plan(old_plan))
+      fsample(0:3, seed = 42L)
+    })
+    
     ## Assert that random seed is reset
     stopifnot(identical(.GlobalEnv$.Random.seed, seed0))
-
+  
+    .GlobalEnv$.Random.seed <- seed0
+  
     ## Fixed random seed
-    y2 <- fsample(0:3, seed = 42L, what = what, lazy = lazy)
+    y1 <- fsample(0:3, seed = 42L, what = .(what), lazy = lazy)
+    print(y1)
+    stopifnot(identical(y1, y0))
+  
+    ## Assert that random seed is reset
+    stopifnot(identical(.GlobalEnv$.Random.seed, seed0))
+  
+    ## Fixed random seed
+    y2 <- fsample(0:3, seed = 42L, what = .(what), lazy = lazy)
     print(y2)
     stopifnot(identical(y2, y1))
     stopifnot(identical(y2, y0))
-
+  
     ## Assert that random seed is reset
     stopifnot(identical(.GlobalEnv$.Random.seed, seed0))
-
+  
     ## No seed
-    y3 <- fsample(0:3, what = what, lazy = lazy)
+    y3 <- fsample(0:3, what = .(what), lazy = lazy)
     print(y3)
-  }
-}), substitute = FALSE)
+  }), substitute = FALSE)
+} ## for (what ...)
+
