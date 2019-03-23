@@ -12,7 +12,7 @@ make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "see
 
 ## See Section 6 on 'Random-number generation' in
 ## vignette("parallel", package = "parallel")
-fsample <- function(x, size = 3L, seed = NULL, what = c("future", "%<-%"), lazy = FALSE) {
+fsample <- function(x, size = 2L, seed = NULL, what = c("future", "%<-%"), lazy = FALSE) {
   what <- match.arg(what)
   
   ## Must use session-specific '.GlobalEnv' here
