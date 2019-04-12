@@ -27,28 +27,29 @@ matrix:
       r: release
     - os: linux
       r: release
-      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
-      after_success:
+      script:
+        - R CMD build --no-build-vignettes --no-manual .
+        - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
         - Rscript -e "future.tests::check" --args --test-plan=sequential
       env: NB='sequential'
-    - os: linux
-      r: release
-      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
-      after_success:
-        - Rscript -e "future.tests::check" --args --test-plan=multicore
-      env: NB='multicore'
-    - os: linux
-      r: release
-      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
-      after_success:
-        - Rscript -e "future.tests::check" --args --test-plan=multisession
-      env: NB='multisession'
-    - os: linux
-      r: release
-      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
-      after_success:
-        - Rscript -e "future.tests::check" --args --test-plan=cluster
-      env: NB='cluster'
+##    - os: linux
+##      r: release
+##      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+##      after_success:
+##        - Rscript -e "future.tests::check" --args --test-plan=multicore
+##      env: NB='multicore'
+##    - os: linux
+##      r: release
+##      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+##      after_success:
+##        - Rscript -e "future.tests::check" --args --test-plan=multisession
+##      env: NB='multisession'
+##    - os: linux
+##      r: release
+##      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+##      after_success:
+##        - Rscript -e "future.tests::check" --args --test-plan=cluster
+##      env: NB='cluster'
 
 before_install:
   - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
