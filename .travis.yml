@@ -3,9 +3,8 @@
 #
 # REFERENCES:
 # * Travis CI: https://docs.travis-ci.com/user/languages/r
-# * covr: https://github.com/jimhester/covr
 #
-# Validate your .travis.yml file at http://lint.travis-ci.org/
+# YAML validated using http://www.yamllint.com/
 #----------------------------------------------------------------
 language: r
 sudo: false
@@ -26,6 +25,30 @@ matrix:
 #      r: oldrel
     - os: osx
       r: release
+    - os: linux
+      r: release
+      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+      after_success:
+        - Rscript -e "future.tests::check" --args --test-plan=sequential
+      env: NB='sequential'
+    - os: linux
+      r: release
+      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+      after_success:
+        - Rscript -e "future.tests::check" --args --test-plan=multicore
+      env: NB='multicore'
+    - os: linux
+      r: release
+      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+      after_success:
+        - Rscript -e "future.tests::check" --args --test-plan=multisession
+      env: NB='multisession'
+    - os: linux
+      r: release
+      r_check_args: --no-build-vignettes --no-codoc --no-examples --no-tests --no-manual --ignore-vignettes
+      after_success:
+        - Rscript -e "future.tests::check" --args --test-plan=cluster
+      env: NB='cluster'
 
 before_install:
   - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
