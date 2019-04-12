@@ -12,4 +12,10 @@ UNBUFFER=
 
 .results/all: .results/sequential.out .results/multicore.out .results/multisession.out .results/cluster.out .results/future.callr\:\:callr.out .results/future.batchtools\:\:batchtools_local.out
 
+.results/summary:
+	cd .results; \
+	grep -E "(Duration|Results)" *.out | sed -E 's/(Duration: |Results: | ? )//' | sed 'N;s/\n/ | /'
+
 test-all: .results/all
+
+test-summary: .results/summary
