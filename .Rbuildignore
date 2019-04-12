@@ -43,6 +43,7 @@ Rplots.pdf$
 ^[.]test
 ^[.]check
 ^[.]local
+^[.]results
 ^.*[.]tar[.]gz$
 
 #----------------------------

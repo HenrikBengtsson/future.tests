@@ -1,9 +1,15 @@
 include .make/Makefile
 
-vignettes/future-1-overview.md.rsp: inst/vignettes-static/future-1-overview.md.rsp.rsp
-	$(CD) $(@D); \
-	$(R_SCRIPT) -e "R.rsp::rfile" ../$< --postprocess=FALSE
-	$(RM) README.md
-	$(MAKE) README.md
+## Using 'unbuffer' below, will prevent 'tee' from dropping colors
+## when splitting the output.
+## Ubuntu: sudo apt-get install expect
+UNBUFFER=unbuffer
+UNBUFFER=
 
-vigs: vignettes/future-1-overview.md.rsp
+.results/%.out:
+	mkdir -p .results
+	$(UNBUFFER) $(R_SCRIPT) -e "future.tests::check" --args --test-plan=$* | tee .results/$*.out
+
+.results/all: .results/sequential.out .results/multicore.out .results/multisession.out .results/cluster.out .results/future.callr\:\:callr.out .results/future.batchtools\:\:batchtools_local.out
+
+test-all: .results/all
