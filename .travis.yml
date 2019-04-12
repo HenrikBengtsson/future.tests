@@ -53,6 +53,15 @@ matrix:
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
         - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
       env: BACKEND='cluster'
+    - os: linux
+      r: release
+      r_packages:
+        - future.callr
+      script:
+        - R CMD build --no-build-vignettes --no-manual .
+        - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
+        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+      env: BACKEND='future.callr::callr'
 
 before_install:
   - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
