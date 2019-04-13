@@ -20,7 +20,9 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   spinner <- silver(get_spinner("line")$frame)
   ok <- green(symbol[["tick"]])
   error <- red(symbol[["cross"]])
+  info <- symbol[["info"]]
   timeout_error <- yellow("T")
+  note <- yellow("N")
 
   plan <- plan()
   plan_str <- deparse(attr(plan, "call"))
@@ -29,6 +31,13 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   attr(test_results, "plan") <- plan
 
   print(rule(left = sprintf("Running %d test sets with %s", length(tests), plan_str), col = "cyan"))
+  pkg <- environment(plan)$.packageName
+  if (!is.null(pkg)) {
+    pkg_version <- packageVersion(pkg)
+    cat(sprintf("%s Backend package: %s %s\n", info, pkg, pkg_version))
+  } else {
+    cat(sprintf("%s Package: ???\n", note))
+  }  
 
   total <- c(OK = 0L, ERROR = 0L, TIMEOUT = 0L)
 
@@ -38,7 +47,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     test <- tests[[tt]]
     test_results[[tt]] <- list()
 
-    text <- sQuote(test$title)
+    text <- test$title
     cat(sprintf("%s %s", spinner[1], text))
     
     ## All combinations of arguments to test over

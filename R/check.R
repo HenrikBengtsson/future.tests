@@ -96,6 +96,7 @@ check <- function(args = commandArgs()) {
     test_plan <- test_plans[[pp]]
     
     eval(test_plan)
+    
     test_results[[pp]] <- check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE))
     
     ## Shutdown current plan
