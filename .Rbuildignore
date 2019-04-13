@@ -33,7 +33,7 @@ Rplots.pdf$
 ^vignettes/.*[.](pdf|PDF)$
 ^vignettes/.*[.](r|R)$
 ^vignettes/[.]install_extras$
-^Makefile$
+^Makefile.*
 ^incl
 ^NAMESPACE,.*[.]txt$
 ^nohup.*$
