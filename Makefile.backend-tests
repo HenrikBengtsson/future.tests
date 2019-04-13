@@ -22,3 +22,7 @@ test-all: backend_results/all
 	$(MAKE) backend_results/summary
 
 test-summary: backend_results/summary
+
+test-clean:
+	rm backend_results/*.out backend_results/summary.tsv
+	
