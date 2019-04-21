@@ -1,5 +1,8 @@
 SHELL=bash
 
+# R MACROS
+R_SCRIPT = Rscript
+
 ## Using 'unbuffer' below, will prevent 'tee' from dropping colors
 ## when splitting the output.
 ## Ubuntu: sudo apt-get install expect
@@ -25,4 +28,3 @@ test-summary: backend_results/summary
 
 test-clean:
 	rm backend_results/*.out backend_results/summary.tsv
-	
