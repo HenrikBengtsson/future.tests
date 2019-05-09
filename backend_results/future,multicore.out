@@ -2,51 +2,53 @@
 - future.tests version      : 0.0.0.9000
 - R_FUTURE_TESTS_ROOT       : 
 - Option 'future.tests.root': NULL
-- Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/3.5/future.tests/test-db
+- Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/3.6/future.tests/test-db
 - Max number of workers     : 2
 
-── Running 36 test sets with plan(future::multicore) ───────────────────────────
-ℹ Backend package: future 1.12.0.9000
-- future() - conditions\ future() - conditions (1/1)✔ future() - conditions (1 test) (83ms)
-- %<-% - conditions\ %<-% - conditions (1/1)✔ %<-% - conditions (1 test) (14ms)
+── Running 38 test sets with plan(future::multicore) ───────────────────────────
+ℹ Backend package: future 1.13.0
+- future() - conditions\ future() - conditions (1/1)✔ future() - conditions (1 test) (70ms)
+- %<-% - conditions\ %<-% - conditions (1/1)✔ %<-% - conditions (1 test) (15ms)
 - Argument '...'\ Argument '...' (1/1)✔ Argument '...' (1 test) (13ms)
-- Argument '...' from parent function\ Argument '...' from parent function (1/1)✔ Argument '...' from parent function (1 test) (13ms)
-- Argument '...' - non existing\ Argument '...' - non existing (1/1)✔ Argument '...' - non existing (1 test) (11ms)
+- Argument '...' from parent function\ Argument '...' from parent function (1/1)✔ Argument '...' from parent function (1 test) (12ms)
+- Argument '...' - non existing\ Argument '...' - non existing (1/1)✔ Argument '...' - non existing (1 test) (12ms)
 - Argument '...' - exception\ Argument '...' - exception (1/1)✔ Argument '...' - exception (1 test) (4ms)
-- Early signaling of errors\ Early signaling of errors (1/4)| Early signaling of errors (2/4)/ Early signaling of errors (3/4)- Early signaling of errors (4/4)✔ Early signaling of errors (4 tests) (58ms)
-- %<-% - local evaluation\ %<-% - local evaluation (1/2)| %<-% - local evaluation (2/2)✔ %<-% - local evaluation (2 tests) (19ms)
-- %<-% - local evaluation & global variable\ %<-% - local evaluation & global variable (1/2)| %<-% - local evaluation & global variable (2/2)✔ %<-% - local evaluation & global variable (2 tests) (20ms)
-- %<-% - errors\ %<-% - errors (1/2)| %<-% - errors (2/2)✔ %<-% - errors (2 tests) (28ms)
-- %<-% - errors and listenv\ %<-% - errors and listenv (1/2)| %<-% - errors and listenv (2/2)✔ %<-% - errors and listenv (2 tests) (280ms)
-- %<-% & %->%\ %<-% & %->% (1/2)| %<-% & %->% (2/2)✔ %<-% & %->% (2 tests) (34ms)
-- %<-% - nested\ %<-% - nested (1/1)✔ %<-% - nested (1 test) (32ms)
-- futureAssign() - lazy evaluation\ futureAssign() - lazy evaluation (1/2)| futureAssign() - lazy evaluation (2/2)✔ futureAssign() - lazy evaluation (2 tests) (18ms)
-- futureAssign() - potential task name clashes\ futureAssign() - potential task name clashes (1/1)✔ futureAssign() - potential task name clashes (1 test) (16ms)
-- futureAssign() - global variables with and without lazy evaluation\ futureAssign() - global variables with and without lazy evaluation (1/2)| futureAssign() - global variables with and without lazy evaluation (2/2)✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (44ms)
-- futureAssign() - lazy evaluation via disposable option\ futureAssign() - lazy evaluation via disposable option (1/2)| futureAssign() - lazy evaluation via disposable option (2/2)✔ futureAssign() - lazy evaluation via disposable option (2 tests) (22ms)
-- futureCall()\ futureCall() (1/4)| futureCall() (2/4)/ futureCall() (3/4)- futureCall() (4/4)✔ futureCall() (4 tests) (120ms)
-- futureCall() - globals = list(a = 3)\ futureCall() - globals = list(a = 3) (1/2)| futureCall() - globals = list(a = 3) (2/2)✔ futureCall() - globals = list(a = 3) (2 tests) (24ms)
-- futureCall() - globals = "a"\ futureCall() - globals = "a" (1/2)| futureCall() - globals = "a" (2/2)✔ futureCall() - globals = "a" (2 tests) (24ms)
-- demo("mandelbrot", package = "future")\ demo("mandelbrot", package = "future") (1/2)| demo("mandelbrot", package = "future") (2/2)✔ demo("mandelbrot", package = "future") (2 tests) (198ms)
+- Early signaling of errors\ Early signaling of errors (1/4)| Early signaling of errors (2/4)/ Early signaling of errors (3/4)- Early signaling of errors (4/4)✔ Early signaling of errors (4 tests) (62ms)
+- Early signaling of warnings\ Early signaling of warnings (1/4)| Early signaling of warnings (2/4)/ Early signaling of warnings (3/4)- Early signaling of warnings (4/4)✔ Early signaling of warnings (4 tests) (44ms)
+- Early signaling of messages\ Early signaling of messages (1/4)| Early signaling of messages (2/4)/ Early signaling of messages (3/4)- Early signaling of messages (4/4)✔ Early signaling of messages (4 tests) (46ms)
+- %<-% - local evaluation\ %<-% - local evaluation (1/2)| %<-% - local evaluation (2/2)✔ %<-% - local evaluation (2 tests) (22ms)
+- %<-% - local evaluation & global variable\ %<-% - local evaluation & global variable (1/2)| %<-% - local evaluation & global variable (2/2)✔ %<-% - local evaluation & global variable (2 tests) (22ms)
+- %<-% - errors\ %<-% - errors (1/2)| %<-% - errors (2/2)✔ %<-% - errors (2 tests) (35ms)
+- %<-% - errors and listenv\ %<-% - errors and listenv (1/2)| %<-% - errors and listenv (2/2)✔ %<-% - errors and listenv (2 tests) (299ms)
+- %<-% & %->%\ %<-% & %->% (1/2)| %<-% & %->% (2/2)✔ %<-% & %->% (2 tests) (39ms)
+- %<-% - nested\ %<-% - nested (1/1)✔ %<-% - nested (1 test) (58ms)
+- futureAssign() - lazy evaluation\ futureAssign() - lazy evaluation (1/2)| futureAssign() - lazy evaluation (2/2)✔ futureAssign() - lazy evaluation (2 tests) (31ms)
+- futureAssign() - potential task name clashes\ futureAssign() - potential task name clashes (1/1)✔ futureAssign() - potential task name clashes (1 test) (22ms)
+- futureAssign() - global variables with and without lazy evaluation\ futureAssign() - global variables with and without lazy evaluation (1/2)| futureAssign() - global variables with and without lazy evaluation (2/2)✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (55ms)
+- futureAssign() - lazy evaluation via disposable option\ futureAssign() - lazy evaluation via disposable option (1/2)| futureAssign() - lazy evaluation via disposable option (2/2)✔ futureAssign() - lazy evaluation via disposable option (2 tests) (28ms)
+- futureCall()\ futureCall() (1/4)| futureCall() (2/4)/ futureCall() (3/4)- futureCall() (4/4)✔ futureCall() (4 tests) (124ms)
+- futureCall() - globals = list(a = 3)\ futureCall() - globals = list(a = 3) (1/2)| futureCall() - globals = list(a = 3) (2/2)✔ futureCall() - globals = list(a = 3) (2 tests) (30ms)
+- futureCall() - globals = "a"\ futureCall() - globals = "a" (1/2)| futureCall() - globals = "a" (2/2)✔ futureCall() - globals = "a" (2 tests) (28ms)
+- demo("mandelbrot", package = "future")\ demo("mandelbrot", package = "future") (1/2)| demo("mandelbrot", package = "future") (2/2)✔ demo("mandelbrot", package = "future") (2 tests) (231ms)
 - nbrOfWorkers()\ nbrOfWorkers() (1/1)✔ nbrOfWorkers() (1 test) (1ms)
 - plan()\ plan() (1/1)✔ plan() (1 test) (1ms)
-- plan() - workers=<numeric>\ plan() - workers=<numeric> (1/1)✔ plan() - workers=<numeric> (1 test) (12ms)
-- plan() - workers=<function>\ plan() - workers=<function> (1/1)✔ plan() - workers=<function> (1 test) (19ms)
+- plan() - workers=<numeric>\ plan() - workers=<numeric> (1/1)✔ plan() - workers=<numeric> (1 test) (14ms)
+- plan() - workers=<function>\ plan() - workers=<function> (1/1)✔ plan() - workers=<function> (1 test) (15ms)
 - plan() - workers=<invalid>\ plan() - workers=<invalid> (1/1)✔ plan() - workers=<invalid> (1 test) (2ms)
 - resolve()\ resolve() (1/8)| resolve() (2/8)/ resolve() (3/8)- resolve() (4/8)\ resolve() (5/8)| resolve() (6/8)/ resolve() (7/8)- resolve() (8/8)✔ resolve() (8 tests) (5.5s)
-- resolve() - run-time exception\ resolve() - run-time exception (1/8)| resolve() - run-time exception (2/8)/ resolve() - run-time exception (3/8)- resolve() - run-time exception (4/8)\ resolve() - run-time exception (5/8)| resolve() - run-time exception (6/8)/ resolve() - run-time exception (7/8)- resolve() - run-time exception (8/8)✔ resolve() - run-time exception (8 tests) (918ms)
-- resolve(<list of futures and values>)\ resolve(<list of futures and values>) (1/2)| resolve(<list of futures and values>) (2/2)✔ resolve(<list of futures and values>) (2 tests) (642ms)
-- resolve(<list of futures>)\ resolve(<list of futures>) (1/2)| resolve(<list of futures>) (2/2)✔ resolve(<list of futures>) (2 tests) (835ms)
+- resolve() - run-time exception\ resolve() - run-time exception (1/8)| resolve() - run-time exception (2/8)/ resolve() - run-time exception (3/8)- resolve() - run-time exception (4/8)\ resolve() - run-time exception (5/8)| resolve() - run-time exception (6/8)/ resolve() - run-time exception (7/8)- resolve() - run-time exception (8/8)✔ resolve() - run-time exception (8 tests) (997ms)
+- resolve(<list of futures and values>)\ resolve(<list of futures and values>) (1/2)| resolve(<list of futures and values>) (2/2)✔ resolve(<list of futures and values>) (2 tests) (668ms)
+- resolve(<list of futures>)\ resolve(<list of futures>) (1/2)| resolve(<list of futures>) (2/2)✔ resolve(<list of futures>) (2 tests) (876ms)
 - resolve(<named matrix list of futures and values>) - time ordering\ resolve(<named matrix list of futures and values>) - time ordering (1/1)✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (1s)
-- Random Number Generation (RNG) - seeds\ Random Number Generation (RNG) - seeds (1/1)✔ Random Number Generation (RNG) - seeds (1 test) (211ms)
-- Random Number Generation (RNG) - future\ Random Number Generation (RNG) - future (1/2)| Random Number Generation (RNG) - future (2/2)✔ Random Number Generation (RNG) - future (2 tests) (562ms)
-- Random Number Generation (RNG) - %<-%\ Random Number Generation (RNG) - %<-% (1/2)| Random Number Generation (RNG) - %<-% (2/2)✔ Random Number Generation (RNG) - %<-% (2 tests) (139ms)
-- future() - standard output\ future() - standard output (1/2)| future() - standard output (2/2)✔ future() - standard output (2 tests) (44ms)
-- %<-% - standard output\ %<-% - standard output (1/2)| %<-% - standard output (2/2)✔ %<-% - standard output (2 tests) (33ms)
+- Random Number Generation (RNG) - seeds\ Random Number Generation (RNG) - seeds (1/1)✔ Random Number Generation (RNG) - seeds (1 test) (213ms)
+- Random Number Generation (RNG) - future\ Random Number Generation (RNG) - future (1/2)| Random Number Generation (RNG) - future (2/2)✔ Random Number Generation (RNG) - future (2 tests) (636ms)
+- Random Number Generation (RNG) - %<-%\ Random Number Generation (RNG) - %<-% (1/2)| Random Number Generation (RNG) - %<-% (2/2)✔ Random Number Generation (RNG) - %<-% (2 tests) (194ms)
+- future() - standard output\ future() - standard output (1/2)| future() - standard output (2/2)✔ future() - standard output (2 tests) (46ms)
+- %<-% - standard output\ %<-% - standard output (1/2)| %<-% - standard output (2/2)✔ %<-% - standard output (2 tests) (47ms)
 
-Number of tests: 73
+Number of tests: 81
 
-Duration: 11.6s
+Duration: 12.4s
 
 Results: 0 errors ✔ | 0 timeouts ✔
 
