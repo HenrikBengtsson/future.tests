@@ -48,7 +48,8 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     test_results[[tt]] <- list()
 
     text <- test$title
-    cat(sprintf("%s %s", spinner[1], text))
+    preset(spinner[1], " ")
+    pcat(text)
     
     ## All combinations of arguments to test over
     if (length(test$args) == 0) {
@@ -60,7 +61,8 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     dts <- double(length = length(status))
     for (aa in seq_len(nrow(sets_of_args))) {
       step <- silver(sprintf("(%d/%d)", aa, nrow(sets_of_args)))
-      cat(sprintf("\r%s %s %s", spinner[aa %% length(spinner) + 1L], text, step))
+      preset(spinner[aa %% length(spinner) + 1L], " ")
+      pcat(sprintf("%s %s", text, step))
       args <- as.list(sets_of_args[aa, , drop = FALSE])
       result <- suppressWarnings({
         run_test(test, args = args, defaults = defaults, timeout = timeout, envir = envir)
@@ -80,11 +82,12 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     
     unit <- if (length(status) == 1) "test" else "tests"
     count <- silver(sprintf("(%d %s)", length(status), unit))
+    perase()
     if (all(status == "OK")) {
-      cat(sprintf("\r%s %s %s %s\n", ok, text, count, total_time))
+      cat(sprintf("%s %s %s %s\n", ok, text, count, total_time))
       total["OK"] <- total["OK"] + length(status)
     } else {
-      cat(sprintf("\r%s %s %s %s\n", error, text, count, total_time))
+      cat(sprintf("%s %s %s %s\n", error, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
         args <- as.list(sets_of_args[aa, , drop = FALSE])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
