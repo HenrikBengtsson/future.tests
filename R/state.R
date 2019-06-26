@@ -47,7 +47,7 @@ db_state <- local({
         envs  = Sys.getenv(),
         opts  = options(),
         devs  = dev.list(),
-        plan  = plan()
+        plan  = plan("next")
       )
 #      message("*** ", state$title, " ...")
 
@@ -174,7 +174,7 @@ db_state <- local({
 
         ## WORKAROUND: Fix bug in future::plan()
 	if (packageVersion("future") < "1.11.0") {
-          state_plan <- plan()
+          state_plan <- plan("next")
 	  if (sum(class(state_plan) == "FutureStrategy") > 1L) {
 	    class(state_plan) <- setdiff(class(state_plan), "FutureStrategy")
             plan(state_plan, .call = NULL)
@@ -182,7 +182,7 @@ db_state <- local({
 	}
 
         ## Assert that everything was properly undone
-        stop_if_not(identical(plan(), state$plan))
+        stop_if_not(identical(plan("next"), state$plan))
       }
 
 #      message("*** ", state$title, " ... DONE")
