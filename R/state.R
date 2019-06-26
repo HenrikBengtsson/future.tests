@@ -1,6 +1,6 @@
 #' @importFrom grDevices dev.list dev.off
 #' @importFrom future plan
-#' @importFrom utils packageVersion str
+#' @importFrom utils str
 db_state <- local({
   state <- list(
     title = NULL,
@@ -171,15 +171,6 @@ db_state <- local({
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (!is.null(state$plan)) {
         plan(state$plan, .call = NULL)
-
-        ## WORKAROUND: Fix bug in future::plan()
-	if (packageVersion("future") < "1.11.0") {
-          state_plan <- plan("next")
-	  if (sum(class(state_plan) == "FutureStrategy") > 1L) {
-	    class(state_plan) <- setdiff(class(state_plan), "FutureStrategy")
-            plan(state_plan, .call = NULL)
-	  }
-	}
 
         ## Assert that everything was properly undone
         stop_if_not(identical(plan("next"), state$plan))
