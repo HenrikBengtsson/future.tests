@@ -47,7 +47,7 @@ db_state <- local({
         envs  = Sys.getenv(),
         opts  = options(),
         devs  = dev.list(),
-        plan  = plan("next")
+        plan  = plan("list")
       )
 #      message("*** ", state$title, " ...")
 
@@ -170,10 +170,12 @@ db_state <- local({
       ## Undo future strategy
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (!is.null(state$plan)) {
-        plan(state$plan, .call = NULL)
+        ## WORKAROUND: https://github.com/HenrikBengtsson/future/issues/320
+        state_plan <- state$plan
+        plan(state_plan)
 
         ## Assert that everything was properly undone
-        stop_if_not(identical(plan("next"), state$plan))
+        stop_if_not(identical(plan("list"), state$plan))
       }
 
 #      message("*** ", state$title, " ... DONE")
