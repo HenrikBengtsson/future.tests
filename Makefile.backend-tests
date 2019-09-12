@@ -19,7 +19,7 @@ backend_results/all: backend_results/future,sequential.out backend_results/futur
 backend_results/summary:
 	cd backend_results; \
 	grep -E "(Duration|Results)" *.out | sed -E 's/.out://' | sed -E 's/(Duration: |.*Results: )/\t/' | sed 'N;s/\n/\t/' | sed 's/ | /\t/' | sed 's/\t\t/\t/' | sed 's/ ✔//g' > summary.tsv
-	cat $@.tsv
+	column -t -s $$'\t' $@.tsv
 
 test-all: backend_results/all
 	$(MAKE) backend_results/summary
