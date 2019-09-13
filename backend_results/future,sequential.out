@@ -1,3 +1,4 @@
+NULL
 ── Settings ────────────────────────────────────────────────────────────────────
 - future.tests version      : 0.0.0.9000
 - R_FUTURE_TESTS_ROOT       : 
@@ -5,48 +6,49 @@
 - Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/3.6-custom/future.tests/test-db
 - Max number of workers     : 2
 
-── Running 38 test sets with plan(future::sequential) ──────────────────────────
+── Running 39 test sets with plan(future::sequential) ──────────────────────────
 ℹ Backend package: future 1.14.0.9000
-✔ future() - conditions (1 test) (56ms)
+✔ future() - conditions (1 test) (84ms)
 ✔ %<-% - conditions (1 test) (8ms)
 ✔ Argument '...' (1 test) (9ms)
 ✔ Argument '...' from parent function (1 test) (7ms)
 ✔ Argument '...' - non existing (1 test) (6ms)
 ✔ Argument '...' - exception (1 test) (4ms)
-✔ Early signaling of errors (4 tests) (18ms)
-✔ Early signaling of warnings (4 tests) (18ms)
-✔ Early signaling of messages (4 tests) (20ms)
-✔ %<-% - local evaluation (2 tests) (10ms)
-✔ %<-% - local evaluation & global variable (2 tests) (10ms)
+✔ Early signaling of errors (4 tests) (20ms)
+✔ Early signaling of warnings (4 tests) (17ms)
+✔ Early signaling of messages (4 tests) (17ms)
+✔ %<-% - local evaluation (2 tests) (9ms)
+✔ %<-% - local evaluation & global variable (2 tests) (9ms)
 ✔ %<-% - errors (2 tests) (10ms)
-✔ %<-% - errors and listenv (2 tests) (40ms)
+✔ %<-% - errors and listenv (2 tests) (34ms)
 ✔ %<-% & %->% (2 tests) (14ms)
-✔ %<-% - nested (1 test) (18ms)
-✔ futureAssign() - lazy evaluation (2 tests) (10ms)
-✔ futureAssign() - potential task name clashes (1 test) (7ms)
-✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (21ms)
-✔ futureAssign() - lazy evaluation via disposable option (2 tests) (11ms)
-✔ futureCall() (4 tests) (78ms)
-✔ futureCall() - globals = list(a = 3) (2 tests) (13ms)
+✔ %<-% - nested (1 test) (19ms)
+✔ futureAssign() - lazy evaluation (2 tests) (8ms)
+✔ futureAssign() - potential task name clashes (1 test) (8ms)
+✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (18ms)
+✔ futureAssign() - lazy evaluation via disposable option (2 tests) (9ms)
+✔ futureCall() (4 tests) (77ms)
+✔ futureCall() - globals = list(a = 3) (2 tests) (12ms)
 ✔ futureCall() - globals = "a" (2 tests) (7ms)
-✔ demo("mandelbrot", package = "future") (2 tests) (141ms)
+✔ resolved() on lazy futures (1 test) (4ms)
+✔ demo("mandelbrot", package = "future") (2 tests) (136ms)
 ✔ nbrOfWorkers() (1 test) (1ms)
 ✔ plan() (1 test) (1ms)
 ✔ plan() - workers=<numeric> (1 test) (1ms)
 ✔ plan() - workers=<function> (1 test) (1ms)
 ✔ plan() - workers=<invalid> (1 test) (1ms)
 ✔ resolve() (8 tests) (4.1s)
-✔ resolve() - run-time exception (8 tests) (36ms)
-✔ resolve(<list of futures and values>) (2 tests) (13ms)
+✔ resolve() - run-time exception (8 tests) (46ms)
+✔ resolve(<list of futures and values>) (2 tests) (12ms)
 ✔ resolve(<list of futures>) (2 tests) (13ms)
-✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (513ms)
-✔ Random Number Generation (RNG) - seeds (1 test) (5ms)
-✔ Random Number Generation (RNG) - future (2 tests) (91ms)
-✔ Random Number Generation (RNG) - %<-% (2 tests) (73ms)
-✔ future() - standard output (2 tests) (27ms)
+✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (512ms)
+✔ Random Number Generation (RNG) - seeds (1 test) (13ms)
+✔ Random Number Generation (RNG) - future (2 tests) (86ms)
+✔ Random Number Generation (RNG) - %<-% (2 tests) (69ms)
+✔ future() - standard output (2 tests) (25ms)
 ✔ %<-% - standard output (2 tests) (18ms)
 
-Number of tests: 81
+Number of tests: 82
 
 Duration: 5.9s
 
