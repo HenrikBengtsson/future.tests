@@ -5,51 +5,52 @@
 - Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/3.6-custom/future.tests/test-db
 - Max number of workers     : 2
 
-── Running 39 test sets with plan(future::multisession) ────────────────────────
+── Running 40 test sets with plan(future::multisession) ────────────────────────
 ℹ Backend package: future 1.14.0.9000
-✔ future() - conditions (1 test) (100ms)
+✔ future() - conditions (1 test) (183ms)
 ✔ %<-% - conditions (1 test) (1.1s)
 ✔ Argument '...' (1 test) (1.1s)
 ✔ Argument '...' from parent function (1 test) (1.1s)
 ✔ Argument '...' - non existing (1 test) (1.1s)
-✔ Argument '...' - exception (1 test) (965ms)
+✔ Argument '...' - exception (1 test) (937ms)
 ✔ Early signaling of errors (4 tests) (4.5s)
 ✔ Early signaling of warnings (4 tests) (4.5s)
-✔ Early signaling of messages (4 tests) (4.3s)
-✔ %<-% - local evaluation (2 tests) (2.2s)
-✔ %<-% - local evaluation & global variable (2 tests) (2.2s)
-✔ %<-% - errors (2 tests) (2.3s)
-✔ %<-% - errors and listenv (2 tests) (2.6s)
-✔ %<-% & %->% (2 tests) (2.3s)
+✔ Early signaling of messages (4 tests) (4.6s)
+✔ %<-% - local evaluation (2 tests) (2.5s)
+✔ %<-% - local evaluation & global variable (2 tests) (2.4s)
+✔ %<-% - errors (2 tests) (2.6s)
+✔ %<-% - errors and listenv (2 tests) (2.9s)
+✔ %<-% & %->% (2 tests) (2.6s)
 ✔ %<-% - nested (1 test) (1.2s)
 ✔ futureAssign() - lazy evaluation (2 tests) (2.2s)
 ✔ futureAssign() - potential task name clashes (1 test) (1.1s)
-✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (2.3s)
+✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (2.6s)
 ✔ futureAssign() - lazy evaluation via disposable option (2 tests) (2.2s)
-✔ futureCall() (4 tests) (6.3s)
+✔ futureCall() (4 tests) (6.6s)
 ✔ futureCall() - globals = list(a = 3) (2 tests) (3.1s)
 ✔ futureCall() - globals = "a" (2 tests) (3.2s)
 ✔ resolved() on lazy futures (1 test) (1.1s)
 ✔ demo("mandelbrot", package = "future") (2 tests) (4s)
-✔ nbrOfWorkers() (1 test) (1ms)
+✔ nbrOfWorkers() (1 test) (2ms)
 ✔ plan() (1 test) (1ms)
-✔ plan() - workers=<numeric> (1 test) (1s)
-✔ plan() - workers=<function> (1 test) (1.6s)
+✔ plan() - workers=<numeric> (1 test) (1.1s)
+✔ plan() - workers=<function> (1 test) (1.5s)
 ✔ plan() - workers=<invalid> (1 test) (2ms)
-✔ resolve() (8 tests) (13.3s)
-✔ resolve() - run-time exception (8 tests) (9.5s)
+✔ resolve() (8 tests) (12.8s)
+✔ resolve() - run-time exception (8 tests) (9.8s)
 ✔ resolve(<list of futures and values>) (2 tests) (2.3s)
-✔ resolve(<list of futures>) (2 tests) (2.2s)
+✔ resolve(<list of futures>) (2 tests) (2.4s)
 ✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (1.6s)
 ✔ Random Number Generation (RNG) - seeds (1 test) (1.1s)
-✔ Random Number Generation (RNG) - future (2 tests) (2.7s)
-✔ Random Number Generation (RNG) - %<-% (2 tests) (2.7s)
+✔ Random Number Generation (RNG) - future (2 tests) (2.8s)
+✔ Random Number Generation (RNG) - %<-% (2 tests) (2.6s)
 ✔ future() - standard output (2 tests) (2.2s)
-✔ %<-% - standard output (2 tests) (2.2s)
+✔ %<-% - standard output (2 tests) (2.1s)
+✔ value() - visibility (1 test) (1.1s)
 
-Number of tests: 82
+Number of tests: 83
 
-Duration: 1m 40s
+Duration: 1m 44.1s
 
 Results: 0 errors ✔ | 0 timeouts ✔
 
