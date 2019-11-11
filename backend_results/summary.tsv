@@ -1,7 +1,7 @@
-future.BatchJobs,batchjobs_local	2m 40.3s	0 errors	0 timeouts
-future.batchtools,batchtools_local	2m 23s	0 errors	0 timeouts
-future.callr,callr	1m 15.9s	0 errors	0 timeouts
-future,cluster	1m 43.7s	0 errors	0 timeouts
-future,multicore	12.3s	0 errors	0 timeouts
-future,multisession	1m 38.3s	0 errors	0 timeouts
-future,sequential	5.9s	0 errors	0 timeouts
+future.BatchJobs,batchjobs_local	2m 13.8s	0 errors	0 timeouts
+future.batchtools,batchtools_local	1m 47.6s	0 errors	0 timeouts
+future.callr,callr	1m 6.8s	1 error ✖	0 timeouts
+future,cluster	1m 47.8s	0 errors	0 timeouts
+future,multicore	12.4s	1 error ✖	0 timeouts
+future,multisession	1m 45.8s	0 errors	0 timeouts
+future,sequential	12s	0 errors	0 timeouts
