@@ -54,21 +54,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
   on.exit(pop_state())
 
   if (test$reset_workers) {
-    reset_all_workers <- function() {
-      plan <- plan()
-      if (inherits(plan, "multicore")) {
-        usedCores <- future:::usedCores
-	FutureRegistry <- future:::FutureRegistry
-	session_uuid <- future:::session_uuid
-        if (usedCores() == 0L) return()
-        reg <- sprintf("multicore-%s", session_uuid())
-        FutureRegistry(reg, action = "collect-all", earlySignal = FALSE)
-        stopifnot(usedCores() == 0L)
-      }
-    }
-  
-    ## NOTE: It is critical that all workers are free when this test begins
-    reset_all_workers()
+    if (packageVersion("future") > "1.15.0") future::resetWorkers(plan())
   }
 
   res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output, timeout = timeout)

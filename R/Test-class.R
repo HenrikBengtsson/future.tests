@@ -9,7 +9,12 @@
 #'
 #' @param args (optional) Named arguments.
 #'
-#' @param register If TRUE, the test is registered in the test database, otherwise not.
+#' @param reset_workers (optional) Specifies whether background workers should
+#  be reset or not.  Background workers are reset but resolving all active
+#' futures.
+#'
+#' @param register If TRUE, the test is registered in the test database,
+#' otherwise not.
 #'
 #' @return (invisibly) A Test.
 #'
