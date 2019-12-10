@@ -4,8 +4,13 @@
 \alias{along_test_plans}
 \title{Evaluate an Expression Across A Set of Future Plans}
 \usage{
-along_test_plans(expr, substitute = TRUE, envir = parent.frame(),
-  local = TRUE, plans = test_plans())
+along_test_plans(
+  expr,
+  substitute = TRUE,
+  envir = parent.frame(),
+  local = TRUE,
+  plans = test_plans()
+)
 }
 \arguments{
 \item{expr}{An \R expression.}

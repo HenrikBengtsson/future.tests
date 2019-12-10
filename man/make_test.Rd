@@ -4,8 +4,15 @@
 \alias{make_test}
 \title{Make a Test}
 \usage{
-make_test(expr, title = NA_character_, args = list(), tags = NULL,
-  substitute = TRUE, reset_workers = FALSE, register = TRUE)
+make_test(
+  expr,
+  title = NA_character_,
+  args = list(),
+  tags = NULL,
+  substitute = TRUE,
+  reset_workers = FALSE,
+  register = TRUE
+)
 }
 \arguments{
 \item{expr, substitute}{The expression to be tested and

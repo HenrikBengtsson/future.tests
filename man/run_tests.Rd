@@ -4,8 +4,13 @@
 \alias{run_tests}
 \title{Run All Tests}
 \usage{
-run_tests(tests = test_db(), envir = parent.frame(), local = TRUE,
-  defaults = list(), output = "stdout+stderr")
+run_tests(
+  tests = test_db(),
+  envir = parent.frame(),
+  local = TRUE,
+  defaults = list(),
+  output = "stdout+stderr"
+)
 }
 \arguments{
 \item{tests}{A list of tests to subset.}

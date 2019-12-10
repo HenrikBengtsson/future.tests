@@ -4,9 +4,12 @@
 \alias{check_plan}
 \title{Run All Tests}
 \usage{
-check_plan(tests = test_db(), defaults = list(),
+check_plan(
+  tests = test_db(),
+  defaults = list(),
   timeout = getOption("future.tests.timeout", 30),
-  envir = parent.frame())
+  envir = parent.frame()
+)
 }
 \arguments{
 \item{tests}{A list of tests to subset.}
