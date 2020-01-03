@@ -1,56 +1,104 @@
-#' Run All Tests Across Future Plans
+#' Run All or a Subset of the Tests Across Future Plans
 #'
-#' @param args Character vector of command-line arguments.
+#' @param plan (character vector) One or more future strategy plans to be
+#' validated.
 #'
-#' @return Nothing.
+#' @param tags (character vector; optional) Filter test by tags. If NULL, all
+#' tests are performed.
+#'
+#' @param timeout (numeric; optional) Maximum time (in seconds) each test may
+#' run before a timeout error is produced.
+#'
+#' @param settings (logical) If TRUE, details on the settings are outputted
+#' before the tests start.
+#'
+#' @param session_info (logical) If TRUE, session information is outputted
+#' after the tests complete.
+#'
+#' @param debug (logical) If TRUE, the raw test results are printed.
+#'
+#' @param exit_value (logical) If TRUE, and in a non-interactive session,
+#' then use [base::quit()] to quit \R with an exit code of 0 (zero) if all
+#' tests passed with all OKs and otherwise 1 (one) if one or more test failed.
+#'
+#' @param .args (character vector; optional) Command-line arguments.
+#'
+#' @return (list; invisible) A list of test results.
 #'
 #' @section Command-line interface (CLI):
-#' Some examples on how to call this function from the command line:
+#' This function can be called from the shell. To specify an argument, use the
+#' format `--test-<arg_name>=<value>`.  For example, `--test-timeout=600` will
+#' set argument `timeout=600`, and `--tags=lazy,rng`, or equivalently,
+#' `--tags=lazy --tags=rng` will set argument `tags=c("lazy", "rng")`.
+#'
+#' Here are some examples on how to call this function from the command line:
 #' \preformatted{
 #' Rscript -e future.tests::check --args --test-plan=sequential
 #' Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 #' Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
 #' }
+#' The exit code will be 0 if all tests passed, otherwise 1. You
+#' can use for instance `exit_code=$?` to retrieve the exit code of the
+#' most recent call.
 #'
-#' @importFrom crayon cyan
 #' @importFrom cli rule
 #' @importFrom sessioninfo session_info
 #' @importFrom utils packageVersion
 #' @importFrom future availableCores
 #' @export
-check <- function(args = commandArgs()) {
+check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TRUE, session_info = FALSE, debug = FALSE, exit_value = !interactive(), .args = commandArgs()) {
   pkg <- "future"
   suppressPackageStartupMessages(require(pkg, character.only = TRUE)) || stop("Package not found: ", sQuote(pkg))
-  
+
+  if (is.null(plan)) {
+  } else {
+    stopifnot(is.character(plan), !anyNA(plan), all(nzchar(plan)))
+  }
+
+  if (is.null(tags)) {
+  } else {
+    stopifnot(is.character(tags), !anyNA(tags), all(nzchar(tags)))
+  }
+
+  if (is.null(timeout)) {
+  } else {
+    stopifnot(is.numeric(timeout), length(timeout) == 1L, !is.na(timeout), timeout > 0)
+  }
+
   test_plans("reset")
 
-  tags <- NULL
-
   action <- "check"
-  sections <- c("settings")
   
   ## Parse optional CLI arguments
-  for (kk in seq_along(args)) {
-    arg <- args[kk]
+  for (kk in seq_along(.args)) {
+    arg <- .args[kk]
     if (grepl("--help", arg)) {
       action <- "help"
     } else if (grepl("--test-timeout=.*", arg)) {
       timeout <- as.numeric(gsub("--test-timeout=", "", arg))
       stopifnot(!is.na(timeout), timeout > 0)
-      options(future.tests.timeout = timeout)
     } else if (grepl("--test-plan=.*", arg)) {
-      plan <- gsub("--test-plan=", "", arg)
-      if (!grepl("^plan(.*)$", plan)) plan <- sprintf("plan(%s)", plan)
-      expr <- parse(text = plan)
-      add_test_plan(expr, substitute = FALSE)
+      value <- gsub("--test-plan=", "", arg)
+      stopifnot(nzchar(value))
+      plan <- c(plan, value)
     } else if (grepl("--test-tags=.*", arg)) {
       tags_kk <- gsub("--test-tags=", "", arg)
       tags_kk <- unlist(strsplit(tags_kk, split = ",", fixed = TRUE))
       tags <- unique(c(tags, tags_kk))
     } else if ("--session-info" == arg) {
-      sections <- c(sections, "session_info")
+      session_info <- TRUE
     } else if ("--debug" == arg) {
-      sections <- c(sections, "debug")
+      debug <- TRUE
+    }
+  }
+
+  ## Add test plans?
+  if (is.character(plan) && length(plan) >= 1L) {
+    plan <- unique(plan)
+    for (value in plan) {
+      if (!grepl("^plan(.*)$", value)) value <- sprintf("plan(%s)", value)
+      expr <- parse(text = value)
+      add_test_plan(expr, substitute = FALSE)
     }
   }
 
@@ -67,7 +115,6 @@ check <- function(args = commandArgs()) {
     cat(" --test-timeout=<seconds> Sets per-test timeout in seconds\n")
     cat(" --test-tags=<tags>       Comma-separated tags specifying tests to include\n")
     cat(" --test-plan=<plan>       Future plan to test against\n")
-    cat(" --cores=<n>              Max number of cores to use (default: 2)\n")
     cat(" --session-info           Output session information at the end\n")
     cat("\n")
     cat("Example:\n")
@@ -78,18 +125,22 @@ check <- function(args = commandArgs()) {
     return(invisible())
   }
 
-  if ("settings" %in% sections) {
+  if (settings) {
     print(rule(left = "Settings", col = "cyan"))
     cat(sprintf("- future.tests version      : %s\n", packageVersion("future.tests")))
     cat(sprintf("- R_FUTURE_TESTS_ROOT       : %s\n", Sys.getenv("R_FUTURE_TESTS_ROOT")))
     cat(sprintf("- Option 'future.tests.root': %s\n", getOption("future.tests.root", "NULL")))
     cat(sprintf("- Default test set folder   : %s\n", system.file("test-db", package = "future.tests", mustWork = TRUE)))
     cat(sprintf("- Max number of workers     : %s\n", availableCores()))
+    cat(sprintf("- Timeout                   : %s\n", if (is.numeric(timeout)) sprintf("%g seconds", timeout) else "N/A"))
     cat("\n")
   }
 
   tests <- test_db()
   if (!is.null(tags)) tests <- subset_tests(tests, tags = tags)
+
+  ## Set 'timeout'?
+  if (is.numeric(timeout)) options(future.tests.timeout = timeout)
 
   test_results <- list()
   for (pp in seq_along(test_plans)) {
@@ -103,14 +154,32 @@ check <- function(args = commandArgs()) {
     plan(sequential)
   }
 
-  if ("session_info" %in% sections) {
+  ## For each test plan, check if any of the tests produced an error
+  has_error_per_plan <- lapply(test_results, FUN = function(results) {
+    ## For each test, check if it produced an error
+    vapply(results, FUN = function(result) {
+      res <- result[[1]] ## FIXME
+      inherits(res$error, "error")
+    }, FUN.VALUE = NA)
+  })
+  nbr_of_errors_per_plan <- vapply(has_error_per_plan, FUN = sum, FUN.VALUE = 0L)
+  nbr_of_errors <- sum(nbr_of_errors_per_plan)
+  attr(test_results, "exit_code") <- if (nbr_of_errors == 0L) 0L else 1L
+
+  if (session_info) {
     si <- session_info()
     print(si)
   }
 
-  if ("debug" %in% sections) {
+  if (debug) {
     print(test_results)
+    cat(sprintf("Total number of errors: %d\n", nbr_of_errors))
+  }
+
+  ## Quit R with an exit value?
+  if (exit_value && !interactive()) {
+    quit(save = "no", status = attr(test_results, "exit_code"), runLast = TRUE)
   }
   
-  invisible()
+  invisible(test_results)
 }

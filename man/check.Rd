@@ -2,26 +2,64 @@
 % Please edit documentation in R/check.R
 \name{check}
 \alias{check}
-\title{Run All Tests Across Future Plans}
+\title{Run All or a Subset of the Tests Across Future Plans}
 \usage{
-check(args = commandArgs())
+check(
+  plan = NULL,
+  tags = character(),
+  timeout = NULL,
+  settings = TRUE,
+  session_info = FALSE,
+  debug = FALSE,
+  exit_value = !interactive(),
+  .args = commandArgs()
+)
 }
 \arguments{
-\item{args}{Character vector of command-line arguments.}
+\item{plan}{(character vector) One or more future strategy plans to be
+validated.}
+
+\item{tags}{(character vector; optional) Filter test by tags. If NULL, all
+tests are performed.}
+
+\item{timeout}{(numeric; optional) Maximum time (in seconds) each test may
+run before a timeout error is produced.}
+
+\item{settings}{(logical) If TRUE, details on the settings are outputted
+before the tests start.}
+
+\item{session_info}{(logical) If TRUE, session information is outputted
+after the tests complete.}
+
+\item{debug}{(logical) If TRUE, the raw test results are printed.}
+
+\item{exit_value}{(logical) If TRUE, and in a non-interactive session,
+then use \code{\link[base:quit]{base::quit()}} to quit \R with an exit code of 0 (zero) if all
+tests passed with all OKs and otherwise 1 (one) if one or more test failed.}
+
+\item{.args}{(character vector; optional) Command-line arguments.}
 }
 \value{
-Nothing.
+(list; invisible) A list of test results.
 }
 \description{
-Run All Tests Across Future Plans
+Run All or a Subset of the Tests Across Future Plans
 }
 \section{Command-line interface (CLI)}{
 
-Some examples on how to call this function from the command line:
+This function can be called from the shell. To specify an argument, use the
+format \verb{--test-<arg_name>=<value>}.  For example, \code{--test-timeout=600} will
+set argument \code{timeout=600}, and \verb{--tags=lazy,rng}, or equivalently,
+\code{--tags=lazy --tags=rng} will set argument \code{tags=c("lazy", "rng")}.
+
+Here are some examples on how to call this function from the command line:
 \preformatted{
 Rscript -e future.tests::check --args --test-plan=sequential
 Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
 }
+The exit code will be 0 if all tests passed, otherwise 1. You
+can use for instance \verb{exit_code=$?} to retrieve the exit code of the
+most recent call.
 }
 
