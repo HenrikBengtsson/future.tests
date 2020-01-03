@@ -9,18 +9,25 @@
 #'
 #' @param args (optional) Named arguments.
 #'
-#' @param register If TRUE, the test is registered in the test database, otherwise not.
+#' @param reset_workers (optional) Specifies whether background workers should
+#  be reset or not.  Background workers are reset but resolving all active
+#' futures.
+#'
+#' @param register If TRUE, the test is registered in the test database,
+#' otherwise not.
 #'
 #' @return (invisibly) A Test.
 #'
 #' @export
-make_test <- function(expr, title = NA_character_, args = list(), tags = NULL, substitute = TRUE, register = TRUE) {
+make_test <- function(expr, title = NA_character_, args = list(), tags = NULL, substitute = TRUE, reset_workers = FALSE, register = TRUE) {
   title <- as.character(title)
   stopifnot(length(title) == 1L, nzchar(title))
   if (length(args) > 0) stopifnot(is.list(args), !is.null(names(args)))
   if (length(tags) > 0) stopifnot(is.character(tags))
   if (substitute) expr <- substitute(expr)
-  test <- structure(list(title = title, args = args, tags = tags, expr = expr), class = "Test")
+  stopifnot(is.logical(reset_workers), length(reset_workers) == 1L, !is.na(reset_workers))
+  
+  test <- structure(list(title = title, args = args, tags = tags, reset_workers = reset_workers, expr = expr), class = "Test")
 
   if (register) register_test(test)
 
@@ -35,6 +42,8 @@ print.Test <- function(x, head = Inf, tail = head, ...) {
   s <- c(s, sprintf("- Title: %s", sQuote(x$title)))
 
   s <- c(s, sprintf("- Tags: %s", paste(sQuote(x$tags), collapse = ", ")))
+
+  s <- c(s, sprintf("- Reset workers: %s", x$reset_workers))
 
   s <- c(s, "- Arguments:")
   args <- x$args

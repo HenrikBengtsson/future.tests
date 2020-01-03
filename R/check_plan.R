@@ -24,7 +24,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   timeout_error <- yellow("T")
   note <- yellow("N")
 
-  plan <- plan()
+  plan <- plan("next")
   plan_str <- deparse(attr(plan, "call"))
 
   test_results <- list()

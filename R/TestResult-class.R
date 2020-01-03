@@ -53,6 +53,10 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
   push_state(title = test$title)
   on.exit(pop_state())
 
+  if (test$reset_workers) {
+    if (packageVersion("future") > "1.15.0") future::resetWorkers(plan())
+  }
+
   res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output, timeout = timeout)
 
   structure(c(list(

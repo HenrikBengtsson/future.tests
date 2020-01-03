@@ -1,6 +1,6 @@
 #' @importFrom grDevices dev.list dev.off
 #' @importFrom future plan
-#' @importFrom utils packageVersion str
+#' @importFrom utils str
 db_state <- local({
   state <- list(
     title = NULL,
@@ -47,7 +47,7 @@ db_state <- local({
         envs  = Sys.getenv(),
         opts  = options(),
         devs  = dev.list(),
-        plan  = plan()
+        plan  = plan("list")
       )
 #      message("*** ", state$title, " ...")
 
@@ -170,19 +170,12 @@ db_state <- local({
       ## Undo future strategy
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       if (!is.null(state$plan)) {
-        plan(state$plan, .call = NULL)
-
-        ## WORKAROUND: Fix bug in future::plan()
-	if (packageVersion("future") < "1.11.0") {
-          state_plan <- plan()
-	  if (sum(class(state_plan) == "FutureStrategy") > 1L) {
-	    class(state_plan) <- setdiff(class(state_plan), "FutureStrategy")
-            plan(state_plan, .call = NULL)
-	  }
-	}
+        ## WORKAROUND: https://github.com/HenrikBengtsson/future/issues/320
+        state_plan <- state$plan
+        plan(state_plan)
 
         ## Assert that everything was properly undone
-        stop_if_not(identical(plan(), state$plan))
+        stop_if_not(identical(plan("list"), state$plan))
       }
 
 #      message("*** ", state$title, " ... DONE")

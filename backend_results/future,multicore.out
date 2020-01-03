@@ -5,50 +5,53 @@
 - Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/3.6/future.tests/test-db
 - Max number of workers     : 2
 
-── Running 38 test sets with plan(future::multicore) ───────────────────────────
-ℹ Backend package: future 1.13.0
-✔ future() - conditions (1 test) (70ms)
+── Running 41 test sets with plan(future::multicore) ───────────────────────────
+ℹ Backend package: future 1.15.1.9000
+✔ future() - conditions (1 test) (85ms)
 ✔ %<-% - conditions (1 test) (15ms)
 ✔ Argument '...' (1 test) (15ms)
-✔ Argument '...' from parent function (1 test) (12ms)
-✔ Argument '...' - non existing (1 test) (12ms)
-✔ Argument '...' - exception (1 test) (6ms)
-✔ Early signaling of errors (4 tests) (68ms)
-✔ Early signaling of warnings (4 tests) (44ms)
-✔ Early signaling of messages (4 tests) (44ms)
-✔ %<-% - local evaluation (2 tests) (20ms)
-✔ %<-% - local evaluation & global variable (2 tests) (25ms)
-✔ %<-% - errors (2 tests) (31ms)
-✔ %<-% - errors and listenv (2 tests) (305ms)
-✔ %<-% & %->% (2 tests) (42ms)
-✔ %<-% - nested (1 test) (42ms)
+✔ Argument '...' from parent function (1 test) (13ms)
+✔ Argument '...' - non existing (1 test) (13ms)
+✔ Argument '...' - exception (1 test) (9ms)
+✔ Early signaling of errors (4 tests) (65ms)
+✔ Early signaling of warnings (4 tests) (54ms)
+✔ Early signaling of messages (4 tests) (50ms)
+✔ %<-% - local evaluation (2 tests) (22ms)
+✔ %<-% - local evaluation & global variable (2 tests) (30ms)
+✔ %<-% - errors (2 tests) (30ms)
+✔ %<-% - errors and listenv (2 tests) (311ms)
+✔ %<-% & %->% (2 tests) (44ms)
+✔ %<-% - nested (1 test) (38ms)
 ✔ futureAssign() - lazy evaluation (2 tests) (23ms)
-✔ futureAssign() - potential task name clashes (1 test) (17ms)
-✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (45ms)
-✔ futureAssign() - lazy evaluation via disposable option (2 tests) (22ms)
-✔ futureCall() (4 tests) (129ms)
-✔ futureCall() - globals = list(a = 3) (2 tests) (29ms)
-✔ futureCall() - globals = "a" (2 tests) (25ms)
-✔ demo("mandelbrot", package = "future") (2 tests) (229ms)
+✔ futureAssign() - potential task name clashes (1 test) (24ms)
+✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (49ms)
+✔ futureAssign() - lazy evaluation via disposable option (2 tests) (23ms)
+✔ futureCall() (4 tests) (130ms)
+✔ futureCall() - globals = list(a = 3) (2 tests) (34ms)
+✔ futureCall() - globals = "a" (2 tests) (27ms)
+✔ resolved() on lazy futures (1 test) (112ms)
+✔ demo("mandelbrot", package = "future") (2 tests) (220ms)
 ✔ nbrOfWorkers() (1 test) (1ms)
 ✔ plan() (1 test) (1ms)
-✔ plan() - workers=<numeric> (1 test) (12ms)
-✔ plan() - workers=<function> (1 test) (13ms)
-✔ plan() - workers=<invalid> (1 test) (2ms)
+✔ plan() - workers=<numeric> (1 test) (16ms)
+✔ plan() - workers=<function> (1 test) (17ms)
+✔ plan() - workers=<invalid> (1 test) (3ms)
 ✔ resolve() (8 tests) (5.5s)
-✔ resolve() - run-time exception (8 tests) (989ms)
-✔ resolve(<list of futures and values>) (2 tests) (674ms)
-✔ resolve(<list of futures>) (2 tests) (881ms)
+✔ resolve() - run-time exception (8 tests) (994ms)
+✔ resolve(<list of futures and values>) (2 tests) (686ms)
+✔ resolve(<list of futures>) (2 tests) (888ms)
 ✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (1s)
-✔ Random Number Generation (RNG) - seeds (1 test) (219ms)
-✔ Random Number Generation (RNG) - future (2 tests) (661ms)
-✔ Random Number Generation (RNG) - %<-% (2 tests) (188ms)
-✔ future() - standard output (2 tests) (44ms)
-✔ %<-% - standard output (2 tests) (37ms)
+✔ resolved() - assert non-blocking while launching lazy futures (1 test) (4.2s)
+✔ Random Number Generation (RNG) - seeds (1 test) (13ms)
+✔ Random Number Generation (RNG) - future (2 tests) (413ms)
+✔ Random Number Generation (RNG) - %<-% (2 tests) (154ms)
+✔ future() - standard output (2 tests) (48ms)
+✔ %<-% - standard output (2 tests) (34ms)
+✔ value() - visibility (1 test) (21ms)
 
-Number of tests: 81
+Number of tests: 84
 
-Duration: 12.3s
+Duration: 16.4s
 
 Results: 0 errors ✔ | 0 timeouts ✔
 

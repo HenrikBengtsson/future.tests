@@ -80,7 +80,7 @@ along_test_plans <- function(expr, substitute = TRUE, envir = parent.frame(), lo
   
   nplans <- length(plans)
 
-  old_plan <- plan()
+  old_plan <- plan("list")
   on.exit(plan(old_plan))
 
   ## Reset any existing plan and cleanup if needed
@@ -95,7 +95,7 @@ along_test_plans <- function(expr, substitute = TRUE, envir = parent.frame(), lo
 
     ## Set future plan
     eval(plans[[pp]])
-    print(plan())
+    print(plan("next"))
 
     res_pp <- evaluate_expr(expr, envir = envir, local = local)
     

@@ -4,8 +4,15 @@
 \alias{make_test}
 \title{Make a Test}
 \usage{
-make_test(expr, title = NA_character_, args = list(), tags = NULL,
-  substitute = TRUE, register = TRUE)
+make_test(
+  expr,
+  title = NA_character_,
+  args = list(),
+  tags = NULL,
+  substitute = TRUE,
+  reset_workers = FALSE,
+  register = TRUE
+)
 }
 \arguments{
 \item{expr, substitute}{The expression to be tested and
@@ -17,7 +24,11 @@ whether it is passes as an expression already or not.}
 
 \item{tags}{(optional) Character vector of tags.}
 
-\item{register}{If TRUE, the test is registered in the test database, otherwise not.}
+\item{reset_workers}{(optional) Specifies whether background workers should
+futures.}
+
+\item{register}{If TRUE, the test is registered in the test database,
+otherwise not.}
 }
 \value{
 (invisibly) A Test.

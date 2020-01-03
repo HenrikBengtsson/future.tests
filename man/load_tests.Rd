@@ -4,9 +4,13 @@
 \alias{load_tests}
 \title{Loads Future Tests}
 \usage{
-load_tests(path = ".", recursive = TRUE, pattern = "[.]R$",
+load_tests(
+  path = ".",
+  recursive = TRUE,
+  pattern = "[.]R$",
   root = getOption("future.tests.root", Sys.getenv("R_FUTURE_TESTS_ROOT",
-  system.file("test-db", package = "future.tests", mustWork = TRUE))))
+    system.file("test-db", package = "future.tests", mustWork = TRUE)))
+)
 }
 \arguments{
 \item{path}{A character string specifying a test script folder or file.}

@@ -15,14 +15,20 @@ latex: false
 
 matrix:
   include:
-#    - os: linux
-#      r: oldrel
+    - os: linux
+      r: oldrel
     - os: linux
       r: release
     - os: linux
       r: devel
-#    - os: osx
-#      r: oldrel
+      env:
+        - R_KEEP_PKG_SOURCE=yes
+        - _R_S3_METHOD_LOOKUP_BASEENV_AFTER_GLOBALENV_=true
+        - _R_S3_METHOD_LOOKUP_USE_TOPENV_AS_DEFENV_=true
+        - _R_CHECK_CONNECTIONS_LEFT_OPEN_=true
+        - _R_CHECK_LENGTH_1_CONDITION_=true
+        - _R_CHECK_LENGTH_1_LOGIC2_=true
+        - _R_CLASS_MATRIX_ARRAY_=true
     - os: osx
       r: release
     - os: linux
@@ -30,28 +36,28 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='sequential'
     - os: linux
       r: release
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='multicore'
     - os: linux
       r: release
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='multisession'
     - os: linux
       r: release
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='cluster'
     - os: linux
       r: release
@@ -60,7 +66,7 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='future.callr::callr'
     - os: linux
       r: release
@@ -69,7 +75,7 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='future.batchtools::batchtools_local'
     - os: linux
       r: release
@@ -78,7 +84,7 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan=${BACKEND}
+        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='future.BatchJobs::batchjobs_local'
 
 before_install:

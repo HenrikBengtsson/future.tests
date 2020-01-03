@@ -1,5 +1,3 @@
-if ("conditions" %in% names(formals(future::Future))) {
-
 make_test(title = "future() - conditions", args = list(), tags = c("future", "conditions"), {
   captureConditions <- function(...) {
     conditions <- list()
@@ -91,6 +89,3 @@ make_test(title = "%<-% - conditions", args = list(), tags = c("%<-%", "conditio
     )
   }
 })
-
-
-} ## if ("conditions" %in% ...)
