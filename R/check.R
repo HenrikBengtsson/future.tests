@@ -44,7 +44,7 @@
 #' @importFrom cli rule
 #' @importFrom sessioninfo session_info
 #' @importFrom utils packageVersion
-#' @importFrom future availableCores
+#' @importFrom future availableCores plan
 #' @export
 check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TRUE, session_info = FALSE, debug = FALSE, exit_value = !interactive(), .args = commandArgs()) {
   pkg <- "future"
@@ -154,16 +154,15 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
     plan(sequential)
   }
 
-  ## For each test plan, check if any of the tests produced an error
-  has_error_per_plan <- lapply(test_results, FUN = function(results) {
+  ## For each test plan, check if there were any errors
+  has_errors <- lapply(test_results, FUN = function(results) {
     ## For each test, check if it produced an error
-    vapply(results, FUN = function(result) {
-      res <- result[[1]] ## FIXME
-      inherits(res$error, "error")
-    }, FUN.VALUE = NA)
+    lapply(results, FUN = function(sub_results) {
+      ## For each tessub t, check if it produced an error
+      lapply(sub_results, FUN = function(res) inherits(res$error, "error"))
+    })
   })
-  nbr_of_errors_per_plan <- vapply(has_error_per_plan, FUN = sum, FUN.VALUE = 0L)
-  nbr_of_errors <- sum(nbr_of_errors_per_plan)
+  nbr_of_errors <- sum(unlist(has_errors, use.names = FALSE))
   attr(test_results, "exit_code") <- if (nbr_of_errors == 0L) 0L else 1L
 
   if (session_info) {
