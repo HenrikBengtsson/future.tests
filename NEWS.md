@@ -1,6 +1,6 @@
 # future.tests
 
-## Version: 0.1.0-9000 [2020-01-06]
+## Version: 0.1.1 [2020-01-06]
 
 ### Bug Fixes
 
