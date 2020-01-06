@@ -1,6 +1,6 @@
 Package: future.tests
 Title: Test Suite for Future API Backends
-Version: 0.1.1
+Version: 0.1.1-9000
 Authors@R: person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"), email = "henrikb@braju.com")
 Description: Backends implementing the Future API should use the tests provided by this package to validate that they meet the minimal requirements of the Future API.  The tests can be performed easily from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.
 Imports:
