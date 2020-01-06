@@ -22,15 +22,16 @@ make_test(title = "resolved() - assert non-blocking while launching lazy futures
       rs[[kk]] <- resolved(fs[[kk]])
       ss <- vapply(fs, FUN = function(f) f$state, NA_character_)
       print(ss)
+      nbrOfFinished <- sum(ss == "finished")
       if (inherits(fs[[kk]], "UniprocessFuture")) {
         stopifnot(rs[[kk]])
         stopifnot(ss[[kk]] == "finished")
       } else if (inherits(fs[[kk]], "MultiprocessFuture")) {
-        if (nbrOfWorkers() + ff - 1L >= kk) {
-	  ## Failed for 'multicore' when running full set of tests or
-	  ## with --test-tags="lazy". Why?!?  /HB 2019-11-11
+        if (nbrOfWorkers() + ff - 1L + nbrOfFinished >= kk) {
+          ## Failed for 'multicore' when running full set of tests or
+          ## with --test-tags="lazy". Why?!?  /HB 2019-11-11
           stopifnot(ss[[kk]] == "running")
-#	  R.utils::cstr(list(c(ff,kk), rs=rs, ss=ss, check=(ss[[kk]] == "running")))
+##        R.utils::cstr(list(c(ff,kk), rs=rs, ss=ss, check=(ss[[kk]] == "running")))
         } else {
           stopifnot(ss[[kk]] == "created")
         }
@@ -41,10 +42,10 @@ make_test(title = "resolved() - assert non-blocking while launching lazy futures
     message(sprintf("Waiting for future #%d to finish ... ", ff), appendLF = FALSE)
     vs[[ff]] <- value(fs[[ff]])
     message("done")
-  
+
     rs[[ff]] <- resolved(fs[[ff]])
     stopifnot(rs[ff])
-  
+
     ss <- vapply(fs, FUN = function(f) f$state, NA_character_)
     stopifnot(ss[ff] == "finished")
     nbrOfFinished <- sum(ss == "finished")

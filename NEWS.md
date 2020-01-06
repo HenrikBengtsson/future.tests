@@ -1,8 +1,12 @@
 # future.tests
 
-## Version: 0.1.0-9000 [2020-01-03]
+## Version: 0.1.0-9000 [2020-01-06]
 
- * ...
+### Bug Fixes
+
+ * The 'resolved() - assert non-blocking while launching lazy futures' test
+   assumed that resolved() could only launch lazy futures but not finish
+   other already running futures.
 
 
 ## Version: 0.1.0 [2020-01-03]
