@@ -4,16 +4,18 @@ The **[future]** package defines the Future API which consists of a small number
 
 > Write once, run anywhere
 
-In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies to the Future API.  A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
+In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the Future API.  A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
 
 This R package - **[future.tests]** - provides a test suite for validation that a future backend complies with the Future API.
+
+![](screencast.gif)
 
 
 ## Validate a Future Backend
 
 All future backends implementing the Future API should validate that they conform to the Future API.  This can be done using the **[future.tests]** package, which provides two API for running the tests.  The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.
 
-## From within R
+## From Within R
 
 ```r
 > results <- future.tests::check(plan = "multisession")
@@ -21,7 +23,7 @@ All future backends implementing the Future API should validate that they confor
 > if (exit_code != 0) stop("One or more tests failed")
 ```
 
-## From outside R
+## From Outside R
 
 ```sh
 $ Rscript -e "future.tests::check" --args --test-plan="multisession"
@@ -29,9 +31,34 @@ $ exit_code=$?
 $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 ```
 
-### Example
+### Continuous Integration
 
-![](screencast.gif)
+#### Travis CI
+
+To validate a future backend using future.tests on Travis CI, use a job matrix and add a separate job that runs `Rscript future.tests::check ...`.  Here is an extract show a job matrix with one job that performs a regular `R CMD check --as-cran` and one that validates a specific backend using future.tests.
+
+```yaml
+language: r
+sudo: false
+cache: packages
+warnings_are_errors: false
+r_check_args: --as-cran
+
+matrix:
+  include:
+    - os: linux
+      r: release
+    - os: linux
+      r: release
+      r_github_packages:
+        - HenrikBengtsson/future.tests
+      script:
+        - R CMD build --no-build-vignettes --no-manual .
+        - R CMD INSTALL *.tar.gz
+        - Rscript -e future.tests::check --args --test-plan=future.callr::callr
+      env: NB='future.tests w/ callr' ## Just a label
+```
+See [.travis.yml of the future.callr package](https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml) for a full example.
 
 
 ## Installation
@@ -39,8 +66,6 @@ R package future.tests is only available via [GitHub](https://github.com/HenrikB
 ```r
 remotes::install_github("HenrikBengtsson/future.tests")
 ```
-
-
 
 
 ## Contributions
