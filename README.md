@@ -55,8 +55,8 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL *.tar.gz
-        - Rscript -e future.tests::check --args --test-plan=future.callr::callr
-      env: NB='future.tests w/ callr' ## Just a label
+        - Rscript -e future.tests::check --args --test-plan="${BACKEND}"
+      env: BACKEND='future.callr::callr'
 ```
 See [.travis.yml of the future.callr package](https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml) for a full example.
 
