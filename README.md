@@ -35,7 +35,7 @@ $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 
 #### Travis CI
 
-To validate a future backend using future.tests on Travis CI, use a job matrix and add a separate job that runs `Rscript future.tests::check ...`.  Here is an extract show a job matrix with one job that performs a regular `R CMD check --as-cran` and one that validates a specific backend using future.tests.
+To validate a future backend using future.tests on Travis CI, use a job matrix and add a separate job that runs `Rscript future.tests::check ...`.  Here is an excerpt of a `.travis.yml` with a job matrix where one of the job performs a regular `R CMD check --as-cran` and one validates a specific backend using **future.tests**.
 
 ```yaml
 language: r
