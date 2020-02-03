@@ -77,11 +77,11 @@ Contributing to this package is easy.  Just send a [pull request](https://help.g
 
 ## Software status
 
-| Resource:     | GitHub              | Travis CI       | AppVeyor         |
-| ------------- | ------------------- | --------------- | ---------------- |
-| _Platforms:_  | _Multiple_          | _Linux & macOS_ | _Windows_        |
+| Resource:     | GitHub                  | Travis CI       | AppVeyor         |
+| ------------- | ----------------------- | ------------------ | ---------------- |
+| _Platforms:_  | _Linux, macOS, Windows_ | _Linux, macOS_ | _Windows_        |
 | R CMD check   | [![R build status](https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check) | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
-| Test coverage |                     |                 |                  |
+| Test coverage |                         | <a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"/></a>     |                  |
 
 
 [R]: https://www.r-project.org
