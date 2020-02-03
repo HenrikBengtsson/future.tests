@@ -80,7 +80,7 @@ Contributing to this package is easy.  Just send a [pull request](https://help.g
 | Resource:     | GitHub              | Travis CI       | AppVeyor         |
 | ------------- | ------------------- | --------------- | ---------------- |
 | _Platforms:_  | _Multiple_          | _Linux & macOS_ | _Windows_        |
-| R CMD check   |  | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
+| R CMD check   | [![R build status](https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check) | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
 | Test coverage |                     |                 |                  |
 
 
