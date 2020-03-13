@@ -13,6 +13,10 @@ make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "see
 ## See Section 6 on 'Random-number generation' in
 ## vignette("parallel", package = "parallel")
 fsample <- function(x, size = 2L, seed = NULL, what = c("future", "%<-%"), lazy = FALSE) {
+  ## BACKWARD COMPATIBILITY:
+  ## In future (<= 1.16.0), values() was used instead of value() for lists
+  if (packageVersion("future") <= "1.16.0") value <- values
+
   what <- match.arg(what)
   
   ## Must use session-specific '.GlobalEnv' here
@@ -43,7 +47,7 @@ fsample <- function(x, size = 2L, seed = NULL, what = c("future", "%<-%"), lazy 
       .seed <- parallel::nextRNGStream(.seed)
       fs[[ii]] <- future({ sample(x, size = 1L) }, lazy = lazy, seed = .seed)
     }
-    res <- values(fs)
+    res <- value(fs)
   } else {
     res <- listenv::listenv()
     for (ii in seq_len(size)) {
