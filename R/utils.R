@@ -1,5 +1,5 @@
 tests_root <- function() {
-  system.file("tests", package = "future.tests", mustWork = TRUE)
+  system.file("test-db", package = "future.tests", mustWork = TRUE)
 }
 
 assert_package <- function(pkg) {
@@ -100,7 +100,7 @@ hpaste <- function(..., sep = "", collapse = ", ", lastCollapse = NULL, maxHead 
 } # hpaste()
 
 
-parseCmdArgs <- function(cmdargs = getOption("future.cmdargs", commandArgs())) {
+parseCmdArgs <- function(cmdargs = getOption("future.tests.cmdargs", commandArgs())) {
   args <- list()
 
   ## Option --cores=<n>
