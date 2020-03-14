@@ -17,6 +17,9 @@ stop_if_not(length(stack) == 1L)
 res <- db_state("push", title = "abc")
 str(res)
 
+options(foo = 42L)
+Sys.setenv(BAR = "3.14")
+
 stack <- db_state("list")
 str(stack)
 stop_if_not(length(stack) == 2L)

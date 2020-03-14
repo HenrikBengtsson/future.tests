@@ -2,6 +2,7 @@ check <- future.tests::check
 
 message("*** cli_fcn() ...")
 
-print(check)
+options(future.tests.cmdargs = c("--help"))
+print(check, call = TRUE)
 
 message("*** cli_fcn() ... DONE")
