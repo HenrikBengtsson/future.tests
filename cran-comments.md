@@ -3,26 +3,25 @@
 
 ## Resubmission on 2020-03-19
 
-> Thanks, please write package names, software names and API names in
-> single quotes (e.g. 'Future') in Title and Description.
+> Thanks, please write package names, software names and API names in single
+> quotes (e.g. 'Future') in Title and Description.
 
 Done
 
-> Please add a web reference for the 'Future' API in your Description text
-> in the form <http:...> or <https:...> with angle brackets for auto-linking
-> and no space after 'http:' and 'https:'.
+> Please add a web reference for the 'Future' API in your Description text in
+> the form <http:...> or <https:...> with angle brackets for auto-linking and
+> no space after 'http:' and 'https:'.
 
 Instead of a URL, it is now clarified that the Future API is specified by the future package.
 
-> Please replace cat() by message() or warning() in your functions (except
-> for print() and summary() functions). Messages and warnings can be
-> suppressed if needed.
+> Please replace cat() by message() or warning() in your functions (except for
+> print() and summary() functions). Messages and warnings can be suppressed if
+> needed.
 
 This is a false positive; all output to the standard output is intentional by design.  The output must not go to standard error via message() and similar.
 
 > Please add small executable examples in your Rd-files.
-> If the execution requires an API key, please wrap the exmaples in
-> \dontrun{}.
+> If the execution requires an API key, please wrap the exmaples in \dontrun{}.
 
 Added example("check"); everything else is low-level and not really meant to be used by others, yet, they need to be exported.
 
