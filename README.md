@@ -66,7 +66,7 @@ See [.travis.yml of the future.callr package](https://github.com/HenrikBengtsson
 [future]: https://cran.r-project.org/package=future
 [future.callr]: https://cran.r-project.org/package=future.callr
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools
-[future.tests]: https://github.com/HenrikBengtsson/future.tests
+[future.tests]: https://cran.r-project.org/package=future.tests
 
 ## Installation
 R package future.tests is available on [CRAN](https://cran.r-project.org/package=future.tests) and can be installed in R as:
