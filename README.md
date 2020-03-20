@@ -35,7 +35,7 @@ $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 
 #### Travis CI
 
-To validate a future backend using future.tests on Travis CI, use a job matrix and add a separate job that runs `Rscript future.tests::check ...`.  Here is an extract show a job matrix with one job that performs a regular `R CMD check --as-cran` and one that validates a specific backend using future.tests.
+To validate a future backend using future.tests on Travis CI, use a job matrix and add a separate job that runs `Rscript future.tests::check ...`.  Here is an excerpt of a `.travis.yml` with a job matrix where one of the job performs a regular `R CMD check --as-cran` and one validates a specific backend using **future.tests**.
 
 ```yaml
 language: r
@@ -55,8 +55,8 @@ matrix:
       script:
         - R CMD build --no-build-vignettes --no-manual .
         - R CMD INSTALL *.tar.gz
-        - Rscript -e future.tests::check --args --test-plan=future.callr::callr
-      env: NB='future.tests w/ callr' ## Just a label
+        - Rscript -e future.tests::check --args --test-plan="${BACKEND}"
+      env: BACKEND='future.callr::callr'
 ```
 See [.travis.yml of the future.callr package](https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml) for a full example.
 
@@ -77,11 +77,11 @@ Contributing to this package is easy.  Just send a [pull request](https://help.g
 
 ## Software status
 
-| Resource:     | GitHub              | Travis CI       | AppVeyor         |
-| ------------- | ------------------- | --------------- | ---------------- |
-| _Platforms:_  | _Multiple_          | _Linux & macOS_ | _Windows_        |
-| R CMD check   |  | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
-| Test coverage |                     |                 |                  |
+| Resource:     | GitHub                  | Travis CI       | AppVeyor         |
+| ------------- | ----------------------- | ------------------ | ---------------- |
+| _Platforms:_  | _Linux, macOS, Windows_ | _Linux, macOS_ | _Windows_        |
+| R CMD check   | [![R build status](https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check) | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
+| Test coverage |                         | <a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"/></a>     |                  |
 
 
 [R]: https://www.r-project.org

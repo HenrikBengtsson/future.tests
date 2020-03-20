@@ -6,3 +6,5 @@ CMD
 macOS
 multisession
 Parallelization
+travis
+yml

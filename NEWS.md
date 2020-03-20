@@ -1,12 +1,24 @@
 # future.tests
 
+## Version: 0.2.1 [2020-03-19]
+
+### CRAN Re-submission Requests
+
+ * Update the package description to use single quotes.
+
+ * Add example to check().
+
+
+## Version: 0.2.0 [2020-03-13]
+
+ * First version released on CRAN.
+
+
 ## Version: 0.1.1 [2020-01-06]
 
 ### Bug Fixes
 
- * The 'resolved() - assert non-blocking while launching lazy futures' test
-   assumed that resolved() could only launch lazy futures but not finish
-   other already running futures.
+ * Assert that `resolved()` will launch lazy futures.
 
 
 ## Version: 0.1.0 [2020-01-03]

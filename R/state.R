@@ -2,7 +2,7 @@
 #' @importFrom future plan
 #' @importFrom utils str
 db_state <- local({
-  state <- list(
+  state_empty <- list(
     title = NULL,
     envir = new.env(),
     vars  = character(0L),
@@ -11,7 +11,7 @@ db_state <- local({
     devs  = NULL,
     plan  = NULL
   )
-  stack <- list(state)
+  stack <- list(state_empty)
   
   function(action = c("reset", "list", "push", "pop"), title = NULL, envir = parent.frame()) {
     action <- match.arg(action)
@@ -26,16 +26,8 @@ db_state <- local({
     res <- NULL
     
     if (action == "reset") {
-      stack <<- list(
-        title = NULL,
-        envir = new.env(),
-        vars  = list(),
-        envs  = list(),
-        opts  = list(),
-        plan  = NULL,
-        devs  = NULL
-      )	
-      stop_if_not(length(stack) == 0L)
+      stack <<- list(state_empty)
+      stop_if_not(length(stack) == 1L)
     } else if (action == "list") {
       return(stack)
     } else if (action == "push") {

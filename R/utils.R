@@ -1,5 +1,5 @@
 tests_root <- function() {
-  system.file("tests", package = "future.tests", mustWork = TRUE)
+  system.file("test-db", package = "future.tests", mustWork = TRUE)
 }
 
 assert_package <- function(pkg) {
@@ -46,14 +46,14 @@ mprintf <- function(..., appendLF = TRUE) {
 }
 
 #' @importFrom utils capture.output
-mprint <- function(..., appendLF = appendLF) {
+mprint <- function(..., appendLF = TRUE) {
   msg <- capture.output(print(...))
   msg <- paste(msg, collapse = "\n")
   message(msg, appendLF = appendLF)
 }
 
 #' @importFrom utils capture.output str
-mstr <- function(..., appendLF = appendLF) {
+mstr <- function(..., appendLF = TRUE) {
   msg <- capture.output(str(...))
   msg <- paste(msg, collapse = "\n")
   message(msg, appendLF = appendLF)
@@ -100,8 +100,7 @@ hpaste <- function(..., sep = "", collapse = ", ", lastCollapse = NULL, maxHead 
 } # hpaste()
 
 
-parseCmdArgs <- function() {
-  cmdargs <- getOption("future.cmdargs", commandArgs())
+parseCmdArgs <- function(cmdargs = getOption("future.tests.cmdargs", commandArgs())) {
   args <- list()
 
   ## Option --cores=<n>

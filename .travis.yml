@@ -7,13 +7,12 @@
 # YAML validated using http://www.yamllint.com/
 #----------------------------------------------------------------
 language: r
-sudo: false
 cache: packages
 warnings_are_errors: false
 r_check_args: --as-cran
 latex: false
 
-matrix:
+jobs:
   include:
     - os: linux
       r: oldrel
@@ -86,6 +85,15 @@ matrix:
         - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
         - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
       env: BACKEND='future.BatchJobs::batchjobs_local'
+    - os: linux
+      r: release
+      script:
+        - R CMD build --no-build-vignettes --no-manual .
+      r_packages:
+        - covr
+      after_success:
+        - Rscript -e 'covr::codecov(quiet=FALSE)'
+      env: NB='covr' ## Just a label
 
 before_install:
   - Rscript -e 'c(physical = parallel::detectCores(logical = FALSE), logical = parallel::detectCores())'
