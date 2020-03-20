@@ -92,6 +92,15 @@ repos_status <- function() {
   }
 }
 
+github <- function(text = FALSE) {
+  if (!file.exists(".github/workflows/R-CMD-check.yaml")) return("")
+  repos <- github_repos()
+  sprintf("[![R build status](https://github.com/%s/workflows/R-CMD-check/badge.svg?branch=develop)](https://github.com/%s/actions?query=workflow%%3AR-CMD-check)", repos, repos)
+  body <- sprintf('<img src="https://github.com/%s/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status">', github_repos())
+  if (text) body <- "GitHub Actions"
+  sprintf('<a href="https://github.com/%s/actions?query=workflow%%3AR-CMD-check">%s</a>', repos, body)
+}
+
 travis <- function(text = FALSE) {
   if (!file.exists(".travis.yml")) return("")
   repos <- github_repos()
@@ -181,8 +190,8 @@ Contributing to this package is easy.  Just send a [pull request](https://help.g
 
 ## Software status
 
-| Resource:     | <%=repos()%>        | Travis CI       | Appveyor         |
-| ------------- | ------------------- | --------------- | ---------------- |
-| _Platforms:_  | _Multiple_          | _Linux & macOS_ | _Windows_        |
-| R CMD check   | <%=repos_status()%> | <%=travis()%>   | <%=appveyor() %> |
-| Test coverage |                     | <%=covr()%>     |                  |
+| Resource      | <%=repos()%>        | GitHub Actions      | Travis CI       | Appveyor         |
+| ------------- | ------------------- | ------------------- | --------------- | ---------------- |
+| _Platforms:_  | _Multiple_          | _Multiple_          | _Linux & macOS_ | _Windows_        |
+| R CMD check   | <%=repos_status()%> | <%=github()%>       | <%=travis()%>   | <%=appveyor() %> |
+| Test coverage |                     |                     | <%=covr()%>     |                  |
