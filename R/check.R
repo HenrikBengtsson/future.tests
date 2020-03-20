@@ -41,6 +41,11 @@
 #' can use for instance `exit_code=$?` to retrieve the exit code of the
 #' most recent call.
 #'
+#' @examples
+#' results <- future.tests::check(plan = "sequential", tags = c("rng"))
+#' exit_code <- attr(results, "exit_code")
+#' if (exit_code != 0) stop("One or more tests failed")
+#'
 #' @importFrom cli rule
 #' @importFrom sessioninfo session_info
 #' @importFrom utils packageVersion

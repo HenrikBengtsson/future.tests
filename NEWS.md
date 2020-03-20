@@ -1,8 +1,17 @@
 # future.tests
 
-## Version: 0.1.1-9000 [2020-03-13]
+## Version: 0.2.1 [2020-03-19]
 
- * ...
+### CRAN Re-submission Requests
+
+ * Update the package description to use single quotes.
+
+ * Add example to check().
+
+
+## Version: 0.2.0 [2020-03-13]
+
+ * First version released on CRAN.
 
 
 ## Version: 0.1.1 [2020-01-06]
