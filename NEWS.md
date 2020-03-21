@@ -11,7 +11,7 @@
 
  * Update the package description to use single quotes.
 
- * Add example to check().
+ * Add example to `check()`.
 
 
 ## Version: 0.2.0 [2020-03-13]
