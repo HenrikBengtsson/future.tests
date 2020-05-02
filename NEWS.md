@@ -1,8 +1,10 @@
 # future.tests
 
-## Version: 0.2.1-9000 [2020-03-20]
+## Version: 0.2.1-9000 [2020-05-02]
 
- * ...
+### New Features
+
+ * For robustness, using explicit stringsAsFactors=FALSE internally.
  
 
 ## Version: 0.2.1 [2020-03-19]
