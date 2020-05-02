@@ -61,7 +61,7 @@ register_test <- function(test) {
 #' @param root (internal) An alternative file directory from where
 #' \pkg{future.tests} tests are sourced.
 #'
-#' @return Number of tests added.
+#' @return (invisible) the value of `test_db()`.
 #'
 #' @importFrom utils file_test
 #' @export
