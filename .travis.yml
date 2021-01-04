@@ -78,15 +78,6 @@ jobs:
       env: BACKEND='future.batchtools::batchtools_local'
     - os: linux
       r: release
-      r_packages:
-        - future.BatchJobs
-      script:
-        - R CMD build --no-build-vignettes --no-manual .
-        - R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
-        - Rscript -e "future.tests::check" --args --test-plan="${BACKEND}"
-      env: BACKEND='future.BatchJobs::batchjobs_local'
-    - os: linux
-      r: release
       script:
         - R CMD build --no-build-vignettes --no-manual .
       r_packages:
