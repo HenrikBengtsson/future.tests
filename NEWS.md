@@ -1,10 +1,14 @@
 # future.tests
 
-## Version: 0.2.1-9000 [2020-05-02]
+## Version: 0.2.1-9000 [2021-01-19]
 
 ### New Features
 
  * For robustness, using explicit stringsAsFactors=FALSE internally.
+
+### Bug Fixes
+
+ * Tests on resolve() would use deprecated argument 'value'.
  
 
 ## Version: 0.2.1 [2020-03-19]
