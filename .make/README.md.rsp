@@ -132,6 +132,9 @@ covr <- function() {
   }
 }
 %>
+
+<% if (file.exists(file <- "man/figures/logo.png")) { %><img src="<%= file %>" align="right" /><% } %>
+
 # <%=pkg()%>: <%=pkg_title()%>
 
 <% if (file.exists("OVERVIEW.md")) { R.rsp::rcat(file="OVERVIEW.md") } %>
@@ -155,42 +158,38 @@ BiocManager::install("<%=pkg()%>")
 <% } else { %>
 R package <%=pkg()%> is only available via [GitHub](https://github.com/<%=github_repos()%>) and can be installed in R as:
 ```r
-remotes::install_github("<%=github_repos()%>")
+remotes::install_github("<%=github_repos()%>", ref="master")
 <%---
 source("http://callr.org/install#<%=github_repos()%>")
 ---%>
 ```
 <% } %>
 
-<% if (git_branch() != "master" && !grepl("^release/", git_branch())) { %>
+
 ### Pre-release version
 
-To install the pre-release version that is available in Git branch `<%=git_branch()%>` on GitHub, use:
+To install the pre-release version that is available in Git branch `develop` on GitHub, use:
 ```r
-remotes::install_github("<%=github_repos()%>@<%=git_branch()%>")
-<%---
-source("http://callr.org/install#<%=github_repos()%>@<%=git_branch()%>")
----%>
+remotes::install_github("<%=github_repos()%>", ref="develop")
 ```
 This will install the package from source.  <% if (file.exists("src")) { %><%-%>
 Because of this and because this package also compiles native code, Windows users need to have [Rtools](https://cran.r-project.org/bin/windows/Rtools/) installed and macOS users need to have [Xcode](https://developer.apple.com/xcode/) installed.
 <% } # if (file.exists("src")) %>
-
-<% } # if (git_branch() != "master") %>
-
 <% } # if (file.exists("INSTALL.md")) %>
 
 
 ## Contributions
 
-This Git repository uses the [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model (the [`git flow`](https://github.com/petervanderdoes/gitflow-avh) extension is useful for this).  The [`develop`](https://github.com/<%=github_repos()%>/tree/develop) branch contains the latest contributions and other code that will appear in the next release, and the [`master`](https://github.com/<%=github_repos()%>) branch contains the code of the latest release<% if (cran() || bioc()) { %>, which is exactly what is currently on <%=repos_page()%><% } %>.
+This Git repository uses the [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model (the [`git flow`](https://github.com/petervanderdoes/gitflow-avh) extension is useful for this).  The [`develop`](https://github.com/<%=github_repos()%>/tree/develop) branch contains the latest contributions and other code that will appear in the next release, and the [`master`](https://github.com/<%=github_repos()%>) branch contains the code of the latest release<% if (cran() || bioc()) { %>, which is exactly what is currently on <%=repos_page()%><% } %>.
 
 Contributing to this package is easy.  Just send a [pull request](https://help.github.com/articles/using-pull-requests/).  When you send your PR, make sure `develop` is the destination branch on the [<%=pkg()%> repository](https://github.com/<%=github_repos()%>).  Your PR should pass `R CMD check --as-cran`, which will also be checked by <%=travis(text = TRUE)%> and <%=appveyor(text = TRUE)%> when the PR is submitted.
+
+We abide to the [Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) of Contributor Covenant.
 
 
 ## Software status
 
-| Resource      | <%=repos()%>        | GitHub Actions      | Travis CI       | Appveyor         |
+| Resource      | <%=repos()%>        | GitHub Actions      | Travis CI       | AppVeyor CI      |
 | ------------- | ------------------- | ------------------- | --------------- | ---------------- |
 | _Platforms:_  | _Multiple_          | _Multiple_          | _Linux & macOS_ | _Windows_        |
 | R CMD check   | <%=repos_status()%> | <%=github()%>       | <%=travis()%>   | <%=appveyor() %> |

@@ -1,10 +1,13 @@
 AppVeyor
-batchtools
-callr
 CLI
 CMD
+Parallelization
+Pre
+batchtools
+callr
 macOS
 multisession
-Parallelization
+pre
+stringsAsFactors
 travis
 yml

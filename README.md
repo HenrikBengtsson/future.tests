@@ -1,4 +1,7 @@
-# future.tests: Test Suite for 'Future' API Backends
+
+
+
+# future.tests: Test Suite for 'Future API' Backends
 
 The **[future]** package defines the Future API which consists of a small number of functions for writing [R] code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code.  Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the **parallel** package) or via third-party backends such as **[future.callr]** and **[future.batchtools]**.  The design motto of the Future API is:
 
@@ -74,26 +77,27 @@ R package future.tests is available on [CRAN](https://cran.r-project.org/package
 install.packages("future.tests")
 ```
 
+
 ### Pre-release version
 
 To install the pre-release version that is available in Git branch `develop` on GitHub, use:
 ```r
-remotes::install_github("HenrikBengtsson/future.tests@develop")
+remotes::install_github("HenrikBengtsson/future.tests", ref="develop")
 ```
 This will install the package from source.  
 
-
-
 ## Contributions
 
-This Git repository uses the [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model (the [`git flow`](https://github.com/petervanderdoes/gitflow-avh) extension is useful for this).  The [`develop`](https://github.com/HenrikBengtsson/future.tests/tree/develop) branch contains the latest contributions and other code that will appear in the next release, and the [`master`](https://github.com/HenrikBengtsson/future.tests) branch contains the code of the latest release, which is exactly what is currently on [CRAN](https://cran.r-project.org/package=future.tests).
+This Git repository uses the [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model (the [`git flow`](https://github.com/petervanderdoes/gitflow-avh) extension is useful for this).  The [`develop`](https://github.com/HenrikBengtsson/future.tests/tree/develop) branch contains the latest contributions and other code that will appear in the next release, and the [`master`](https://github.com/HenrikBengtsson/future.tests) branch contains the code of the latest release, which is exactly what is currently on [CRAN](https://cran.r-project.org/package=future.tests).
 
 Contributing to this package is easy.  Just send a [pull request](https://help.github.com/articles/using-pull-requests/).  When you send your PR, make sure `develop` is the destination branch on the [future.tests repository](https://github.com/HenrikBengtsson/future.tests).  Your PR should pass `R CMD check --as-cran`, which will also be checked by <a href="https://travis-ci.org/HenrikBengtsson/future.tests">Travis CI</a> and <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests">AppVeyor CI</a> when the PR is submitted.
+
+We abide to the [Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/) of Contributor Covenant.
 
 
 ## Software status
 
-| Resource      | CRAN        | GitHub Actions      | Travis CI       | Appveyor         |
+| Resource      | CRAN        | GitHub Actions      | Travis CI       | AppVeyor CI      |
 | ------------- | ------------------- | ------------------- | --------------- | ---------------- |
 | _Platforms:_  | _Multiple_          | _Multiple_          | _Linux & macOS_ | _Windows_        |
 | R CMD check   | <a href="https://cran.r-project.org/web/checks/check_results_future.tests.html"><img border="0" src="http://www.r-pkg.org/badges/version/future.tests" alt="CRAN version"></a> | <a href="https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check"><img src="https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status"></a>       | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
