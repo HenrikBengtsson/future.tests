@@ -1,58 +1,58 @@
-── Settings ────────────────────────────────────────────────────────────────────
+[36m──[39m [36mSettings[39m [36m────────────────────────────────────────────────────────────────────[39m
 - future.tests version      : 0.2.1.9000
 - R_FUTURE_TESTS_ROOT       : 
 - Option 'future.tests.root': NULL
-- Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/4.0-custom/future.tests/test-db
+- Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/4.0-CBI/future.tests/test-db
 - Max number of workers     : 2
 - Timeout                   : N/A
 
-── Running 41 test sets with plan(future.batchtools::batchtools_local) ─────────
-ℹ Backend package: future.batchtools 0.10.0
-✔ future() - conditions (1 test) (1s)
-✔ %<-% - conditions (1 test) (847ms)
-✔ Argument '...' (1 test) (877ms)
-✔ Argument '...' from parent function (1 test) (888ms)
-✔ Argument '...' - non existing (1 test) (876ms)
-✔ Argument '...' - exception (1 test) (5ms)
-✔ Early signaling of errors (4 tests) (3.3s)
-✔ Early signaling of warnings (4 tests) (3.5s)
-✔ Early signaling of messages (4 tests) (3.4s)
-✔ %<-% - local evaluation (2 tests) (1.8s)
-✔ %<-% - local evaluation & global variable (2 tests) (1.7s)
-✔ %<-% - errors (2 tests) (1.6s)
-✔ %<-% - errors and listenv (2 tests) (5s)
-✔ %<-% & %->% (2 tests) (3.3s)
-✔ %<-% - nested (1 test) (1.7s)
-✔ futureAssign() - lazy evaluation (2 tests) (1.7s)
-✔ futureAssign() - potential task name clashes (1 test) (1.8s)
-✔ futureAssign() - global variables with and without lazy evaluation (2 tests) (3.5s)
-✔ futureAssign() - lazy evaluation via disposable option (2 tests) (1.7s)
-✔ futureCall() (4 tests) (6.4s)
-✔ futureCall() - globals = list(a = 3) (2 tests) (3.1s)
-✔ futureCall() - globals = "a" (2 tests) (3.1s)
-✔ resolved() on lazy futures (1 test) (901ms)
-✔ demo("mandelbrot", package = "future") (2 tests) (7.4s)
-✔ nbrOfWorkers() (1 test) (1ms)
-✔ plan() (1 test) (1ms)
-✔ plan() - workers=<numeric> (1 test) (1ms)
-✔ plan() - workers=<function> (1 test) (1ms)
-✔ plan() - workers=<invalid> (1 test) (1ms)
-✔ resolve() (8 tests) (10.9s)
-✔ resolve() - run-time exception (8 tests) (6.8s)
-✔ resolve(<list of futures and values>) (2 tests) (3.3s)
-✔ resolve(<list of futures>) (2 tests) (3.2s)
-✔ resolve(<named matrix list of futures and values>) - time ordering (1 test) (2.2s)
-✔ resolved() - assert non-blocking while launching lazy futures (1 test) (4.8s)
-✔ Random Number Generation (RNG) - seeds (1 test) (795ms)
-✔ Random Number Generation (RNG) - future (2 tests) (11.1s)
-✔ Random Number Generation (RNG) - %<-% (2 tests) (10.2s)
-✔ future() - standard output (2 tests) (1.7s)
-✔ %<-% - standard output (2 tests) (1.7s)
-✔ value() - visibility (1 test) (1.7s)
+[36m──[39m [36mRunning 41 test sets with plan(future.batchtools::batchtools_local)[39m [36m─────────[39m
+ℹ Backend package: future.batchtools 0.10.0.9000
+[32m✔[39m future() - conditions [90m(1 test)[39m [36m(1.1s)[39m
+[32m✔[39m %<-% - conditions [90m(1 test)[39m [36m(1.1s)[39m
+[32m✔[39m Argument '...' [90m(1 test)[39m [36m(989ms)[39m
+[32m✔[39m Argument '...' from parent function [90m(1 test)[39m [36m(958ms)[39m
+[32m✔[39m Argument '...' - non existing [90m(1 test)[39m [36m(956ms)[39m
+[32m✔[39m Argument '...' - exception [90m(1 test)[39m [36m(4ms)[39m
+[32m✔[39m Early signaling of errors [90m(4 tests)[39m [36m(3.8s)[39m
+[32m✔[39m Early signaling of warnings [90m(4 tests)[39m [36m(3.6s)[39m
+[32m✔[39m Early signaling of messages [90m(4 tests)[39m [36m(3.9s)[39m
+[32m✔[39m %<-% - local evaluation [90m(2 tests)[39m [36m(2s)[39m
+[32m✔[39m %<-% - local evaluation & global variable [90m(2 tests)[39m [36m(1.9s)[39m
+[32m✔[39m %<-% - errors [90m(2 tests)[39m [36m(1.9s)[39m
+[32m✔[39m %<-% - errors and listenv [90m(2 tests)[39m [36m(5.6s)[39m
+[32m✔[39m %<-% & %->% [90m(2 tests)[39m [36m(3.6s)[39m
+[32m✔[39m %<-% - nested [90m(1 test)[39m [36m(1.7s)[39m
+[32m✔[39m futureAssign() - lazy evaluation [90m(2 tests)[39m [36m(1.8s)[39m
+[32m✔[39m futureAssign() - potential task name clashes [90m(1 test)[39m [36m(1.9s)[39m
+[32m✔[39m futureAssign() - global variables with and without lazy evaluation [90m(2 tests)[39m [36m(4.1s)[39m
+[32m✔[39m futureAssign() - lazy evaluation via disposable option [90m(2 tests)[39m [36m(1.9s)[39m
+[32m✔[39m futureCall() [90m(4 tests)[39m [36m(7s)[39m
+[32m✔[39m futureCall() - globals = list(a = 3) [90m(2 tests)[39m [36m(3.2s)[39m
+[32m✔[39m futureCall() - globals = "a" [90m(2 tests)[39m [36m(2.9s)[39m
+[32m✔[39m resolved() on lazy futures [90m(1 test)[39m [36m(831ms)[39m
+[32m✔[39m demo("mandelbrot", package = "future") [90m(2 tests)[39m [36m(7.3s)[39m
+[32m✔[39m nbrOfWorkers() [90m(1 test)[39m [36m(1ms)[39m
+[32m✔[39m plan() [90m(1 test)[39m [36m(1ms)[39m
+[32m✔[39m plan() - workers=<numeric> [90m(1 test)[39m [36m(1ms)[39m
+[32m✔[39m plan() - workers=<function> [90m(1 test)[39m [36m(1ms)[39m
+[32m✔[39m plan() - workers=<invalid> [90m(1 test)[39m [36m(1ms)[39m
+[32m✔[39m resolve() [90m(8 tests)[39m [36m(10.6s)[39m
+[32m✔[39m resolve() - run-time exception [90m(8 tests)[39m [36m(6.6s)[39m
+[32m✔[39m resolve(<list of futures and values>) [90m(2 tests)[39m [36m(3.2s)[39m
+[32m✔[39m resolve(<list of futures>) [90m(2 tests)[39m [36m(3.7s)[39m
+[32m✔[39m resolve(<named matrix list of futures and values>) - time ordering [90m(1 test)[39m [36m(2.4s)[39m
+[32m✔[39m resolved() - assert non-blocking while launching lazy futures [90m(1 test)[39m [36m(6.1s)[39m
+[32m✔[39m Random Number Generation (RNG) - seeds [90m(1 test)[39m [36m(1s)[39m
+[32m✔[39m Random Number Generation (RNG) - future [90m(2 tests)[39m [36m(11.5s)[39m
+[32m✔[39m Random Number Generation (RNG) - %<-% [90m(2 tests)[39m [36m(10.7s)[39m
+[32m✔[39m future() - standard output [90m(2 tests)[39m [36m(1.7s)[39m
+[32m✔[39m %<-% - standard output [90m(2 tests)[39m [36m(1.9s)[39m
+[32m✔[39m value() - visibility [90m(1 test)[39m [36m(1.7s)[39m
 
 Number of tests: 84
 
-Duration: 1m 58.7s
+Duration: 2m 6.1s
 
-Results: 0 errors ✔ | 0 timeouts ✔
+Results: [32m0 errors [32m✔[32m[39m | [32m0 timeouts ✔[39m
 
