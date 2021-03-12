@@ -6,7 +6,7 @@ In order for such code to work regardless of which future backend the end-user c
 
 This R package - **[future.tests]** - provides a test suite for validation that a future backend complies with the Future API.
 
-![](screencast.gif)
+![](man/figures/screencast.gif)
 
 
 ## Validate a Future Backend
