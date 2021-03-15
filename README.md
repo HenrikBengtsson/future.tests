@@ -1,5 +1,16 @@
 
 
+<div id="badges"><!-- pkgdown markup -->
+<a href="https://CRAN.R-project.org/web/checks/check_results_future.tests.html"><img border="0" src="https://www.r-pkg.org/badges/version/future.tests" alt="CRAN check status"></a></a>
+<a href="https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status"></a></a>
+<a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img border="0" src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a></a>
+<a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img border="0" src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a></a>
+<a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"></a></a>
+<a href="https://lifecycle.r-lib.org/articles/stages.html"><img border="0" src="man/figures/lifecycle-maturing-blue.svg" alt="Life cycle: maturing"></a></a>
+<a href="https://www.r-consortium.org/projects/awarded-projects"><img border="0" src="man/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: Project 2017-2"></a></a>
+</div>
+
+
 
 # future.tests: Test Suite for 'Future API' Backends
 
@@ -87,19 +98,8 @@ remotes::install_github("HenrikBengtsson/future.tests", ref="develop")
 This will install the package from source.  
 
 
-<div id="badges"><!-- pkgdown markup -->
+<!-- pkgdown-drop-below -->
 
 ## Contributing
 
 To contribute to this package, please see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-
-## Software status
-
-| Resource      | CRAN        | GitHub Actions      | Travis CI       | AppVeyor CI      |
-| ------------- | ------------------- | ------------------- | --------------- | ---------------- |
-| _Platforms:_  | _Multiple_          | _Multiple_          | _Linux & macOS_ | _Windows_        |
-| R CMD check   | <a href="https://cran.r-project.org/web/checks/check_results_future.tests.html"><img border="0" src="http://www.r-pkg.org/badges/version/future.tests" alt="CRAN version"></a> | <a href="https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check"><img src="https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status"></a>       | <a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a>   | <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a> |
-| Test coverage |                     |                     | <a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"/></a>     |                  |
-
-</div>
