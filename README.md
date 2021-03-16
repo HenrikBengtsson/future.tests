@@ -7,9 +7,8 @@
 <a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img border="0" src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a></a>
 <a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"></a></a>
 <a href="https://lifecycle.r-lib.org/articles/stages.html"><img border="0" src="man/figures/lifecycle-maturing-blue.svg" alt="Life cycle: maturing"></a></a>
-<a href="https://www.r-consortium.org/projects/awarded-projects"><img border="0" src="man/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: Project 2017-2"></a></a>
+<a href="https://www.r-consortium.org/projects/awarded-projects"><img border="0" src="man/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: ISC Project 2017-2"></a></a>
 </div>
-
 
 
 # future.tests: Test Suite for 'Future API' Backends
