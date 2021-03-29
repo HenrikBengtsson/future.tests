@@ -10,8 +10,7 @@
 <a href="https://www.r-consortium.org/projects/awarded-projects"><img border="0" src="man/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: ISC Project 2017-2"></a></a>
 </div>
 
-
-# future.tests: Test Suite for 'Future API' Backends
+# future.tests: Test Suite for 'Future API' Backends 
 
 The **[future]** package defines the Future API which consists of a small number of functions for writing [R] code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code.  Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the **parallel** package) or via third-party backends such as **[future.callr]** and **[future.batchtools]**.  The design motto of the Future API is:
 
