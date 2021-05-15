@@ -1,8 +1,8 @@
 pandoc: 1.19.2.4
-pkgdown: 1.6.1.9001
-pkgdown_sha: c6bd498aa2e0ae2e15e267891aaa69c6c15ab79f
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles: {}
-last_built: 2021-04-07T18:36Z
+last_built: 2021-05-15T22:18Z
 urls:
   reference: https://future.tests.futureverse.org/reference
   article: https://future.tests.futureverse.org/articles

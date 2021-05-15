@@ -57,8 +57,6 @@
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -80,16 +78,9 @@
 </script>
 
 
-
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -110,6 +101,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -203,17 +200,17 @@
     </div>
 
 
-<p>The <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org" class="external-link">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr" class="external-link">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools" class="external-link">future.batchtools</a></strong>. The design motto of the Future API is:</p>
+<p>The <strong><a href="https://cran.r-project.org/package=future">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools">future.batchtools</a></strong>. The design motto of the Future API is:</p>
 <blockquote>
 <p>Write once, run anywhere</p>
 </blockquote>
 <p>In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the Future API. A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.</p>
-<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
+<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
 <p><img src="man/figures/screencast.gif"></p>
 <div id="validate-a-future-backend" class="section level2">
 <h2 class="hasAnchor">
 <a href="#validate-a-future-backend" class="anchor"></a>Validate a Future Backend</h2>
-<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
+<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
 </div>
 <div id="from-within-r" class="section level2">
 <h2 class="hasAnchor">
@@ -254,7 +251,7 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
         <span class="kw">-</span> R CMD INSTALL *.tar.gz
         <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
       <span class="fu">env:</span><span class="at"> BACKEND='future.callr::callr'</span></code></pre></div>
-<p>See <a href="https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml" class="external-link">.travis.yml of the future.callr package</a> for a full example.</p>
+<p>See <a href="https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml">.travis.yml of the future.callr package</a> for a full example.</p>
 </div>
 </div>
 </div>
@@ -274,11 +271,11 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Henrik Bengtsson.</p></p>
+  <p>Developed by Henrik Bengtsson,  The R Consortium.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p> and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9001.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9002.</p>
 </div>
 
       </footer>
@@ -304,8 +301,6 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
 </script>
 
 
-
-  
 
   </body>
 </html>

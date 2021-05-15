@@ -33,8 +33,6 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -53,6 +51,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -147,17 +151,17 @@
 <div id="future-tests-test-suite-for-future-api-backends" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#future-tests-test-suite-for-future-api-backends" class="anchor"></a>future.tests: Test Suite for ‘Future API’ Backends</h1></div>
-<p>The <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org" class="external-link">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr" class="external-link">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools" class="external-link">future.batchtools</a></strong>. The design motto of the Future API is:</p>
+<p>The <strong><a href="https://cran.r-project.org/package=future">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools">future.batchtools</a></strong>. The design motto of the Future API is:</p>
 <blockquote>
 <p>Write once, run anywhere</p>
 </blockquote>
 <p>In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the Future API. A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.</p>
-<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
+<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
 <p><img src="reference/figures/screencast.gif"></p>
 <div id="validate-a-future-backend" class="section level2">
 <h2 class="hasAnchor">
 <a href="#validate-a-future-backend" class="anchor"></a>Validate a Future Backend</h2>
-<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
+<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
 </div>
 <div id="from-within-r" class="section level2">
 <h2 class="hasAnchor">
@@ -198,22 +202,22 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
         <span class="kw">-</span> R CMD INSTALL *.tar.gz
         <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
       <span class="fu">env:</span><span class="at"> BACKEND='future.callr::callr'</span></code></pre></div>
-<p>See <a href="https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml" class="external-link">.travis.yml of the future.callr package</a> for a full example.</p>
+<p>See <a href="https://github.com/HenrikBengtsson/future.callr/blob/develop/.travis.yml">.travis.yml of the future.callr package</a> for a full example.</p>
 </div>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>R package future.tests is available on <a href="https://cran.r-project.org/package=future.tests" class="external-link">CRAN</a> and can be installed in R as:</p>
+<p>R package future.tests is available on <a href="https://cran.r-project.org/package=future.tests">CRAN</a> and can be installed in R as:</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"future.tests"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"future.tests"</span><span class="op">)</span></code></pre></div>
 <div id="pre-release-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pre-release-version" class="anchor"></a>Pre-release version</h3>
 <p>To install the pre-release version that is available in Git branch <code>develop</code> on GitHub, use:</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"HenrikBengtsson/future.tests"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"HenrikBengtsson/future.tests"</span>, ref<span class="op">=</span><span class="st">"develop"</span><span class="op">)</span></code></pre></div>
 <p>This will install the package from source.</p>
 </div>
 </div>
@@ -223,7 +227,7 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2 data-toc-skip>Links</h2>
+<h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=future.tests">https://​cloud.r-project.org/​package=future.tests</a>
 </li>
@@ -237,60 +241,55 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
 </li>
 </ul>
 </div>
-
 <div class="license">
-<h2 data-toc-skip>License</h2>
+<h2>License</h2>
 <ul class="list-unstyled">
 <li>LGPL (&gt;= 2.1)</li>
 </ul>
 </div>
-
 <div class="community">
-<h2 data-toc-skip>Community</h2>
+<h2>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 </ul>
 </div>
-
 <div class="citation">
-<h2 data-toc-skip>Citation</h2>
+<h2>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing future.tests</a></li>
 </ul>
 </div>
-
 <div class="developers">
-<h2 data-toc-skip>Developers</h2>
+<h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Henrik Bengtsson <br><small class="roles"> Author, maintainer, copyright holder </small>  </li>
+<li> The R Consortium <br><small class="roles"> Funder </small>  <br><small>(Project was awared an Infrastructure Steering Committee (ISC) grant in 2017)</small>
+</li>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
+  <div class="dev-status">
+<h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/web/checks/check_results_future.tests.html" class="external-link"><img border="0" src="https://www.r-pkg.org/badges/version/future.tests" alt="CRAN check status"></a></li>
-<li><a href="https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check" class="external-link"><img border="0" src="https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status"></a></li>
-<li><a href="https://travis-ci.org/HenrikBengtsson/future.tests" class="external-link"><img border="0" src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a></li>
-<li><a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests" class="external-link"><img border="0" src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a></li>
-<li><a href="https://codecov.io/gh/HenrikBengtsson/future.tests" class="external-link"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img border="0" src="reference/figures/lifecycle-maturing-blue.svg" alt="Life cycle: maturing"></a></li>
-<li><a href="https://www.r-consortium.org/projects/awarded-projects" class="external-link"><img border="0" src="reference/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: ISC Project 2017-2"></a></li>
+<li><a href="https://CRAN.R-project.org/web/checks/check_results_future.tests.html"><img border="0" src="https://www.r-pkg.org/badges/version/future.tests" alt="CRAN check status"></a></li>
+<li><a href="https://github.com/HenrikBengtsson/future.tests/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/HenrikBengtsson/future.tests/workflows/R-CMD-check/badge.svg?branch=develop" alt="Build status"></a></li>
+<li><a href="https://travis-ci.org/HenrikBengtsson/future.tests"><img border="0" src="https://travis-ci.org/HenrikBengtsson/future.tests.svg" alt="Build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/HenrikBengtsson/future-tests"><img border="0" src="https://ci.appveyor.com/api/projects/status/github/HenrikBengtsson/future.tests?svg=true" alt="Build status"></a></li>
+<li><a href="https://codecov.io/gh/HenrikBengtsson/future.tests"><img border="0" src="https://codecov.io/gh/HenrikBengtsson/future.tests/branch/develop/graph/badge.svg" alt="Coverage Status"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img border="0" src="reference/figures/lifecycle-maturing-blue.svg" alt="Life cycle: maturing"></a></li>
+<li><a href="https://www.r-consortium.org/projects/awarded-projects"><img border="0" src="reference/figures/R_Consortium-logo-horizontal-white-purple-badge.svg" alt="R Consortium: ISC Project 2017-2"></a></li>
 </ul>
 </div>
-
-  </div>
+</div>
 </div>
 
 
       <footer><div class="copyright">
-  <p></p>
-<p>Developed by Henrik Bengtsson.</p>
+  <p>Developed by Henrik Bengtsson,  The R Consortium.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9001.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9002.</p>
 </div>
 
       </footer>
