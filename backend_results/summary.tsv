@@ -1,6 +1,5 @@
-future.batchtools,batchtools_local	2m 5.1s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
-future.callr,callr	1m 6.7s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
-future,cluster	1m 12.3s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
-future,multicore	21.5s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
-future,multisession	1m 14.8s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
-future,sequential	9.4s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
+future.batchtools,batchtools_local	2m 11.4s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
+future,cluster	56.4s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
+future,multicore	22.5s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
+future,multisession	1m 1.7s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m
+future,sequential	9.3s	[32m0 errors [32m✔[32m[39m	[32m0 timeouts[39m

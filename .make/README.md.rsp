@@ -91,7 +91,7 @@ img <- function(url, ..., alt, align=NULL) {
   } else if (format == "html") {
     attrs <- ""
     if (!is.null(align)) attrs <- paste(attrs, sprintf('align="%s"', align))
-    sprintf('<img border="0" src="%s" alt="%s"%s></a>', url, alt, attrs)
+    sprintf('<img border="0" src="%s" alt="%s"%s/>', url, alt, attrs)
   } else {
     stop("Unknown format: ", sQuote(format))
   }
@@ -147,15 +147,16 @@ appveyor <- function(text = FALSE) {
 }
 
 covr <- function() {
-  if (!file.exists(".travis.yml")) return("")
-  bfr <- readLines(".travis.yml")
-  codecov <- any(grepl("covr::codecov", bfr, fixed=TRUE))
-  if (codecov) {
-    a("https://codecov.io/gh/%s", github_repos(), body=img("https://codecov.io/gh/%s/branch/develop/graph/badge.svg", github_repos(), alt="Coverage Status"))
-  } else {
-    if (!file.exists(".covr.R")) return("")
-    a("https://coveralls.io/r/%s", github_repos(), body=img("https://coveralls.io/repos/%s/badge.svg?branch=develop", github_repos(), alt="Coverage Status"))
+  bfr <- NULL
+  files <- c("covr.yaml", "R-CMD-check.yaml")
+  for (file in file.path(".github/workflows", files)) {
+    if (file.exists(file)) {
+      bfr <- readLines(file)
+      break
+    }
   }
+  if (!any(grepl("covr::codecov", bfr, fixed=TRUE))) return()
+  a("https://codecov.io/gh/%s", github_repos(), body=img("https://codecov.io/gh/%s/branch/develop/graph/badge.svg", github_repos(), alt="Coverage Status"))
 }
 %>
 
@@ -169,12 +170,7 @@ optional_badges <- function() {
 %>
 
 <div id="badges"><!-- pkgdown markup -->
-<%=repos_status()%>
-<%=github()%>
-<%=travis()%>
-<%=appveyor() %>
-<%=covr()%>
-<%=optional_badges()%>
+<%=repos_status()%> <%=github()%> <%=travis()%> <%=appveyor() %> <%=covr()%> <%=optional_badges()%>
 </div>
 
 # <%=pkg()%>: <%=pkg_title()%> <% if (file.exists(file <- "man/figures/logo.png")) { cat(img(file, alt="The 'future' hexlogo", align="right")) } %>
@@ -220,9 +216,13 @@ Because of this and because this package also compiles native code, Windows user
 <% } # if (file.exists("INSTALL.md")) %>
 
 
-
 <!-- pkgdown-drop-below -->
+
+<% if (file.exists("CONTRIBUTING.md") &&
+       any(grepl("README.*md", readLines(".Rbuildignore")))) { %>
 
 ## Contributing
 
 To contribute to this package, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+<% } # if (...) %>
