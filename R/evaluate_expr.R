@@ -102,7 +102,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
 
     ## (c) Assert correctness
     stopifnot(identical(globalenv()$.Random.seed, old$seed))
-    stopifnot(identical(RNGkind(), old$rngkind))
+    stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
   })
   
   if (output == "stdout") {
