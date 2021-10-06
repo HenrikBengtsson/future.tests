@@ -1,8 +1,4 @@
 make_test(title = "resolved() - assert non-blocking while launching lazy futures", args = list(), tags = c("resolved", "lazy"), reset_workers = TRUE, {
-  ## BACKWARD COMPATIBILITY:
-  ## In future (<= 1.16.0), values() was used instead of value() for lists
-  if (packageVersion("future") <= "1.16.0") value <- values
-
   message("Creating lazy futures:")
 
   n <- min(3, nbrOfWorkers() + 1L)
