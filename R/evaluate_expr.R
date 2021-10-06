@@ -89,8 +89,8 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     ## 3. Undo RNG state
     ## ----------------------------------------------------------------------
     ## (b) Undo RNG kind
-    args <- structure(as.list(old$rngkind), names = c("kind", "normal.kind"))
-    if (length(args) == 3) names(args)[3] <- "sample.kind"
+    args <- as.list(old$rngkind)
+    names(args) <- names(formals(RNGkind))
     do.call(RNGkind, args = args)
             
     ## (a) Undo .Random.seed
