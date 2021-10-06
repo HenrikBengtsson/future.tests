@@ -1,6 +1,10 @@
 # future.tests
 
-## Version: 0.2.1-9000 [2021-01-19]
+## Version: 0.2.1-9000 [2021-10-05]
+
+### New Tests
+
+ * Assert that future() doesn't change the RNG kind.
 
 ### New Features
 
