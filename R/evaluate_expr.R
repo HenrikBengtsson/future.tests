@@ -39,11 +39,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     seed    = globalenv()$.Random.seed,
     rngkind = RNGkind()
   )
-  if (length(old$rngkind) == 3) {
-    names(old$rngkind) <- c("kind", "normal.kind", "sample.kind")
-  } else {
-    names(old$rngkind) <- c("kind", "normal.kind")
-  }
+  
   on.exit({
     ## ----------------------------------------------------------------------
     ## 1. Undo options
@@ -93,7 +89,9 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     ## 3. Undo RNG state
     ## ----------------------------------------------------------------------
     ## (b) Undo RNG kind
-    do.call(RNGkind, args = as.list(old$rngkind))
+    args <- structure(as.list(old$rngkind), names = c("kind", "normal.kind"))
+    if (length(args) == 3) names(args)[3] <- "sample.kind"
+    do.call(RNGkind, args = args)
             
     ## (a) Undo .Random.seed
     if (is.null(old$seed)) {
