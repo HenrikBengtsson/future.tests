@@ -1,9 +1,59 @@
 [36m──[39m [36mSettings[39m [36m────────────────────────────────────────────────────────────────────[39m
-- future.tests version      : 0.2.1
+- future.tests version      : 0.2.1.9001
 - R_FUTURE_TESTS_ROOT       : 
 - Option 'future.tests.root': NULL
 - Default test set folder   : /home/hb/R/x86_64-pc-linux-gnu-library/4.1-custom/future.tests/test-db
 - Max number of workers     : 2
 - Timeout                   : N/A
 
-[1] "/home/hb/repositories/future.tests/.Rdump/last.dump_20210810-130809_RtmpRPTQI2.rda"
+[36m──[39m [36mRunning 42 test sets with plan(future.callr::callr)[39m [36m─────────────────────────[39m
+ℹ Backend package: future.callr 0.6.1
+[32m✔[39m future() - conditions [90m(1 test)[39m [36m(533ms)[39m
+[32m✔[39m %<-% - conditions [90m(1 test)[39m [36m(471ms)[39m
+[32m✔[39m future() - muffle conditions [90m(1 test)[39m [36m(495ms)[39m
+[32m✔[39m Argument '...' [90m(1 test)[39m [36m(439ms)[39m
+[32m✔[39m Argument '...' from parent function [90m(1 test)[39m [36m(449ms)[39m
+[32m✔[39m Argument '...' - non existing [90m(1 test)[39m [36m(434ms)[39m
+[32m✔[39m Argument '...' - exception [90m(1 test)[39m [36m(431ms)[39m
+[32m✔[39m Early signaling of errors [90m(4 tests)[39m [36m(1.7s)[39m
+[32m✔[39m Early signaling of warnings [90m(4 tests)[39m [36m(1.7s)[39m
+[32m✔[39m Early signaling of messages [90m(4 tests)[39m [36m(1.8s)[39m
+[32m✔[39m %<-% - local evaluation [90m(2 tests)[39m [36m(912ms)[39m
+[32m✔[39m %<-% - local evaluation & global variable [90m(2 tests)[39m [36m(898ms)[39m
+[32m✔[39m %<-% - errors [90m(2 tests)[39m [36m(903ms)[39m
+[32m✔[39m %<-% - errors and listenv [90m(2 tests)[39m [36m(2.4s)[39m
+[32m✔[39m %<-% & %->% [90m(2 tests)[39m [36m(1.9s)[39m
+[32m✔[39m %<-% - nested [90m(1 test)[39m [36m(949ms)[39m
+[32m✔[39m futureAssign() - lazy evaluation [90m(2 tests)[39m [36m(900ms)[39m
+[32m✔[39m futureAssign() - potential task name clashes [90m(1 test)[39m [36m(487ms)[39m
+[32m✔[39m futureAssign() - global variables with and without lazy evaluation [90m(2 tests)[39m [36m(1.8s)[39m
+[32m✔[39m futureAssign() - lazy evaluation via disposable option [90m(2 tests)[39m [36m(899ms)[39m
+[32m✔[39m futureCall() [90m(4 tests)[39m [36m(4.6s)[39m
+[32m✔[39m futureCall() - globals = list(a = 3) [90m(2 tests)[39m [36m(2.2s)[39m
+[32m✔[39m futureCall() - globals = "a" [90m(2 tests)[39m [36m(2.2s)[39m
+[32m✔[39m resolved() on lazy futures [90m(1 test)[39m [36m(535ms)[39m
+[32m✔[39m demo("mandelbrot", package = "future") [90m(2 tests)[39m [36m(3.1s)[39m
+[32m✔[39m nbrOfWorkers() [90m(1 test)[39m [36m(10ms)[39m
+[32m✔[39m plan() [90m(1 test)[39m [36m(2ms)[39m
+[32m✔[39m plan() - workers=<numeric> [90m(1 test)[39m [36m(859ms)[39m
+[32m✔[39m plan() - workers=<function> [90m(1 test)[39m [36m(2.3s)[39m
+[32m✔[39m plan() - workers=<invalid> [90m(1 test)[39m [36m(4ms)[39m
+[32m✔[39m resolve() [90m(8 tests)[39m [36m(9s)[39m
+[32m✔[39m resolve() - run-time exception [90m(8 tests)[39m [36m(5.3s)[39m
+[32m✔[39m resolve(<list of futures and values>) [90m(2 tests)[39m [36m(1.8s)[39m
+[32m✔[39m resolve(<list of futures>) [90m(2 tests)[39m [36m(2s)[39m
+[32m✔[39m resolve(<named matrix list of futures and values>) - time ordering [90m(1 test)[39m [36m(1.5s)[39m
+[32m✔[39m resolved() - assert non-blocking while launching lazy futures [90m(1 test)[39m [36m(5.3s)[39m
+[32m✔[39m Random Number Generation (RNG) - seeds and preserving RNGkind [90m(1 test)[39m [36m(37ms)[39m
+[32m✔[39m Random Number Generation (RNG) - future [90m(2 tests)[39m [36m(4.1s)[39m
+[32m✔[39m Random Number Generation (RNG) - %<-% [90m(2 tests)[39m [36m(4.4s)[39m
+[32m✔[39m future() - standard output [90m(2 tests)[39m [36m(964ms)[39m
+[32m✔[39m %<-% - standard output [90m(2 tests)[39m [36m(898ms)[39m
+[32m✔[39m value() - visibility [90m(1 test)[39m [36m(774ms)[39m
+
+Number of tests: 85
+
+Duration: 1m 14.6s
+
+Results: [32m0 errors [32m✔[32m[39m | [32m0 timeouts ✔[39m
+
