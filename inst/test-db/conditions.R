@@ -1,16 +1,19 @@
-make_test(title = "future() - conditions", args = list(), tags = c("future", "conditions"), {
-  captureConditions <- function(...) {
-    conditions <- list()
-    withCallingHandlers(..., condition = function(c) {
-      conditions[[length(conditions) + 1L]] <<- c
-      if (inherits(c, "message")) {
-        invokeRestart("muffleMessage")
-      } else if (inherits(c, "warning")) {
-        invokeRestart("muffleWarning")
-      }	
-    })
-    conditions
-  }
+captureConditions <- function(...) {
+  conditions <- list()
+  withCallingHandlers(..., condition = function(c) {
+    conditions[[length(conditions) + 1L]] <<- c
+    if (inherits(c, "message")) {
+      invokeRestart("muffleMessage")
+    } else if (inherits(c, "warning")) {
+      invokeRestart("muffleWarning")
+    }	
+  })
+  conditions
+}
+
+
+make_test(title = "future() - conditions", args = list(), tags = c("future", "conditions"), bquote({
+  captureConditions <- .(captureConditions)
   
   truth <- captureConditions({
     message("hello")
@@ -48,22 +51,11 @@ make_test(title = "future() - conditions", args = list(), tags = c("future", "co
       identical(conditions[[kk]]$message, truth[[kk]]$message)
     )
   }
-})
+}), substitute = FALSE)
 
 
-make_test(title = "%<-% - conditions", args = list(), tags = c("%<-%", "conditions"), {
-  captureConditions <- function(...) {
-    conditions <- list()
-    withCallingHandlers(..., condition = function(c) {
-      conditions[[length(conditions) + 1L]] <<- c
-      if (inherits(c, "message")) {
-        invokeRestart("muffleMessage")
-      } else if (inherits(c, "warning")) {
-        invokeRestart("muffleWarning")
-      }	
-    })
-    conditions
-  }
+make_test(title = "%<-% - conditions", args = list(), tags = c("%<-%", "conditions"), bquote({
+  captureConditions <- .(captureConditions)
   
   truth <- captureConditions({
     message("hello")
@@ -88,4 +80,27 @@ make_test(title = "%<-% - conditions", args = list(), tags = c("%<-%", "conditio
       identical(conditions[[kk]]$message, truth[[kk]]$message)
     )
   }
-})
+}), substitute = FALSE)
+
+
+make_test(title = "future() - muffle conditions", args = list(), tags = c("future", "conditions", "muffle"), bquote({
+  captureConditions <- .(captureConditions)
+  
+  f <- future({
+    print(1:3)
+    message("hello")
+    warning("whoops")
+    message("world")
+    42L
+  }, conditions = character(0L))
+  
+  r <- result(f)
+  str(r)
+  stopifnot(value(f) == 42L)
+
+  conditions <- r$conditions
+  stopifnot(is.list(conditions), length(conditions) == 0L)
+
+  conditions <- captureConditions(value(f))
+  stopifnot(is.list(conditions), length(conditions) == 0L)
+}), substitute = FALSE)

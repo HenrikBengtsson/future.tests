@@ -5,6 +5,8 @@
 ### New Tests
 
  * Assert that future() doesn't change the RNG kind.
+ 
+ * Assert that future(..., conditions = character(0L)) muffles all conditions.
 
 ### New Features
 
