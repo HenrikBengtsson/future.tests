@@ -10,7 +10,8 @@ Imports:
     cli,
     crayon,
     prettyunits,
-    sessioninfo,
+    sessioninfo
+Suggests:
     commonmark,
     base64enc,
     tools
