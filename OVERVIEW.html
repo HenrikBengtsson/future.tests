@@ -120,7 +120,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/future.tests-intro.html">future.tests: An Introduction</a>
+      <a href="articles/future.tests-01-intro.html">future.tests: An Introduction</a>
+    </li>
+    <li>
+      <a href="articles/future.tests-03-ci-github_actions.html">future.tests: Continuous Integration on GitHub Actions</a>
+    </li>
+    <li>
+      <a href="articles/future.tests-03-ci-travis.html">future.tests: Continuous Integration on Travis CI</a>
     </li>
   </ul>
 </li>
@@ -242,145 +248,6 @@
 <div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="ex">Rscript</span> -e future.tests::check --args --test-plan=<span class="st">"multisession"</span>
 $ <span class="va">exit_code=$?</span>
 $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class="kw"> ]]</span> <span class="kw">||</span> <span class="kw">{</span> <span class="op">&gt;&amp;2</span> <span class="bu">echo</span> <span class="st">"One or more tests failed"</span><span class="kw">;</span> <span class="bu">exit</span> 1<span class="kw">;</span> <span class="kw">}</span></code></pre></div>
-</div>
-<div id="continuous-integration" class="section level3">
-<h3 class="hasAnchor">
-<a href="#continuous-integration" class="anchor"></a>Continuous Integration</h3>
-<p>We can use continuous integration (CI) services such as GitHub Action and Travis CI to automatically validate future backends via the <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> test suite.</p>
-<div id="github-actions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h4>
-<p>Here is an example of a <code>.github/workflow/future.tests.yaml</code> file that configures GitHub Actions to check several backends via the <strong>future.tests</strong> test suite via concurrent jobs.</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">on:</span><span class="at"> </span><span class="kw">[</span>push<span class="kw">,</span> pull_request<span class="kw">]</span>
-
-<span class="fu">name:</span><span class="at"> future_tests</span>
-
-<span class="fu">jobs:</span>
-  <span class="fu">future_tests:</span>
-    <span class="fu">if:</span><span class="at"> </span><span class="st">"! contains(github.event.head_commit.message, '[ci skip]')"</span><span class="er">    </span>
-
-    <span class="fu">runs-on:</span><span class="at"> ubuntu-20.04</span>
-
-    <span class="fu">name:</span><span class="at"> future.plan=${{ matrix.future.plan }}</span>
-
-    <span class="fu">strategy:</span>
-      <span class="fu">fail-fast:</span><span class="at"> false</span>
-      <span class="fu">matrix:</span>
-        <span class="fu">future:</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'cluster'</span>                             <span class="kw">}</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'multicore'</span>                           <span class="kw">}</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'multisession'</span>                        <span class="kw">}</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'sequential'</span>                          <span class="kw">}</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'future.batchtools::batchtools_local'</span> <span class="kw">}</span>
-          <span class="kw">-</span> <span class="kw">{</span> <span class="fu">plan:</span><span class="at"> </span><span class="st">'future.callr::callr'</span>                 <span class="kw">}</span>
-
-    <span class="fu">env:</span>
-      <span class="fu">GITHUB_PAT:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span>
-      <span class="fu">RSPM:</span><span class="at"> https://packagemanager.rstudio.com/cran/__linux__/focal/latest</span>
-      <span class="fu">R_REMOTES_NO_ERRORS_FROM_WARNINGS:</span><span class="at"> true</span>
-      <span class="co">## R CMD check</span>
-      <span class="fu">_R_CHECK_LENGTH_1_CONDITION_:</span><span class="at"> true</span>
-      <span class="fu">_R_CHECK_LENGTH_1_LOGIC2_:</span><span class="at"> true</span>
-      <span class="fu">_R_CHECK_MATRIX_DATA_:</span><span class="at"> true</span>
-      <span class="fu">_R_CHECK_CRAN_INCOMING_:</span><span class="at"> false</span>
-      <span class="co">## Specific to futures</span>
-      <span class="fu">R_FUTURE_RNG_ONMISUSE:</span><span class="at"> error</span>
-      
-    <span class="fu">steps:</span>
-      <span class="kw">-</span> <span class="fu">uses:</span><span class="at"> actions/checkout@v2</span>
-
-      <span class="kw">-</span> <span class="fu">uses:</span><span class="at"> r-lib/actions/setup-r@master</span>
-        <span class="fu">with:</span>
-          <span class="fu">r-version:</span><span class="at"> release</span>
-
-      <span class="kw">-</span> <span class="fu">uses:</span><span class="at"> r-lib/actions/setup-pandoc@master</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Query R package dependencies</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          install.packages(<span class="st">'remotes'</span>)
-          <span class="fu">saveRDS(remotes:</span><span class="at">:dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)</span>
-          writeLines(sprintf(<span class="st">"R-%i.%i"</span>, getRversion()$major, getRversion()$minor), <span class="st">".github/R-version"</span>)
-        <span class="fu">shell:</span><span class="at"> Rscript {0}</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Cache R packages</span>
-        <span class="fu">uses:</span><span class="at"> actions/cache@v1</span>
-        <span class="fu">with:</span>
-          <span class="fu">path:</span><span class="at"> ${{ env.R_LIBS_USER }}</span>
-          <span class="fu">key:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}</span>
-          <span class="fu">restore-keys:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Install R package system dependencies (Linux)</span>
-        <span class="fu">if:</span><span class="at"> runner.os == 'Linux'</span>
-        <span class="fu">env:</span>
-          <span class="fu">RHUB_PLATFORM:</span><span class="at"> linux-x86_64-ubuntu-gcc</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          <span class="fu">Rscript -e "remotes:</span><span class="at">:install_github('r-hub/sysreqs')"</span>
-          <span class="fu">sysreqs=$(Rscript -e "cat(sysreqs:</span><span class="at">:sysreq_commands('DESCRIPTION'))")</span>
-          sudo -s eval <span class="st">"$sysreqs"</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Install R package dependencies</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          <span class="fu">remotes:</span><span class="at">:install_deps(dependencies = TRUE)</span>
-          install.packages(<span class="st">"."</span>, repos=NULL, type=<span class="st">"source"</span>)  <span class="co">## needed by parallel workers</span>
-        <span class="fu">shell:</span><span class="at"> Rscript {0}</span>
-          
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Install 'future.tests' and any backend R packages</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          <span class="fu">remotes:</span><span class="at">:install_cran("future.tests")</span>
-          <span class="fu">if (grepl(":</span><span class="at">:", plan &lt;- "${{ matrix.future.plan }}") &amp;&amp; nzchar(pkg &lt;- sub("::.*", "", plan))) install.packages(pkg)</span>
-        <span class="fu">shell:</span><span class="at"> Rscript {0}</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Session info</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          options(width = 100)
-          pkgs &lt;- installed.packages()<span class="kw">[,</span> <span class="st">"Package"</span><span class="kw">]</span>
-          <span class="fu">sessioninfo:</span><span class="at">:session_info(pkgs, include_base = TRUE)</span>
-        <span class="fu">shell:</span><span class="at"> Rscript {0}</span>
-    
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Check future backend '${{ matrix.future.plan }}'</span>
-        <span class="fu">run:</span><span class="at"> |</span>
-          R CMD build --no-build-vignettes --no-manual . 
-          R CMD INSTALL *.tar.gz 
-          <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan=${{ matrix.future.plan }}</span>
-
-      <span class="kw">-</span> <span class="fu">name:</span><span class="at"> Upload check results</span>
-        <span class="fu">if:</span><span class="at"> failure()</span>
-        <span class="fu">uses:</span><span class="at"> actions/upload-artifact@master</span>
-        <span class="fu">with:</span>
-          <span class="fu">name:</span><span class="at"> ${{ runner.os }}-r${{ matrix.future.plan }}-results</span>
-          <span class="fu">path:</span><span class="at"> check</span></code></pre></div>
-</div>
-<div id="travis-ci" class="section level4">
-<h4 class="hasAnchor">
-<a href="#travis-ci" class="anchor"></a>Travis CI</h4>
-<p>Here’s an example <code>.travis.yaml</code> file that configures Travis CI to check the ‘multisession’ and the ‘future.callr::callr’ backends via the <strong>future.tests</strong> test suite via concurrent jobs.</p>
-<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">language:</span><span class="at"> r</span>
-<span class="fu">sudo:</span><span class="at"> false</span>
-<span class="fu">cache:</span><span class="at"> packages</span>
-<span class="fu">warnings_are_errors:</span><span class="at"> false</span>
-<span class="fu">r_check_args:</span><span class="at"> --as-cran</span>
-
-<span class="fu">matrix:</span>
-  <span class="fu">include:</span>
-    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
-      <span class="fu">r:</span><span class="at"> release</span>
-      <span class="fu">r_packages:</span>
-        <span class="kw">-</span> future.tests
-      <span class="fu">script:</span>
-        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
-        <span class="kw">-</span> R CMD INSTALL *.tar.gz
-        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
-      <span class="fu">env:</span><span class="at"> BACKEND='multisession'</span>
-    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
-      <span class="fu">r:</span><span class="at"> release</span>
-      <span class="fu">r_packages:</span>
-        <span class="kw">-</span> future.tests
-      <span class="fu">script:</span>
-        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
-        <span class="kw">-</span> R CMD INSTALL *.tar.gz
-        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
-      <span class="fu">env:</span><span class="at"> BACKEND='future.callr::callr'</span></code></pre></div>
-</div>
 </div>
 </div>
 
