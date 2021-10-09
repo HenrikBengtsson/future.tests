@@ -10,7 +10,11 @@ Imports:
     cli,
     crayon,
     prettyunits,
-    sessioninfo
+    sessioninfo,
+    commonmark,
+    base64enc,
+    tools
+VignetteBuilder: future.tests
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 URL: https://future.tests.futureverse.org, https://github.com/HenrikBengtsson/future.tests

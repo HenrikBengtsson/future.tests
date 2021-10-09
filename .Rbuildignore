@@ -62,6 +62,6 @@ Rplots.pdf$
 ^.issues
 ^last[.]dump.*$
 ^examples
-screencast[.].*
-myrecording
+^screencast[.].*
+^myrecording
 ^\.github/workflows/R-CMD-check\.yaml$
