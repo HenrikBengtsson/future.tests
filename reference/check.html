@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate an Expression Across A Set of Future Plans — along_test_plans • future.tests</title>
+<title>Run All or a Subset of the Tests Across Future Plans — check • future.tests</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Evaluate an Expression Across A Set of Future Plans — along_test_plans" />
-<meta property="og:description" content="Evaluate an Expression Across A Set of Future Plans" />
+<meta property="og:title" content="Run All or a Subset of the Tests Across Future Plans — check" />
+<meta property="og:description" content="Run All or a Subset of the Tests Across Future Plans" />
 
 
 
@@ -215,52 +215,97 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Evaluate an Expression Across A Set of Future Plans</h1>
-    <small class="dont-index">Source: <a href='https://github.com/HenrikBengtsson/future.tests/blob/master/R/test_plans.R'><code>R/test_plans.R</code></a></small>
-    <div class="hidden name"><code>along_test_plans.Rd</code></div>
+    <h1>Run All or a Subset of the Tests Across Future Plans</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HenrikBengtsson/future.tests/blob/master/R/check.R'><code>R/check.R</code></a></small>
+    <div class="hidden name"><code>check.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Evaluate an Expression Across A Set of Future Plans</p>
+    <p>Run All or a Subset of the Tests Across Future Plans</p>
     </div>
 
-    <pre class="usage"><span class='fu'>along_test_plans</span><span class='op'>(</span>
-  <span class='va'>expr</span>,
-  substitute <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
-  local <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  plans <span class='op'>=</span> <span class='fu'><a href='test_plans.html'>test_plans</a></span><span class='op'>(</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>check</span><span class='op'>(</span>
+  plan <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tags <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  timeout <span class='op'>=</span> <span class='cn'>NULL</span>,
+  settings <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  session_info <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  debug <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  exit_value <span class='op'>=</span> <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  .args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/commandArgs.html'>commandArgs</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>expr</th>
-      <td><p>An <span style="R">R</span> expression.</p></td>
+      <th>plan</th>
+      <td><p>(character vector) One or more future strategy plans to be
+validated.</p></td>
     </tr>
     <tr>
-      <th>substitute</th>
-      <td><p>...</p></td>
+      <th>tags</th>
+      <td><p>(character vector; optional) Filter test by tags. If NULL, all
+tests are performed.</p></td>
     </tr>
     <tr>
-      <th>envir</th>
-      <td><p>The environment where tests are run.</p></td>
+      <th>timeout</th>
+      <td><p>(numeric; optional) Maximum time (in seconds) each test may
+run before a timeout error is produced.</p></td>
     </tr>
     <tr>
-      <th>local</th>
-      <td><p>Should tests be evaluated in a local environment or not.</p></td>
+      <th>settings</th>
+      <td><p>(logical) If TRUE, details on the settings are outputted
+before the tests start.</p></td>
     </tr>
     <tr>
-      <th>plans</th>
-      <td><p>A list of future plans.</p></td>
+      <th>session_info</th>
+      <td><p>(logical) If TRUE, session information is outputted
+after the tests complete.</p></td>
+    </tr>
+    <tr>
+      <th>debug</th>
+      <td><p>(logical) If TRUE, the raw test results are printed.</p></td>
+    </tr>
+    <tr>
+      <th>exit_value</th>
+      <td><p>(logical) If TRUE, and in a non-interactive session,
+then use <code><a href='https://rdrr.io/r/base/quit.html'>base::quit()</a></code> to quit <span style="R">R</span> with an exit code of 0 (zero) if all
+tests passed with all OKs and otherwise 1 (one) if one or more test failed.</p></td>
+    </tr>
+    <tr>
+      <th>.args</th>
+      <td><p>(character vector; optional) Command-line arguments.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of results, one for each future plan tested against.</p>
+    <p>(list; invisible) A list of test results.</p>
+    <h2 class="hasAnchor" id="command-line-interface-cli-"><a class="anchor" href="#command-line-interface-cli-"></a>Command-line interface (CLI)</h2>
 
+    
+
+<p>This function can be called from the shell. To specify an argument, use the
+format <code>--test-&lt;arg_name&gt;=&lt;value&gt;</code>.  For example, <code>--test-timeout=600</code> will
+set argument <code>timeout=600</code>, and <code>--tags=lazy,rng</code>, or equivalently,
+<code>--tags=lazy --tags=rng</code> will set argument <code>tags=c("lazy", "rng")</code>.</p>
+<p>Here are some examples on how to call this function from the command line:</p><pre>
+Rscript -e future.tests::check --args --test-plan=sequential
+Rscript -e future.tests::check --args --test-plan=multicore,workers=2
+Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
+</pre><p>The exit code will be 0 if all tests passed, otherwise 1. You
+can use for instance <code>exit_code=$?</code> to retrieve the exit code of the
+most recent call.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>future.tests</span><span class='fu'>::</span><span class='fu'>check</span><span class='op'>(</span>plan <span class='op'>=</span> <span class='st'>"sequential"</span>, tags <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"rng"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>exit_code</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>results</span>, <span class='st'>"exit_code"</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='va'>exit_code</span> <span class='op'>!=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='kw'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span><span class='op'>(</span><span class='st'>"One or more tests failed"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

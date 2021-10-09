@@ -1,8 +1,9 @@
 pandoc: 1.19.2.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2021-05-20T01:00Z
+articles:
+  future.tests-intro: future.tests-intro.html
+last_built: 2021-10-09T17:35Z
 urls:
   reference: https://future.tests.futureverse.org/reference
   article: https://future.tests.futureverse.org/articles

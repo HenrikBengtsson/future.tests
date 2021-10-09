@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate an Expression Across A Set of Future Plans — along_test_plans • future.tests</title>
+<title>Make a Test — make_test • future.tests</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Evaluate an Expression Across A Set of Future Plans — along_test_plans" />
-<meta property="og:description" content="Evaluate an Expression Across A Set of Future Plans" />
+<meta property="og:title" content="Make a Test — make_test" />
+<meta property="og:description" content="Make a Test" />
 
 
 
@@ -215,51 +215,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Evaluate an Expression Across A Set of Future Plans</h1>
-    <small class="dont-index">Source: <a href='https://github.com/HenrikBengtsson/future.tests/blob/master/R/test_plans.R'><code>R/test_plans.R</code></a></small>
-    <div class="hidden name"><code>along_test_plans.Rd</code></div>
+    <h1>Make a Test</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HenrikBengtsson/future.tests/blob/master/R/Test-class.R'><code>R/Test-class.R</code></a></small>
+    <div class="hidden name"><code>make_test.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Evaluate an Expression Across A Set of Future Plans</p>
+    <p>Make a Test</p>
     </div>
 
-    <pre class="usage"><span class='fu'>along_test_plans</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>make_test</span><span class='op'>(</span>
   <span class='va'>expr</span>,
+  title <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  tags <span class='op'>=</span> <span class='cn'>NULL</span>,
   substitute <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>,
-  local <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  plans <span class='op'>=</span> <span class='fu'><a href='test_plans.html'>test_plans</a></span><span class='op'>(</span><span class='op'>)</span>
+  reset_workers <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  register <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>expr</th>
-      <td><p>An <span style="R">R</span> expression.</p></td>
+      <th>expr, substitute</th>
+      <td><p>The expression to be tested and
+whether it is passes as an expression already or not.</p></td>
     </tr>
     <tr>
-      <th>substitute</th>
-      <td><p>...</p></td>
+      <th>title</th>
+      <td><p>(character) The title of the test.</p></td>
     </tr>
     <tr>
-      <th>envir</th>
-      <td><p>The environment where tests are run.</p></td>
+      <th>args</th>
+      <td><p>(optional) Named arguments.</p></td>
     </tr>
     <tr>
-      <th>local</th>
-      <td><p>Should tests be evaluated in a local environment or not.</p></td>
+      <th>tags</th>
+      <td><p>(optional) Character vector of tags.</p></td>
     </tr>
     <tr>
-      <th>plans</th>
-      <td><p>A list of future plans.</p></td>
+      <th>reset_workers</th>
+      <td><p>(optional) Specifies whether background workers should
+futures.</p></td>
+    </tr>
+    <tr>
+      <th>register</th>
+      <td><p>If TRUE, the test is registered in the test database,
+otherwise not.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of results, one for each future plan tested against.</p>
+    <p>(invisibly) A Test.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
