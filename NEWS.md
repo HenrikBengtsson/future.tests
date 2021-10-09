@@ -16,7 +16,7 @@
    environment variables, the RNG kind, and the random seed afterward to
    what it was before being called.
 
- * Added a package vignette.
+ * Added a package vignettes.
  
 ### Bug Fixes
 
