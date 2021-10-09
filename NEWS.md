@@ -4,15 +4,15 @@
 
 ### New Tests
 
- * Assert that future() doesn't change the RNG kind.
+ * Assert that `future()` doesn't change the RNG kind.
  
- * Assert that future(..., conditions = character(0L)) muffles all conditions.
+ * Assert that `future(..., conditions = character(0L))` muffles all conditions.
 
 ### New Features
 
  * For robustness, using explicit stringsAsFactors=FALSE internally.
 
- * evaluate_expr(), which is used for running all tests, now reset options,
+ * `evaluate_expr()`, which is used for running all tests, now reset options,
    environment variables, the RNG kind, and the random seed afterward to
    what it was before being called.
 
@@ -20,7 +20,7 @@
  
 ### Bug Fixes
 
- * Tests on resolve() would use deprecated argument 'value'.
+ * Tests on `resolve()` would use deprecated argument `value`.
  
 
 ## Version 0.2.1 [2020-03-19]
