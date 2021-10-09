@@ -1,6 +1,6 @@
 # future.tests
 
-## Version: 0.2.1-9000 [2021-10-05]
+## Version: 0.2.1-9001 [2021-10-09]
 
 ### New Tests
 
@@ -16,6 +16,8 @@
    environment variables, the RNG kind, and the random seed afterward to
    what it was before being called.
 
+ * Added a package vignette.
+ 
 ### Bug Fixes
 
  * Tests on resolve() would use deprecated argument 'value'.

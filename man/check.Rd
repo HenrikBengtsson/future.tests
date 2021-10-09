@@ -64,8 +64,10 @@ most recent call.
 }
 
 \examples{
+\dontrun{
 results <- future.tests::check(plan = "sequential", tags = c("rng"))
 exit_code <- attr(results, "exit_code")
 if (exit_code != 0) stop("One or more tests failed")
+}
 
 }
