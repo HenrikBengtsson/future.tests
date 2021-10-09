@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://future.tests.futureverse.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/OVERVIEW.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/articles/future.tests-01-intro.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/articles/future.tests-05-ci-github_actions.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/articles/future.tests-05-ci-travis.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://future.tests.futureverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://future.tests.futureverse.org/reference/add_test_plan.html</loc>
@@ -17,6 +44,9 @@
   </url>
   <url>
     <loc>https://future.tests.futureverse.org/reference/evaluate_expr.html</loc>
+  </url>
+  <url>
+    <loc>https://future.tests.futureverse.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://future.tests.futureverse.org/reference/load_tests.html</loc>
@@ -41,14 +71,5 @@
   </url>
   <url>
     <loc>https://future.tests.futureverse.org/reference/test_plans.html</loc>
-  </url>
-  <url>
-    <loc>https://future.tests.futureverse.org/articles/future.tests-01-intro.html</loc>
-  </url>
-  <url>
-    <loc>https://future.tests.futureverse.org/articles/future.tests-05-ci-github_actions.html</loc>
-  </url>
-  <url>
-    <loc>https://future.tests.futureverse.org/articles/future.tests-05-ci-travis.html</loc>
   </url>
 </urlset>

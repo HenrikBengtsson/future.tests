@@ -33,6 +33,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,23 +47,14 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1-9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1-9001</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -81,10 +74,13 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://www.futureverse.org/">
+  <a href="https://www.futureverse.org/" class="external-link">
     <span class="fas fa-fast-backward"></span>
      
   </a>
@@ -97,57 +93,57 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://BiocParallel.FutureParam.futureverse.org">BiocParallel.FutureParam</a>
+      <a href="https://BiocParallel.FutureParam.futureverse.org" class="external-link">BiocParallel.FutureParam</a>
     </li>
     <li>
-      <a href="https://doFuture.futureverse.org">doFuture</a>
+      <a href="https://doFuture.futureverse.org" class="external-link">doFuture</a>
     </li>
     <li>
-      <a href="https://furrr.futureverse.org">furrr</a>
+      <a href="https://furrr.futureverse.org" class="external-link">furrr</a>
     </li>
     <li>
-      <a href="https://future.futureverse.org">future</a>
+      <a href="https://future.futureverse.org" class="external-link">future</a>
     </li>
     <li>
-      <a href="https://future.apply.futureverse.org">future.apply</a>
+      <a href="https://future.apply.futureverse.org" class="external-link">future.apply</a>
     </li>
     <li>
-      <a href="https://future.batchtools.futureverse.org">future.batchtools</a>
+      <a href="https://future.batchtools.futureverse.org" class="external-link">future.batchtools</a>
     </li>
     <li>
-      <a href="https://future.callr.futureverse.org">future.callr</a>
+      <a href="https://future.callr.futureverse.org" class="external-link">future.callr</a>
     </li>
     <li>
       <a href="https://future.tests.futureverse.org">future.tests</a>
     </li>
     <li>
-      <a href="https://globals.futureverse.org">globals</a>
+      <a href="https://globals.futureverse.org" class="external-link">globals</a>
     </li>
     <li>
-      <a href="https://listenv.futureverse.org">listenv</a>
+      <a href="https://listenv.futureverse.org" class="external-link">listenv</a>
     </li>
     <li>
-      <a href="https://parallelly.futureverse.org">parallelly</a>
+      <a href="https://parallelly.futureverse.org" class="external-link">parallelly</a>
     </li>
     <li>
-      <a href="https://progressr.futureverse.org">progressr</a>
+      <a href="https://progressr.futureverse.org" class="external-link">progressr</a>
     </li>
     <li>
-      <a href="https://future.mapreduce.futureverse.org">future.mapreduce (experimental)</a>
+      <a href="https://future.mapreduce.futureverse.org" class="external-link">future.mapreduce (experimental)</a>
     </li>
     <li>
-      <a href="https://marshal.futureverse.org">marshal (experimental)</a>
+      <a href="https://marshal.futureverse.org" class="external-link">marshal (experimental)</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="https://cloud.r-project.org/package=future.tests">
+  <a href="https://cloud.r-project.org/package=future.tests" class="external-link">
     <span class="fab fa-r-project"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/HenrikBengtsson/future.tests/">
+  <a href="https://github.com/HenrikBengtsson/future.tests/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -172,10 +168,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>future.tests: An Introduction</h1>
-                        <h4 class="author">Henrik Bengtsson</h4>
+                        <h4 data-toc-skip class="author">Henrik Bengtsson</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/master/vignettes/future.tests-01-intro.md"><code>vignettes/future.tests-01-intro.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/master/vignettes/future.tests-01-intro.md" class="external-link"><code>vignettes/future.tests-01-intro.md</code></a></small>
       <div class="hidden name"><code>future.tests-01-intro.md</code></div>
 
     </div>
@@ -193,29 +189,29 @@
 %\VignetteEngine{future.tests::selfonly}
 -->
 <!-- DO NOT EDIT THIS FILE! Edit 'OVERVIEW.md' instead and then rebuild this file with 'make vigs' -->
-<p>The <strong><a href="https://cran.r-project.org/package=future">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools">future.batchtools</a></strong>. The design motto of the Future API is:</p>
+<p>The <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package defines the Future API which consists of a small number of functions for writing <a href="https://www.r-project.org" class="external-link">R</a> code that can be evaluated either sequential or in parallel based a single setting without having to change anything in the code. Parallelization can be done via one of many backends, e.g. via built-in multicore, multisession and cluster backends (based on the <strong>parallel</strong> package) or via third-party backends such as <strong><a href="https://cran.r-project.org/package=future.callr" class="external-link">future.callr</a></strong> and <strong><a href="https://cran.r-project.org/package=future.batchtools" class="external-link">future.batchtools</a></strong>. The design motto of the Future API is:</p>
 <blockquote>
 <p>Write once, run anywhere</p>
 </blockquote>
 <p>In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the Future API. A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.</p>
-<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
+<p>This R package - <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> - provides a test suite for validation that a future backend complies with the Future API.</p>
 <div class="figure">
 <img src="imgs/screencast.gif">
 </div>
 <div id="validate-a-future-backend" class="section level2">
 <h2 class="hasAnchor">
-<a href="#validate-a-future-backend" class="anchor"></a>Validate a Future Backend</h2>
-<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
+<a href="#validate-a-future-backend" class="anchor" aria-hidden="true"></a>Validate a Future Backend</h2>
+<p>All future backends implementing the Future API should validate that they conform to the Future API. This can be done using the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> package, which provides two API for running the tests. The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.</p>
 <div id="from-within-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#from-within-r" class="anchor"></a>From Within R</h3>
+<a href="#from-within-r" class="anchor" aria-hidden="true"></a>From Within R</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>results &lt;-<span class="st"> </span>future.tests<span class="op">::</span><span class="kw">check</span>(<span class="dt">plan =</span> <span class="st">"multisession"</span>)
 <span class="op">&gt;</span><span class="st"> </span>exit_code &lt;-<span class="st"> </span><span class="kw">attr</span>(results, <span class="st">"exit_code"</span>)
 <span class="op">&gt;</span><span class="st"> </span><span class="cf">if</span> (exit_code <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">stop</span>(<span class="st">"One or more tests failed"</span>)</code></pre></div>
 </div>
 <div id="from-outside-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#from-outside-r" class="anchor"></a>From Outside R</h3>
+<a href="#from-outside-r" class="anchor" aria-hidden="true"></a>From Outside R</h3>
 <div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash">$ <span class="ex">Rscript</span> -e future.tests::check --args --test-plan=<span class="st">"multisession"</span>
 $ <span class="va">exit_code=$?</span>
 $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class="kw"> ]]</span> <span class="kw">||</span> <span class="kw">{</span> <span class="op">&gt;&amp;2</span> <span class="bu">echo</span> <span class="st">"One or more tests failed"</span><span class="kw">;</span> <span class="bu">exit</span> 1<span class="kw">;</span> <span class="kw">}</span></code></pre></div>
@@ -234,11 +230,13 @@ $<span class="kw"> [[</span> exit_code <span class="ot">-eq</span> 0<span class=
 
 
       <footer><div class="copyright">
-  <p>Developed by Henrik Bengtsson,  The R Consortium.</p>
+  <p></p>
+<p>Developed by Henrik Bengtsson, The R Consortium.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9002.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.9000.9000.9000 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
 </div>
 
       </footer>
