@@ -13,7 +13,7 @@ This R package - **[future.tests]** - provides a test suite for validation that 
 
 All future backends implementing the Future API should validate that they conform to the Future API.  This can be done using the **[future.tests]** package, which provides two API for running the tests.  The tests can be performed either from within R or from outside of R from the command line making it easy to include them package tests and in Continuous Integration (CI) pipelines.
 
-## From Within R
+### From Within R
 
 ```r
 > results <- future.tests::check(plan = "multisession")
@@ -21,7 +21,7 @@ All future backends implementing the Future API should validate that they confor
 > if (exit_code != 0) stop("One or more tests failed")
 ```
 
-## From Outside R
+### From Outside R
 
 ```sh
 $ Rscript -e "future.tests::check" --args --test-plan="multisession"
