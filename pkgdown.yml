@@ -3,9 +3,9 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   future.tests-01-intro: future.tests-01-intro.html
-  future.tests-03-ci-github_actions: future.tests-03-ci-github_actions.html
-  future.tests-03-ci-travis: future.tests-03-ci-travis.html
-last_built: 2021-10-09T19:55Z
+  future.tests-05-ci-github_actions: future.tests-05-ci-github_actions.html
+  future.tests-05-ci-travis: future.tests-05-ci-travis.html
+last_built: 2021-10-09T20:03Z
 urls:
   reference: https://future.tests.futureverse.org/reference
   article: https://future.tests.futureverse.org/articles

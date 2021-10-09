@@ -74,10 +74,10 @@
       <a href="../articles/future.tests-01-intro.html">future.tests: An Introduction</a>
     </li>
     <li>
-      <a href="../articles/future.tests-03-ci-github_actions.html">future.tests: Continuous Integration on GitHub Actions</a>
+      <a href="../articles/future.tests-05-ci-github_actions.html">future.tests: Continuous Integration on GitHub Actions</a>
     </li>
     <li>
-      <a href="../articles/future.tests-03-ci-travis.html">future.tests: Continuous Integration on Travis CI</a>
+      <a href="../articles/future.tests-05-ci-travis.html">future.tests: Continuous Integration on Travis CI</a>
     </li>
   </ul>
 </li>
@@ -175,8 +175,8 @@
                         <h4 class="author">Henrik Bengtsson</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/master/vignettes/future.tests-03-ci-travis.md"><code>vignettes/future.tests-03-ci-travis.md</code></a></small>
-      <div class="hidden name"><code>future.tests-03-ci-travis.md</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/master/vignettes/future.tests-05-ci-travis.md"><code>vignettes/future.tests-05-ci-travis.md</code></a></small>
+      <div class="hidden name"><code>future.tests-05-ci-travis.md</code></div>
 
     </div>
 
@@ -197,31 +197,76 @@
 <p>We can use continuous integration (CI) services such as GitHub Action and Travis CI to automatically validate <strong><a href="https://cran.r-project.org/package=future">future</a></strong> backends via the <strong><a href="https://cran.r-project.org/package=future.tests">future.tests</a></strong> test suite.</p>
 <p>Here's an example <code>.travis.yaml</code> file that configures Travis CI to check the <code>multisession</code> and the <code><a href="https://future.callr.futureverse.org/reference/callr.html">future.callr::callr</a></code> backends via the <strong>future.tests</strong> test suite.</p>
 <div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">language:</span><span class="at"> r</span>
-<span class="fu">sudo:</span><span class="at"> false</span>
 <span class="fu">cache:</span><span class="at"> packages</span>
 <span class="fu">warnings_are_errors:</span><span class="at"> false</span>
 <span class="fu">r_check_args:</span><span class="at"> --as-cran</span>
+<span class="fu">latex:</span><span class="at"> false</span>
 
-<span class="fu">matrix:</span>
+<span class="fu">jobs:</span>
   <span class="fu">include:</span>
     <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
       <span class="fu">r:</span><span class="at"> release</span>
-      <span class="fu">r_packages:</span>
-        <span class="kw">-</span> future.tests
       <span class="fu">script:</span>
         <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
-        <span class="kw">-</span> R CMD INSTALL *.tar.gz
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
+        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
+      <span class="fu">env:</span><span class="at"> BACKEND='sequential'</span>
+    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
+      <span class="fu">r:</span><span class="at"> release</span>
+      <span class="fu">script:</span>
+        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
+        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
+      <span class="fu">env:</span><span class="at"> BACKEND='multicore'</span>
+    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
+      <span class="fu">r:</span><span class="at"> release</span>
+      <span class="fu">script:</span>
+        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
         <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
       <span class="fu">env:</span><span class="at"> BACKEND='multisession'</span>
     <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
       <span class="fu">r:</span><span class="at"> release</span>
-      <span class="fu">r_packages:</span>
-        <span class="kw">-</span> future.tests
       <span class="fu">script:</span>
         <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
-        <span class="kw">-</span> R CMD INSTALL *.tar.gz
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
         <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
-      <span class="fu">env:</span><span class="at"> BACKEND='future.callr::callr'</span></code></pre></div>
+      <span class="fu">env:</span><span class="at"> BACKEND='cluster'</span>
+    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
+      <span class="fu">r:</span><span class="at"> release</span>
+      <span class="fu">r_packages:</span>
+        <span class="kw">-</span> future.callr
+      <span class="fu">script:</span>
+        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
+        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
+      <span class="fu">env:</span><span class="at"> BACKEND='future.callr::callr'</span>
+    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
+      <span class="fu">r:</span><span class="at"> release</span>
+      <span class="fu">r_packages:</span>
+        <span class="kw">-</span> future.batchtools
+      <span class="fu">script:</span>
+        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
+        <span class="kw">-</span> R CMD INSTALL --no-docs --no-html --no-help --no-demo *.tar.gz
+        <span class="kw">-</span> <span class="fu">Rscript -e future.tests:</span><span class="at">:check --args --test-plan="${BACKEND}"</span>
+      <span class="fu">env:</span><span class="at"> BACKEND='future.batchtools::batchtools_local'</span>
+    <span class="kw">-</span> <span class="fu">os:</span><span class="at"> linux</span>
+      <span class="fu">r:</span><span class="at"> release</span>
+      <span class="fu">script:</span>
+        <span class="kw">-</span> R CMD build --no-build-vignettes --no-manual .
+      <span class="fu">r_packages:</span>
+        <span class="kw">-</span> covr
+      <span class="fu">after_success:</span>
+        <span class="kw">-</span> <span class="fu">Rscript -e 'covr:</span><span class="at">:codecov(quiet=FALSE)'</span>
+      <span class="fu">env:</span><span class="at"> NB='covr' </span><span class="co">## Just a label</span>
+
+<span class="fu">before_install:</span>
+  <span class="kw">-</span> <span class="fu">Rscript -e 'c(physical = parallel:</span><span class="at">:detectCores(logical = FALSE), logical = parallel::detectCores())'</span>
+
+<span class="fu">notifications:</span>
+  <span class="fu">email:</span>
+    <span class="fu">on_success:</span><span class="at"> change</span>
+    <span class="fu">on_failure:</span><span class="at"> change</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
