@@ -38,14 +38,6 @@ $ exit_code=$?
 $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 ```
 
-
-[R]: https://www.r-project.org
-[future]: https://cran.r-project.org/package=future
-[future.callr]: https://cran.r-project.org/package=future.callr
-[future.batchtools]: https://cran.r-project.org/package=future.batchtools
-[future.tests]: https://cran.r-project.org/package=future.tests
-
-
 [R]: https://www.r-project.org
 [future]: https://cran.r-project.org/package=future
 [future.callr]: https://cran.r-project.org/package=future.callr
