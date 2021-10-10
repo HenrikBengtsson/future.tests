@@ -45,11 +45,27 @@ $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools
 [future.tests]: https://cran.r-project.org/package=future.tests
 
+
+[R]: https://www.r-project.org
+[future]: https://cran.r-project.org/package=future
+[future.callr]: https://cran.r-project.org/package=future.callr
+[future.batchtools]: https://cran.r-project.org/package=future.batchtools
+[future.tests]: https://cran.r-project.org/package=future.tests
+
 ## Installation
 R package future.tests is available on [CRAN](https://cran.r-project.org/package=future.tests) and can be installed in R as:
 ```r
 install.packages("future.tests")
 ```
+
+### Pre-release version
+
+To install the pre-release version that is available in Git branch `develop` on GitHub, use:
+```r
+remotes::install_github("HenrikBengtsson/future.tests@develop")
+```
+This will install the package from source.  
+
 
 
 ### Pre-release version
