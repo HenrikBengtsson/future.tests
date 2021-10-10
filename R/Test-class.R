@@ -96,8 +96,8 @@ as.data.frame.Test <- function(x, ..., expand = TRUE, arg_names = NULL) {
       title <- rep(title, times = n)
       tags <- rep(tags, times = n)
     }
-  } else {
-    args <- data.frame(args = I(list(args)))
+  } else {  
+    args <- data.frame(args = I(list(args)), stringsAsFactors = FALSE)
   }
 
   if (is.data.frame(args)) {
@@ -110,7 +110,7 @@ as.data.frame.Test <- function(x, ..., expand = TRUE, arg_names = NULL) {
 #' @export
 rbind.Test <- function(...) {
   args <- list(...)
-  df <- lapply(args, FUN = as.data.frame, ...)
+  df <- lapply(args, FUN = as.data.frame, ..., stringsAsFactors = FALSE)
   
   ## Intersection of all column names
   names <- unique(unlist(lapply(df, names)))

@@ -17,4 +17,6 @@
   
   ## Pre-load all tests
   load_tests()
+
+  register_vignette_engine_during_build_only(pkgname)
 }

@@ -1,85 +1,106 @@
-# CRAN submission future.tests 0.2.1
+# CRAN submission future.tests 0.3.0
 
-
-## Resubmission on 2020-03-19
-
-> Thanks, please write package names, software names and API names in single
-> quotes (e.g. 'Future') in Title and Description.
-
-Done
-
-> Please add a web reference for the 'Future' API in your Description text in
-> the form <http:...> or <https:...> with angle brackets for auto-linking and
-> no space after 'http:' and 'https:'.
-
-Instead of a URL, it is now clarified that the Future API is specified by the future package.
-
-> Please replace cat() by message() or warning() in your functions (except for
-> print() and summary() functions). Messages and warnings can be suppressed if
-> needed.
-
-This is a false positive; all output to the standard output is intentional by design.  The output must not go to standard error via message() and similar.
-
-> Please add small executable examples in your Rd-files.
-> If the execution requires an API key, please wrap the exmaples in \dontrun{}.
-
-Added example("check"); everything else is low-level and not really meant to be used by others, yet, they need to be exported.
-
-Thank you
-
-
-## Initial submission on 2020-03-13
-
-This is a first submission.  I've verified that it passes 'R CMD check --as-cran' on Linux, macOS, Solaris, and Windows across multiple R versions, including R 3.5.3, R 3.6.3, and R devel.
+on 2021-10-09
 
 Thanks in advance
 
 
 ## Notes not sent to CRAN
 
-### R CMD check --as-cran validation
+### R CMD check validation
 
 The package has been verified using `R CMD check --as-cran` on:
 
-* Platform x86_64-apple-darwin15.6.0 (64-bit) [Travis CI]:
-  - R version 3.6.2 (2019-12-12)
+| R version     | GitHub | R-hub      | mac/win-builder |
+| ------------- | ------ | ---------- | --------------- |
+| 3.3.x         | L      |            |                 |
+| 3.4.x         | L      |            |                 |
+| 3.5.x         | L      |            |                 |
+| 4.0.x         | L      | L          |                 |
+| 4.1.x         | L M W  | L M M1 S W | M1 W            |
+| devel         | L M W  | L        W |    W            |
 
-* Platform x86_64-apple-darwin15.6.0 (64-bit) [GitHub Actions]:
-  - R version 3.6.3 (2020-02-29)
-  - R Under development (unstable) (2020-03-13 r77937)
+*Legend: OS: L = Linux, S = Solaris, M = macOS, M1 = macOS M1, W = Windows*
 
-* Platform x86_64-unknown-linux-gnu (64-bit) [Travis CI]:
-  - R version 3.5.3 (2017-01-27) [sic!]
-  - R version 3.6.2 (2017-01-27) [sic!]
-  - R Under development (unstable) (2020-03-13 r77948)
 
-* Platform x86_64-pc-linux-gnu (64-bit) [r-hub]:
-  - R version 3.6.1 (2019-07-05)
+R-hub checks:
 
-* Platform x86_64-pc-linux-gnu (64-bit) [GitHub Actions]:
-  - R version 3.2.5 (2016-04-14)
-  - R version 3.3.3 (2017-03-06)
-  - R version 3.4.4 (2018-03-15)
-  - R version 3.5.3 (2019-03-11)
-  - R version 3.6.3 (2020-02-29)
+```
+> res <- rhub::check(platform = c(
+  "debian-clang-devel", "debian-gcc-patched", "linux-x86_64-centos-epel",
+  "macos-highsierra-release-cran", "macos-m1-bigsur-release",
+  "solaris-x86-patched-ods", "windows-x86_64-devel", "windows-x86_64-release"))
+> res
 
-* Platform i686-pc-linux-gnu (32-bit):
-  - R version 3.4.4 (2018-03-15)
+── future.tests 0.3.0: OK
 
-* Platform: i386-pc-solaris2.10 (32-bit) [r-hub]
-   - R version 3.6.3 Patched (2020-02-29 r77917)
+  Build ID:   future.tests_0.3.0.tar.gz-cff9ca7332f941d9a8695c2c87b54304
+  Platform:   Debian Linux, R-devel, clang, ISO-8859-15 locale
+  Submitted:  6m 6s ago
+  Build time: 3m 25s
 
-* Platform x86_64-w64-mingw32 (64-bit) [GitHub Actions]:
-  - R version 3.6.3 (2020-02-29)
-  - R Under development (unstable) (2020-03-12 r77936)
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-* Platform x86_64-w64-mingw32 (64-bit) [r-hub]:
-  - R Under development (unstable) (2020-03-08 r77917)
+── future.tests 0.3.0: OK
 
-* Platform x86_64-w64-mingw32/x64 (64-bit) [Appveyor CI]:
-  - R version 3.6.3 (2020-02-29)
-  - R Under development (unstable) (2020-03-12 r77936)
+  Build ID:   future.tests_0.3.0.tar.gz-917c4a0ae437468582ffbc55a16f15d3
+  Platform:   Debian Linux, R-patched, GCC
+  Submitted:  6m 6s ago
+  Build time: 3m 10.7s
 
-* Platform x86_64-w64-mingw32/x64 (64-bit) [win-builder]:
-  - R version 3.6.3 (2020-02-29)
-  - R Under development (unstable) (2020-03-11 r77925)
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-ec8d95e68bd5491b9897f96c878b952d
+  Platform:   CentOS 8, stock R from EPEL
+  Submitted:  6m 6s ago
+  Build time: 2m 42s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-cf82f2cc0d344591be6287b80fabaeab
+  Platform:   macOS 10.13.6 High Sierra, R-release, CRAN's setup
+  Submitted:  6m 6s ago
+  Build time: 5m 11.7s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-733c6f2427a541daa801308e236d1ddb
+  Platform:   Apple Silicon (M1), macOS 11.6 Big Sur, R-release
+  Submitted:  6m 6s ago
+  Build time: 1m 33.9s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-3155d50067524c0f90fbc5cdede64cc2
+  Platform:   Oracle Solaris 10, x86, 32 bit, R release, Oracle Developer Studio 12.6
+  Submitted:  6m 6s ago
+  Build time: 3m 3.4s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-beacf1d12038420d922ac0b1a9b06ee9
+  Platform:   Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+  Submitted:  6m 6s ago
+  Build time: 3m 36.8s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+── future.tests 0.3.0: OK
+
+  Build ID:   future.tests_0.3.0.tar.gz-013d6014678947ecbe0ef2dd11637fe2
+  Platform:   Windows Server 2008 R2 SP1, R-release, 32/64 bit
+  Submitted:  6m 6s ago
+  Build time: 3m 41.3s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```

@@ -8,6 +8,10 @@ INSTALL[.]md
 OVERVIEW[.]md
 README[.]md
 CONDUCT[.]md
+CONTRIBUTING[.]md
+^docs
+^pkgdown
+
 
 #----------------------------
 # devtools
@@ -49,7 +53,6 @@ Rplots.pdf$
 #----------------------------
 # Package specific
 #----------------------------
-^[.]BatchJobs[.]R$
 [.]future
 
 #----------------------------
@@ -59,6 +62,6 @@ Rplots.pdf$
 ^.issues
 ^last[.]dump.*$
 ^examples
-screencast[.].*
-myrecording
+^screencast[.].*
+^myrecording
 ^\.github/workflows/R-CMD-check\.yaml$

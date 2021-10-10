@@ -18,6 +18,10 @@
 .issues
 .local
 .results
+.make/*.md.rsp
 Rplots.pdf
 screencast.json
 myrecording
+docs
+.Rdump
+

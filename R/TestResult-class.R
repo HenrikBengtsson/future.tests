@@ -54,7 +54,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
   on.exit(pop_state())
 
   if (test$reset_workers) {
-    if (packageVersion("future") > "1.15.0") future::resetWorkers(plan())
+    future::resetWorkers(plan())
   }
 
   res <- evaluate_expr(test$expr, envir = envir, local = FALSE, output = output, timeout = timeout)
@@ -89,7 +89,7 @@ as.data.frame.TestResult <- function(x, ..., arg_names = NULL) {
 rbind.TestResult <- function(...) {
   args <- list(...)
   
-  df <- lapply(args, FUN = as.data.frame, ...)
+  df <- lapply(args, FUN = as.data.frame, ..., stringsAsFactors = FALSE)
   
   ## Intersection of all column names
   names <- unique(unlist(lapply(df, names)))

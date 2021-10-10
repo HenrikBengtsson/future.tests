@@ -23,7 +23,7 @@ load_tests(
 \pkg{future.tests} tests are sourced.}
 }
 \value{
-Number of tests added.
+(invisible) the value of \code{test_db()}.
 }
 \description{
 Loads Future Tests

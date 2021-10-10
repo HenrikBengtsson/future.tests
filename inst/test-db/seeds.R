@@ -1,11 +1,17 @@
-make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "seed"), {
+make_test(title = 'Random Number Generation (RNG) - seeds and preserving RNGkind', tags = c("rng", "seed"), {
+  okind <- RNGkind()
+
   ## A valid L'Ecuyer-CMRG RNG seed
   seed <- c(407L, 1420090545L, 65713854L, -990249945L,
             1780737596L, -1213437427L, 1082168682L)
   f <- future(42, seed = seed)
   print(f)
 
+  ## Assert that random seed is reset
   stopifnot(identical(f$seed, seed))
+  
+  ## Assert that the RNG kind is reset
+  stopifnot(identical(RNGkind()[1], okind[1]))
 })
 
 
@@ -13,10 +19,6 @@ make_test(title = 'Random Number Generation (RNG) - seeds', tags = c("rng", "see
 ## See Section 6 on 'Random-number generation' in
 ## vignette("parallel", package = "parallel")
 fsample <- function(x, size = 2L, seed = NULL, what = c("future", "%<-%"), lazy = FALSE) {
-  ## BACKWARD COMPATIBILITY:
-  ## In future (<= 1.16.0), values() was used instead of value() for lists
-  if (packageVersion("future") <= "1.16.0") value <- values
-
   what <- match.arg(what)
   
   ## Must use session-specific '.GlobalEnv' here
@@ -64,7 +66,7 @@ fsample <- function(x, size = 2L, seed = NULL, what = c("future", "%<-%"), lazy 
 for (what in c("future", "%<-%")) {
   make_test(title = sprintf('Random Number Generation (RNG) - %s', what), args = list(lazy = c(FALSE, TRUE)), tags = c("rng", "seed", "lazy", what), bquote({
     fsample <- .(fsample)
-    
+
     dummy <- sample(0:3, size = 1L)
     seed0 <- .Random.seed
   

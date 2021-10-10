@@ -17,7 +17,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   stopifnot(is.logical(local), length(local) == 1L, !is.na(local))
   output <- match.arg(output)
   stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
-
+  
   res <- list(
     expr = expr,
     local = local,
@@ -32,6 +32,79 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   ## Evaluate test in a local environment?
   if (local) envir <- new.env(parent = envir)
 
+  ## Record in-going state
+  old <- list(
+    options = options(),
+    envvars = Sys.getenv(),
+    seed    = globalenv()$.Random.seed,
+    rngkind = RNGkind()
+  )
+  
+  on.exit({
+    ## ----------------------------------------------------------------------
+    ## 1. Undo options
+    ## ----------------------------------------------------------------------
+    ## (a) Removed added options
+    added <- setdiff(names(options()), names(old$options))
+    opts <- structure(vector("list", length = length(added)), names = added)
+    options(opts)
+    
+    ## (b) Add back removed options
+    removed <- setdiff(names(old$options), names(options()))
+    opts <- old$options[removed]
+    options(opts)
+
+    ## (c) Undo modified options
+    options(old$options)
+
+    ## (d) Assert correctness
+    stopifnot(identical(options(), old$options))
+    
+    ## ----------------------------------------------------------------------
+    ## 2. Undo environment variables
+    ## ----------------------------------------------------------------------
+    ## (a) Removed added env vars
+    added <- setdiff(names(Sys.getenv()), names(old$envvars))
+    for (name in added) Sys.unsetenv(name)
+
+    ## (b) Add back removed env vars
+    missing <- setdiff(names(old$envvars), names(Sys.getenv()))
+    if (length(missing) > 0) do.call(Sys.setenv, as.list(old$envvars[missing]))
+
+    ## (c) Undo modified env vars
+    envs <- Sys.getenv()
+    for (name in intersect(names(envs), names(old$envvars))) {
+      ## WORKAROUND: On Linux Wine, base::Sys.getenv() may
+      ## return elements with empty names. /HB 2016-10-06
+      if (nchar(name) == 0L) next
+      if (!identical(envs[[name]], old$envvars[[name]])) {
+        do.call(Sys.setenv, as.list(old$envvars[name]))
+      }
+    }
+    
+    ## (d) Assert correctness
+    stopifnot(identical(Sys.getenv(), old$envvars))
+
+    ## ----------------------------------------------------------------------
+    ## 3. Undo RNG state
+    ## ----------------------------------------------------------------------
+    ## (b) Undo RNG kind
+    args <- as.list(old$rngkind)
+    names(args) <- names(formals(RNGkind))
+    do.call(RNGkind, args = args)
+            
+    ## (a) Undo .Random.seed
+    if (is.null(old$seed)) {
+      rm(list = ".Random.seed", envir = globalenv())
+    } else {
+      assign(".Random.seed", value = old$seed, envir = globalenv())
+    }
+
+    ## (c) Assert correctness
+    stopifnot(identical(globalenv()$.Random.seed, old$seed))
+    stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
+  })
+  
   if (output == "stdout") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
@@ -40,7 +113,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
         sink(type = "output")
         close(output_con)
       }
-    })
+    }, add = TRUE)
   } else if (output == "stdout+stderr") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
@@ -60,7 +133,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
         sink(type = "message")
         close(output_con)
       }
-    })
+    }, add = TRUE)
   }
 
   if (timeout < Inf) {
