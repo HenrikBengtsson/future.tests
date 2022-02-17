@@ -51,7 +51,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://www.futureverse.org/">
+  <a href="https://www.futureverse.org/" class="external-link">
     <span class="fas fa-fast-backward"></span>
      
   </a>
@@ -63,56 +63,56 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="https://BiocParallel.FutureParam.futureverse.org">BiocParallel.FutureParam</a>
+      <a href="https://BiocParallel.FutureParam.futureverse.org" class="external-link">BiocParallel.FutureParam</a>
     </li>
     <li>
-      <a href="https://doFuture.futureverse.org">doFuture</a>
+      <a href="https://doFuture.futureverse.org" class="external-link">doFuture</a>
     </li>
     <li>
-      <a href="https://furrr.futureverse.org">furrr</a>
+      <a href="https://furrr.futureverse.org" class="external-link">furrr</a>
     </li>
     <li>
-      <a href="https://future.futureverse.org">future</a>
+      <a href="https://future.futureverse.org" class="external-link">future</a>
     </li>
     <li>
-      <a href="https://future.apply.futureverse.org">future.apply</a>
+      <a href="https://future.apply.futureverse.org" class="external-link">future.apply</a>
     </li>
     <li>
-      <a href="https://future.batchtools.futureverse.org">future.batchtools</a>
+      <a href="https://future.batchtools.futureverse.org" class="external-link">future.batchtools</a>
     </li>
     <li>
-      <a href="https://future.callr.futureverse.org">future.callr</a>
+      <a href="https://future.callr.futureverse.org" class="external-link">future.callr</a>
     </li>
     <li>
       <a href="https://future.tests.futureverse.org">future.tests</a>
     </li>
     <li>
-      <a href="https://globals.futureverse.org">globals</a>
+      <a href="https://globals.futureverse.org" class="external-link">globals</a>
     </li>
     <li>
-      <a href="https://listenv.futureverse.org">listenv</a>
+      <a href="https://listenv.futureverse.org" class="external-link">listenv</a>
     </li>
     <li>
-      <a href="https://parallelly.futureverse.org">parallelly</a>
+      <a href="https://parallelly.futureverse.org" class="external-link">parallelly</a>
     </li>
     <li>
-      <a href="https://progressr.futureverse.org">progressr</a>
+      <a href="https://progressr.futureverse.org" class="external-link">progressr</a>
     </li>
     <li>
-      <a href="https://future.mapreduce.futureverse.org">future.mapreduce (experimental)</a>
+      <a href="https://future.mapreduce.futureverse.org" class="external-link">future.mapreduce (experimental)</a>
     </li>
     <li>
-      <a href="https://marshal.futureverse.org">marshal (experimental)</a>
+      <a href="https://marshal.futureverse.org" class="external-link">marshal (experimental)</a>
     </li>
   </ul></li>
 <li>
-  <a href="https://cloud.r-project.org/package=future.tests">
+  <a href="https://cloud.r-project.org/package=future.tests" class="external-link">
     <span class="fab fa-r-project"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/HenrikBengtsson/future.tests/">
+  <a href="https://github.com/HenrikBengtsson/future.tests/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,7 +132,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Run All or a Subset of the Tests Across Future Plans</h1>
-    <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/master/R/check.R"><code>R/check.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/HEAD/R/check.R" class="external-link"><code>R/check.R</code></a></small>
     <div class="hidden name"><code>check.Rd</code></div>
     </div>
 
@@ -140,68 +140,76 @@
     <p>Run All or a Subset of the Tests Across Future Plans</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">check</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check</span><span class="op">(</span>
   plan <span class="op">=</span> <span class="cn">NULL</span>,
-  tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>,
+  tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,
   timeout <span class="op">=</span> <span class="cn">NULL</span>,
   settings <span class="op">=</span> <span class="cn">TRUE</span>,
   session_info <span class="op">=</span> <span class="cn">FALSE</span>,
   debug <span class="op">=</span> <span class="cn">FALSE</span>,
-  exit_value <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html">interactive</a></span><span class="op">(</span><span class="op">)</span>,
-  .args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a></span><span class="op">(</span><span class="op">)</span>
+  exit_value <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span>,
+  .args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html" class="external-link">commandArgs</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>plan</th>
-      <td><p>(character vector) One or more future strategy plans to be
-validated.</p></td>
-    </tr><tr><th>tags</th>
-      <td><p>(character vector; optional) Filter test by tags. If NULL, all
-tests are performed.</p></td>
-    </tr><tr><th>timeout</th>
-      <td><p>(numeric; optional) Maximum time (in seconds) each test may
-run before a timeout error is produced.</p></td>
-    </tr><tr><th>settings</th>
-      <td><p>(logical) If TRUE, details on the settings are outputted
-before the tests start.</p></td>
-    </tr><tr><th>session_info</th>
-      <td><p>(logical) If TRUE, session information is outputted
-after the tests complete.</p></td>
-    </tr><tr><th>debug</th>
-      <td><p>(logical) If TRUE, the raw test results are printed.</p></td>
-    </tr><tr><th>exit_value</th>
-      <td><p>(logical) If TRUE, and in a non-interactive session,
-then use <code><a href="https://rdrr.io/r/base/quit.html">base::quit()</a></code> to quit <span style="R">R</span> with an exit code of 0 (zero) if all
-tests passed with all OKs and otherwise 1 (one) if one or more test failed.</p></td>
-    </tr><tr><th>.args</th>
-      <td><p>(character vector; optional) Command-line arguments.</p></td>
-    </tr></table><h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>plan</dt>
+<dd><p>(character vector) One or more future strategy plans to be
+validated.</p></dd>
+<dt>tags</dt>
+<dd><p>(character vector; optional) Filter test by tags. If NULL, all
+tests are performed.</p></dd>
+<dt>timeout</dt>
+<dd><p>(numeric; optional) Maximum time (in seconds) each test may
+run before a timeout error is produced.</p></dd>
+<dt>settings</dt>
+<dd><p>(logical) If TRUE, details on the settings are outputted
+before the tests start.</p></dd>
+<dt>session_info</dt>
+<dd><p>(logical) If TRUE, session information is outputted
+after the tests complete.</p></dd>
+<dt>debug</dt>
+<dd><p>(logical) If TRUE, the raw test results are printed.</p></dd>
+<dt>exit_value</dt>
+<dd><p>(logical) If TRUE, and in a non-interactive session,
+then use <code><a href="https://rdrr.io/r/base/quit.html" class="external-link">base::quit()</a></code> to quit <span style="R">R</span> with an exit code of 0 (zero) if all
+tests passed with all OKs and otherwise 1 (one) if one or more test failed.</p></dd>
+<dt>.args</dt>
+<dd><p>(character vector; optional) Command-line arguments.</p></dd>
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
     <p>(list; invisible) A list of test results.</p>
-    <h2 class="hasAnchor" id="command-line-interface-cli-"><a class="anchor" href="#command-line-interface-cli-"></a>Command-line interface (CLI)</h2>
-
+    </div>
+    <div id="command-line-interface-cli-">
+    <h2>Command-line interface (CLI)</h2>
     
 
 <p>This function can be called from the shell. To specify an argument, use the
 format <code>--test-&lt;arg_name&gt;=&lt;value&gt;</code>.  For example, <code>--test-timeout=600</code> will
 set argument <code>timeout=600</code>, and <code>--tags=lazy,rng</code>, or equivalently,
 <code>--tags=lazy --tags=rng</code> will set argument <code>tags=c("lazy", "rng")</code>.</p>
-<p>Here are some examples on how to call this function from the command line:</p><pre><code>
+<p>Here are some examples on how to call this function from the command line:</p><div class="sourceCode"><pre><code>
 Rscript -e future.tests::check --args --test-plan=sequential
 Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
-</code></pre><p>The exit code will be 0 if all tests passed, otherwise 1. You
+</code></pre></div><p>The exit code will be 0 if all tests passed, otherwise 1. You
 can use for instance <code>exit_code=$?</code> to retrieve the exit code of the
 most recent call.</p>
+    </div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">future.tests</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>plan <span class="op">=</span> <span class="st">"sequential"</span>, tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"rng"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">exit_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"exit_code"</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">exit_code</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"One or more tests failed"</span><span class="op">)</span></span>
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">future.tests</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>plan <span class="op">=</span> <span class="st">"sequential"</span>, tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rng"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">exit_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"exit_code"</span><span class="op">)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">exit_code</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"One or more tests failed"</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -214,7 +222,7 @@ most recent call.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
 </div>
 
       </footer></div>

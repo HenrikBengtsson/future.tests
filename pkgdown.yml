@@ -1,11 +1,11 @@
-pandoc: 1.19.2.4
-pkgdown: 1.9000.9000.9000
-pkgdown_sha: 31939caeb87846bc75e0cb5eccc0d610405c4580
+pandoc: 2.16.2
+pkgdown: 2.0.2
+pkgdown_sha: ~
 articles:
   future.tests-01-intro: future.tests-01-intro.html
   future.tests-05-ci-github_actions: future.tests-05-ci-github_actions.html
   future.tests-05-ci-travis: future.tests-05-ci-travis.html
-last_built: 2021-10-11T01:19Z
+last_built: 2022-02-17T01:16Z
 urls:
   reference: https://future.tests.futureverse.org/reference
   article: https://future.tests.futureverse.org/articles
