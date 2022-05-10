@@ -23,7 +23,7 @@
 
 
 
-make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"),  {
+make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals", "globals-automatic"),  {
   a <- 3
   args <- list(x = 42, y = 12)
   v0 <- do.call(function(x, y) a * (x - y), args = args)
@@ -48,7 +48,7 @@ make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c
 })
 
 
-make_test(title = 'futureCall() - globals = list(a = 3)', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), {
+make_test(title = 'futureCall() - globals = list(a = 3)', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals", "globals-by-value"), {
   a <- 3
   args <- list(x = 42, y = 12)
   v0 <- do.call(function(x, y) a * (x - y), args = args)
@@ -80,7 +80,7 @@ make_test(title = 'futureCall() - globals = list(a = 3)', args = list(lazy = c(F
 ## References:
 ## * https://github.com/HenrikBengtsson/future/issues/262
 ## * https://github.com/HenrikBengtsson/future/blob/master/R/futureCall.R#L18-L25
-make_test(title = 'futureCall() - globals = "a"', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals"), {
+make_test(title = 'futureCall() - globals = "a"', args = list(lazy = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals", "globals-by-name"), {
   a <- 3
   args <- list(x = 42, y = 12)
   v0 <- do.call(function(x, y) a * (x - y), args = args)
