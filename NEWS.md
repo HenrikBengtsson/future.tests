@@ -1,11 +1,13 @@
 # future.tests
 
-## Version 0.3.0-9005 [2022-05-18]
+## Version 0.3.0-9006 [2022-05-18]
 
 ### New Features
 
  * check() and check_plan() gained argument 'local', which is passed
    down to run_test().
+
+ * check()  gained argument 'envir', which is passed down to run_test().
 
 ### Bug Fixes
 

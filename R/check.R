@@ -55,7 +55,7 @@
 #' @importFrom utils packageVersion
 #' @importFrom future availableCores plan
 #' @export
-check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TRUE, session_info = FALSE, local = TRUE, debug = FALSE, exit_value = !interactive(), .args = commandArgs()) {
+check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TRUE, session_info = FALSE, envir = parent.frame(), local = TRUE, debug = FALSE, exit_value = !interactive(), .args = commandArgs()) {
   pkg <- "future"
   suppressPackageStartupMessages(require(pkg, character.only = TRUE)) || stop("Package not found: ", sQuote(pkg))
 
@@ -157,7 +157,7 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
     
     eval(test_plan)
     
-    test_results[[pp]] <- check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE), local = local)
+    test_results[[pp]] <- check_plan(tests = tests, defaults = list(lazy = FALSE, globals = TRUE, stdout = TRUE), envir = envir, local = local)
     
     ## Shutdown current plan
     plan(sequential)
