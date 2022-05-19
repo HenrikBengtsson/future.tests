@@ -8,7 +8,8 @@ check_plan(
   tests = test_db(),
   defaults = list(),
   timeout = getOption("future.tests.timeout", 30),
-  envir = parent.frame()
+  envir = parent.frame(),
+  local = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ check_plan(
 \item{timeout}{Maximum time allowed for evaluation before a timeout error is produced.}
 
 \item{envir}{The environment where tests are run.}
+
+\item{local}{Should tests be evaluated in a local environment or not.}
 }
 \value{
 Nothing.

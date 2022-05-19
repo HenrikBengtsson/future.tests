@@ -1,8 +1,8 @@
 #' Run All Tests
 #'
-#' @param tests A list of tests to subset.
+#' @inheritParams run_test
 #'
-#' @param defaults (optional) Named list with default argument values.
+#' @param tests A list of tests to subset.
 #'
 #' @param timeout Maximum time allowed for evaluation before a timeout error is produced.
 #'
@@ -14,7 +14,7 @@
 #' @importFrom cli get_spinner rule symbol
 #' @importFrom prettyunits pretty_sec pretty_dt
 #' @export
-check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30), envir = parent.frame()) {
+check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption("future.tests.timeout", 30), envir = parent.frame(), local = TRUE) {
   if (length(defaults) > 0) stopifnot(is.list(defaults), !is.null(names(defaults)))
 
   spinner <- silver(get_spinner("line")$frame)
@@ -65,7 +65,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       pcat(sprintf("%s %s", text, step))
       args <- as.list(sets_of_args[aa, , drop = FALSE])
       result <- suppressWarnings({
-        run_test(test, args = args, defaults = defaults, timeout = timeout, envir = envir)
+        run_test(test, args = args, defaults = defaults, timeout = timeout, envir = envir, local = local)
       })
       if (inherits(result$error, "TimeoutError")) {
         status[[aa]] <- "TIMEOUT"

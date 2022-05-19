@@ -10,6 +10,7 @@ check(
   timeout = NULL,
   settings = TRUE,
   session_info = FALSE,
+  local = TRUE,
   debug = FALSE,
   exit_value = !interactive(),
   .args = commandArgs()
@@ -30,6 +31,8 @@ before the tests start.}
 
 \item{session_info}{(logical) If TRUE, session information is outputted
 after the tests complete.}
+
+\item{local}{Should tests be evaluated in a local environment or not.}
 
 \item{debug}{(logical) If TRUE, the raw test results are printed.}
 

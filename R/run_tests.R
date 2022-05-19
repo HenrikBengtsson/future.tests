@@ -1,14 +1,8 @@
 #' Run All Tests
 #'
+#' @inheritParams run_test
+#'
 #' @param tests A list of tests to subset.
-#'
-#' @param envir The environment where tests are run.
-#'
-#' @param local Should tests be evaluated in a local environment or not.
-#'
-#' @param defaults (optional) Named list with default argument values.
-#'
-#' @param output If TRUE, standard output is captured, otherwise not.
 #'
 #' @return List of test results.
 #' 
