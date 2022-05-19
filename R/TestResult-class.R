@@ -61,6 +61,7 @@ run_test <- function(test, envir = parent.frame(), local = TRUE, args = list(), 
 
   structure(c(list(
     test     = test,
+    local    = local,
     args     = args,
     defaults = defaults),
     res

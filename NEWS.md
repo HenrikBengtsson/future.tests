@@ -1,8 +1,11 @@
 # future.tests
 
-## Version 0.3.0-9001 [2022-05-09]
+## Version 0.3.0-9002 [2022-05-18]
 
- * ...
+### Bug Fixes
+
+ * TestResult class did not record whether the test was evaluated in a
+   local environment or not.
 
 
 ## Version 0.3.0 [2021-10-09]
