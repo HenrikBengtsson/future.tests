@@ -24,12 +24,11 @@
 
 
 make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals", "globals-automatic"),  {
+  options(future.debug = TRUE)
+  
   a <- 3
   args <- list(x = 42, y = 12)
   v0 <- do.call(function(x, y) a * (x - y), args = args)
-
-  options(future.debug = TRUE)
-  
   f <- futureCall(function(x, y) a * (x - y), args = args, globals = globals, lazy = lazy)
   rm(list = c("a", "args"))
   
@@ -43,6 +42,7 @@ make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c
     str(list(globals = globals, lazy = lazy, v0 = v0, v = v))
     stopifnot(all.equal(v, v0))
   } else {
+    str(list(globals = globals, lazy = lazy, v0 = v0, res = res))
     stopifnot(!globals)
   }
 })
