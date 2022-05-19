@@ -143,10 +143,15 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     }, add = TRUE)
   }
 
+  suppress_messages <- getOption("future.tests.suppress_messages", TRUE)
   result <- tryCatch({
-    suppressMessages({
+    if (suppress_messages) {
+      suppressMessages({
+        withVisible(eval(expr, envir = envir))
+      })
+    } else {
       withVisible(eval(expr, envir = envir))
-    })
+    }
   }, error = function(ex) {
     ex$traceback <- sys.calls()
 

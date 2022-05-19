@@ -24,7 +24,9 @@
 
 
 make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c(FALSE, TRUE)), tags = c("futureCall", "lazy", "globals", "globals-automatic"),  {
-  options(future.debug = TRUE)
+  if (!isTRUE(getOption("future.tests.suppress_messages", TRUE))) {
+    options(future.debug = TRUE)
+  }
   
   a <- 3
   args <- list(x = 42, y = 12)
@@ -33,6 +35,11 @@ make_test(title = "futureCall()", args = list(lazy = c(FALSE, TRUE), globals = c
   rm(list = c("a", "args"))
   
   print(f)
+  str(f$globals)
+  cat("- FUN(): --------------------\n")
+  FUN <- f$globals$FUN
+  print(utils::ls.str(environment(FUN)))
+  cat("-----------------------------\n")
   
   res <- tryCatch({
     v <- value(f)
