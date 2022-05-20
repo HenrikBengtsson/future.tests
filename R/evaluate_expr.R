@@ -84,6 +84,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     
     ## (d) Assert correctness
     if (.Platform$OS.type == "windows") {
+      print(all.equal(Sys.getenv(), old$envvars))
       added <- setdiff(names(Sys.getenv()), names(old$envvars))
       if (length(added) > 0) print(Sys.getenv()[added])
       remove <- setdiff(names(old$envvars), names(Sys.getenv()))
