@@ -88,7 +88,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
       stopifnot(all.equal(Sys.getenv()[common], old$envvars[common]))
       all <- union(names(Sys.getenv()), names(old$envvars))
       left <- setdiff(all, common)
-      stopifnot(all(!is.na(Sys.getenv[left])))
+      stopifnot(all(!is.na(Sys.getenv()[left])))
       stopifnot(all(is.na(old$envvars[left])))
       stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
       stopifnot(all.equal(Sys.getenv()[left], old$envvars[left]))
