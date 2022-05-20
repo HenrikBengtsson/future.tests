@@ -81,7 +81,7 @@ jobs:
       - name: Install R package dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          if (isTRUE(as.logical("${{ matrix.config.prune_functions }}"))) remotes::install_github("HenrikBengtsson/future", ref="develop")
+          if (isTRUE(as.logical("${{ matrix.config.prune_functions }}"))) remotes::install_github("HenrikBengtsson/future", ref="feature/environments")
           install.packages(".", repos = NULL, type = "source")  ## self vignette engine
         shell: Rscript {0}
 
