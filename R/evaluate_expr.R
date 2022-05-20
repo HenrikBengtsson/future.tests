@@ -88,17 +88,18 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
       ## only set them to an empty value, i.e. Sys.unsetenv("FOO")
       ## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
       ## a new environment variable is added during a test, it will
-      ## remain afterwards as empty values.
+      ## remain afterwards with an empty value.
+      ## (a) We can only assert that environment variables common
+      ##     before and after are set:
       common <- intersect(names(Sys.getenv()), names(old$envvars))
-      stopifnot(all.equal(Sys.getenv()[common], old$envvars[common]))
       stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
+      ## (b) Everything else
       all <- union(names(Sys.getenv()), names(old$envvars))
       left <- setdiff(all, common)
-      stopifnot(all(is.na(Sys.getenv()[left])))
-      stopifnot(all(!is.na(old$envvars[left])))
-      stopifnot(all(!is.na(Sys.getenv()[left])))
-      stopifnot(all(is.na(old$envvars[left])))
-      stopifnot(all.equal(Sys.getenv()[left], old$envvars[left]))
+      stopifnot(
+        all(is.na(Sys.getenv()[left])),
+        all(!is.na(old$envvars[left]))
+      )
     } else {
       stopifnot(identical(Sys.getenv(), old$envvars))
     }
