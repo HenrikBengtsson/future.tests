@@ -96,6 +96,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
         print(old$envvars[diff])
       }
       stopifnot(!identical(names(Sys.getenv()), old$envvars))
+      stopifnot(all.equal(Sys.getenv(), old$envvars))
       stopifnot(identical(Sys.getenv(), old$envvars))
     } else {
       stopifnot(identical(Sys.getenv(), old$envvars))
