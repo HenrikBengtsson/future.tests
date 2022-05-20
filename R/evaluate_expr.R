@@ -84,13 +84,20 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     
     ## (d) Assert correctness
     if (.Platform$OS.type == "windows") {
+      ## Note: On MS Windows, one cannot unset environment variables,
+      ## only set them to an empty value, i.e. Sys.unsetenv("FOO")
+      ## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
+      ## a new environment variable is added during a test, it will
+      ## remain afterwards as empty values.
       common <- intersect(names(Sys.getenv()), names(old$envvars))
       stopifnot(all.equal(Sys.getenv()[common], old$envvars[common]))
+      stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
       all <- union(names(Sys.getenv()), names(old$envvars))
       left <- setdiff(all, common)
+      stopifnot(all(is.na(Sys.getenv()[left])))
+      stopifnot(all(!is.na(old$envvars[left])))
       stopifnot(all(!is.na(Sys.getenv()[left])))
       stopifnot(all(is.na(old$envvars[left])))
-      stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
       stopifnot(all.equal(Sys.getenv()[left], old$envvars[left]))
     } else {
       stopifnot(identical(Sys.getenv(), old$envvars))
