@@ -86,7 +86,9 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     if (.Platform$OS.type == "windows") {
       common <- intersect(names(Sys.getenv()), names(old$envvars))
       stopifnot(all.equal(Sys.getenv()[common], old$envvars[common]))
-      stopifnot(all.equal(Sys.getenv(), old$envvars))
+      all <- union(names(Sys.getenv()), names(old$envvars))
+      left <- setdiff(all, common)
+      stopifnot(all.equal(Sys.getenv()[left], old$envvars[left]))
     } else {
       stopifnot(identical(Sys.getenv(), old$envvars))
     }
