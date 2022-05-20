@@ -129,7 +129,26 @@ db_state <- local({
       }
       
       ## Assert that everything was properly undone
-      stop_if_not(identical(Sys.getenv(), state$envs))
+      if (.Platform$OS.type == "windows") {
+        ## Note: On MS Windows, one cannot unset environment variables,
+        ## only set them to an empty value, i.e. Sys.unsetenv("FOO")
+        ## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
+        ## a new environment variable is added during a test, it will
+        ## remain afterwards with an empty value.
+        ## (a) We can only assert that environment variables common
+        ##     before and after are set:
+        common <- intersect(names(Sys.getenv()), names(state$envs))
+        stop_if_not(identical(Sys.getenv()[common], state$envs[common]))
+        ## (b) Everything else
+        all <- union(names(Sys.getenv()), names(state$envs))
+        left <- setdiff(all, common)
+        stopifnot(
+          all(is.na(Sys.getenv()[left])),
+          all(!is.na(state$envs[left]))
+        )
+      } else {
+        stop_if_not(identical(Sys.getenv(), state$envs))
+      }
 
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
