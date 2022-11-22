@@ -83,7 +83,26 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     }
     
     ## (d) Assert correctness
-    stopifnot(identical(Sys.getenv(), old$envvars))
+    if (.Platform$OS.type == "windows") {
+      ## Note: On MS Windows, one cannot unset environment variables,
+      ## only set them to an empty value, i.e. Sys.unsetenv("FOO")
+      ## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
+      ## a new environment variable is added during a test, it will
+      ## remain afterwards with an empty value.
+      ## (a) We can only assert that environment variables common
+      ##     before and after are set:
+      common <- intersect(names(Sys.getenv()), names(old$envvars))
+      stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
+      ## (b) Everything else
+      all <- union(names(Sys.getenv()), names(old$envvars))
+      left <- setdiff(all, common)
+      stopifnot(
+        all(is.na(Sys.getenv()[left])),
+        all(!is.na(old$envvars[left]))
+      )
+    } else {
+      stopifnot(identical(Sys.getenv(), old$envvars))
+    }
 
     ## ----------------------------------------------------------------------
     ## 3. Undo RNG state
@@ -143,10 +162,15 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     }, add = TRUE)
   }
 
+  suppress_messages <- getOption("future.tests.suppress_messages", TRUE)
   result <- tryCatch({
-    suppressMessages({
+    if (suppress_messages) {
+      suppressMessages({
+        withVisible(eval(expr, envir = envir))
+      })
+    } else {
       withVisible(eval(expr, envir = envir))
-    })
+    }
   }, error = function(ex) {
     ex$traceback <- sys.calls()
 

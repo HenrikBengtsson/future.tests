@@ -4,7 +4,9 @@ name: covr
 
 jobs:
   covr:
-    if: contains(github.ref, 'release') || contains(github.ref, 'master') || contains(github.ref, 'main') || contains(github.event.head_commit.message, '[covr]')
+    if: "! contains(github.event.head_commit.message, '[ci skip]')"    
+
+    timeout-minutes: 30
 
     runs-on: ubuntu-20.04
 
@@ -26,11 +28,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: release
-
-      - uses: r-lib/actions/setup-pandoc@master
 
       - name: Query dependencies
         run: |
@@ -40,7 +42,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
