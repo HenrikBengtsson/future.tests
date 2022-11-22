@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9010</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,7 +86,7 @@
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Packages
      
     <span class="caret"></span>
@@ -167,8 +167,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>future.tests: Continuous Integration on GitHub Actions</h1>
-                        <h4 data-toc-skip class="author">Henrik Bengtsson</h4>
+      <h1 data-toc-skip>future.tests: Continuous Integration on GitHub
+Actions</h1>
+                        <h4 data-toc-skip class="author">Henrik
+Bengtsson</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/HEAD/vignettes/future.tests-05-ci-github_actions.md" class="external-link"><code>vignettes/future.tests-05-ci-github_actions.md</code></a></small>
@@ -190,8 +192,14 @@
 %\VignetteKeyword{GitHub Actions}
 %\VignetteEngine{future.tests::selfonly}
 -->
-<p>We can use continuous integration (CI) services such as GitHub Action and Travis CI to automatically validate <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> backends via the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> test suite.</p>
-<p>Here is an example of a <code>.github/workflow/future.tests.yaml</code> file that configures GitHub Actions to check several backends via the <strong>future.tests</strong> test suite.</p>
+<p>We can use continuous integration (CI) services such as GitHub Action
+and Travis CI to automatically validate <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong>
+backends via the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong>
+test suite.</p>
+<p>Here is an example of a
+<code>.github/workflow/future.tests.yaml</code> file that configures
+GitHub Actions to check several backends via the
+<strong>future.tests</strong> test suite.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> future_tests</span></span>
@@ -290,7 +298,9 @@
 <span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
 <span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r${{ matrix.future.plan }}-results</span></span>
 <span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> check</span></span></code></pre></div>
-<p>For real-world examples, see the GitHub repositories of <a href="https://github.com/HenrikBengtsson/future" class="external-link"><strong>future</strong></a>, <a href="https://github.com/HenrikBengtsson/future.batchtools" class="external-link"><strong>future.batchtools</strong></a>, and <a href="https://github.com/HenrikBengtsson/future.callr" class="external-link"><strong>future.callr</strong></a>.</p>
+<p>For real-world examples, see the GitHub repositories of <a href="https://github.com/HenrikBengtsson/future" class="external-link"><strong>future</strong></a>,
+<a href="https://github.com/HenrikBengtsson/future.batchtools" class="external-link"><strong>future.batchtools</strong></a>,
+and <a href="https://github.com/HenrikBengtsson/future.callr" class="external-link"><strong>future.callr</strong></a>.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -308,7 +318,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6</p> and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9005.</p>
 </div>
 
       </footer>

@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9010</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -57,7 +57,7 @@
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Packages
      
     <span class="caret"></span>
@@ -132,7 +132,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make a Test</h1>
-    <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/HEAD/R/Test-class.R" class="external-link"><code>R/Test-class.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/HEAD/R/make_test.R" class="external-link"><code>R/make_test.R</code></a></small>
     <div class="hidden name"><code>make_test.Rd</code></div>
     </div>
 
@@ -141,15 +141,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">make_test</span><span class="op">(</span>
-  <span class="va">expr</span>,
-  title <span class="op">=</span> <span class="cn">NA_character_</span>,
-  args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  tags <span class="op">=</span> <span class="cn">NULL</span>,
-  substitute <span class="op">=</span> <span class="cn">TRUE</span>,
-  reset_workers <span class="op">=</span> <span class="cn">FALSE</span>,
-  register <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_test</span><span class="op">(</span></span>
+<span>  <span class="va">expr</span>,</span>
+<span>  title <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  tags <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  substitute <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  reset_workers <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  register <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -157,22 +157,35 @@
     <dl><dt>expr, substitute</dt>
 <dd><p>The expression to be tested and
 whether it is passes as an expression already or not.</p></dd>
+
+
 <dt>title</dt>
 <dd><p>(character) The title of the test.</p></dd>
+
+
 <dt>args</dt>
 <dd><p>(optional) Named arguments.</p></dd>
+
+
 <dt>tags</dt>
 <dd><p>(optional) Character vector of tags.</p></dd>
+
+
 <dt>reset_workers</dt>
 <dd><p>(optional) Specifies whether background workers should
 futures.</p></dd>
+
+
 <dt>register</dt>
 <dd><p>If TRUE, the test is registered in the test database,
 otherwise not.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>(invisibly) A Test.</p>
+    
+
+<p>(invisibly) A Test.</p>
     </div>
 
   </div>
@@ -187,7 +200,7 @@ otherwise not.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6</p> and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9005.</p>
 </div>
 
       </footer></div>

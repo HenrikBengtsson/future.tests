@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9010</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -57,7 +57,7 @@
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Packages
      
     <span class="caret"></span>
@@ -141,16 +141,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check</span><span class="op">(</span>
-  plan <span class="op">=</span> <span class="cn">NULL</span>,
-  tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,
-  timeout <span class="op">=</span> <span class="cn">NULL</span>,
-  settings <span class="op">=</span> <span class="cn">TRUE</span>,
-  session_info <span class="op">=</span> <span class="cn">FALSE</span>,
-  debug <span class="op">=</span> <span class="cn">FALSE</span>,
-  exit_value <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span>,
-  .args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html" class="external-link">commandArgs</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check</span><span class="op">(</span></span>
+<span>  plan <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  settings <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  session_info <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  local <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  exit_value <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  .args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/commandArgs.html" class="external-link">commandArgs</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -158,30 +160,55 @@
     <dl><dt>plan</dt>
 <dd><p>(character vector) One or more future strategy plans to be
 validated.</p></dd>
+
+
 <dt>tags</dt>
 <dd><p>(character vector; optional) Filter test by tags. If NULL, all
 tests are performed.</p></dd>
+
+
 <dt>timeout</dt>
 <dd><p>(numeric; optional) Maximum time (in seconds) each test may
 run before a timeout error is produced.</p></dd>
+
+
 <dt>settings</dt>
 <dd><p>(logical) If TRUE, details on the settings are outputted
 before the tests start.</p></dd>
+
+
 <dt>session_info</dt>
 <dd><p>(logical) If TRUE, session information is outputted
 after the tests complete.</p></dd>
+
+
+<dt>envir</dt>
+<dd><p>The environment where tests are run.</p></dd>
+
+
+<dt>local</dt>
+<dd><p>Should tests be evaluated in a local environment or not.</p></dd>
+
+
 <dt>debug</dt>
 <dd><p>(logical) If TRUE, the raw test results are printed.</p></dd>
+
+
 <dt>exit_value</dt>
 <dd><p>(logical) If TRUE, and in a non-interactive session,
 then use <code><a href="https://rdrr.io/r/base/quit.html" class="external-link">base::quit()</a></code> to quit <span style="R">R</span> with an exit code of 0 (zero) if all
 tests passed with all OKs and otherwise 1 (one) if one or more test failed.</p></dd>
+
+
 <dt>.args</dt>
 <dd><p>(character vector; optional) Command-line arguments.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>(list; invisible) A list of test results.</p>
+    
+
+<p>(list; invisible) A list of test results.</p>
     </div>
     <div id="command-line-interface-cli-">
     <h2>Command-line interface (CLI)</h2>
@@ -202,12 +229,12 @@ most recent call.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">future.tests</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>plan <span class="op">=</span> <span class="st">"sequential"</span>, tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rng"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">exit_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"exit_code"</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">exit_code</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"One or more tests failed"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">future.tests</span><span class="fu">::</span><span class="fu">check</span><span class="op">(</span>plan <span class="op">=</span> <span class="st">"sequential"</span>, tags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rng"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">exit_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"exit_code"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">exit_code</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"One or more tests failed"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -222,7 +249,7 @@ most recent call.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2 and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9003.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6</p> and <a href="https://github.com/HenrikBengtsson/pkgdown.extras/">pkgdown.extras</a> 0.0.0.9005.</p>
 </div>
 
       </footer></div>
