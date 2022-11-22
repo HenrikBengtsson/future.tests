@@ -4,6 +4,9 @@
 
  * Assert that `rm(a)` in a future expression only removes a local
    variable `a`, but never a global variable `a`.
+   
+ * Assert that packages **data.table** and **ff** are not affected
+   when a future resets the R options on the worker when resolved.
 
 ## New Features
 

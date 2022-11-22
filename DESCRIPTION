@@ -1,6 +1,6 @@
 Package: future.tests
 Title: Test Suite for 'Future API' Backends
-Version: 0.3.0-9007
+Version: 0.3.0-9008
 Authors@R: c(
   person("Henrik", "Bengtsson", role = c("aut", "cre", "cph"), email = "henrikb@braju.com"),
   person(family = "The R Consortium", comment = "Project was awared an Infrastructure Steering Committee (ISC) grant in 2017", role = "fnd"))
@@ -14,7 +14,9 @@ Imports:
 Suggests:
     commonmark,
     base64enc,
-    tools
+    tools,
+    data.table,
+    ff
 VignetteBuilder: future.tests
 License: LGPL (>= 2.1)
 Encoding: UTF-8
