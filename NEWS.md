@@ -7,6 +7,10 @@
    
  * Assert that packages **data.table** and **ff** are not affected
    when a future resets the R options on the worker when resolved.
+   
+ * Assert that a global that is a copy of a non-exported package
+   object (e.g. `utils:::str2logical()`) is not dropped because it
+   belongs to a package namespace.
 
 ## New Features
 
