@@ -12,6 +12,9 @@
    object (e.g. `utils:::str2logical()`) is not dropped because it
    belongs to a package namespace.
 
+ * Assert that `...` can be exported as a global to a future, and
+   used as-is inside a function that does _not_ have `...` arguments.
+
 ## New Features
 
  * `check()` and `check_plan()` gained argument `local`, which is
