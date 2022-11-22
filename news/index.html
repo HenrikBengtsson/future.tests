@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0-9000</span>
       </span>
     </div>
 
@@ -137,21 +137,26 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="version-development-version">Version (development version)<a class="anchor" aria-label="anchor" href="#version-development-version"></a></h2>
+<ul><li>…</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.0" id="version-040">Version 0.4.0<a class="anchor" aria-label="anchor" href="#version-040"></a></h2>
 <div class="section level3">
-<h3 id="new-tests-development-version">New Tests<a class="anchor" aria-label="anchor" href="#new-tests-development-version"></a></h3>
+<h3 id="new-tests-0-4-0">New Tests<a class="anchor" aria-label="anchor" href="#new-tests-0-4-0"></a></h3>
 <ul><li><p>Assert that <code>rm(a)</code> in a future expression only removes a local variable <code>a</code>, but never a global variable <code>a</code>.</p></li>
 <li><p>Assert that packages <strong>data.table</strong> and <strong>ff</strong> are not affected when a future resets the R options on the worker when resolved.</p></li>
 <li><p>Assert that a global that is a copy of a non-exported package object (e.g. <code>utils:::str2logical()</code>) is not dropped because it belongs to a package namespace.</p></li>
 <li><p>Assert that <code>...</code> can be exported as a global to a future, and used as-is inside a function that does <em>not</em> have <code>...</code> arguments.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-4-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
 <ul><li><p><code><a href="../reference/check.html">check()</a></code> and <code><a href="../reference/check_plan.html">check_plan()</a></code> gained argument <code>local</code>, which is passed down to <code><a href="../reference/run_test.html">run_test()</a></code>.</p></li>
 <li><p><code><a href="../reference/check.html">check()</a></code> gained argument <code>envir</code>, which is passed down to <code><a href="../reference/run_test.html">run_test()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>The TestResult class did not record whether the test was evaluated in a local environment or not.</li>
+<h3 id="bug-fixes-0-4-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-4-0"></a></h3>
+<ul><li><p>The TestResult class did not record whether the test was evaluated in a local environment or not.</p></li>
+<li><p>A too strict internal assertion would give <code>Error in    evaluate_expr(test$expr, envir = envir, local = FALSE, output =    output, : identical(Sys.getenv(), old$envvars) is not TRUE</code> for R 4.2.x and R-devel on MS Windows. This was because it is not possible to remove environment variables on MS Windows; they can only be set to an empty value.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
