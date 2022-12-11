@@ -6,6 +6,8 @@
 
  * Assert that `result()` does not update the RNG state.
 
+ * Assert that `result()` does not update the RNG state.
+
  * Assert that `value()` does not update the RNG state.
 
 
