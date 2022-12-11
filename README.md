@@ -11,7 +11,7 @@ The **[future]** package defines the Future API which consists of a small number
 
 > Write once, run anywhere
 
-In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the Future API.  A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
+In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the [Future API Backend Specification].  A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
 
 This R package - **[future.tests]** - provides a test suite for validation that a future backend complies with the Future API.
 
@@ -38,26 +38,19 @@ $ exit_code=$?
 $ [[ exit_code -eq 0 ]] || { >&2 echo "One or more tests failed"; exit 1; }
 ```
 
+
 [R]: https://www.r-project.org
 [future]: https://cran.r-project.org/package=future
 [future.callr]: https://cran.r-project.org/package=future.callr
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools
 [future.tests]: https://cran.r-project.org/package=future.tests
+[Future API Backend Specification]: https://future.futureverse.org/articles/future-6-future-api-backend-specification.html
 
 ## Installation
 R package future.tests is available on [CRAN](https://cran.r-project.org/package=future.tests) and can be installed in R as:
 ```r
 install.packages("future.tests")
 ```
-
-### Pre-release version
-
-To install the pre-release version that is available in Git branch `develop` on GitHub, use:
-```r
-remotes::install_github("HenrikBengtsson/future.tests@develop")
-```
-This will install the package from source.  
-
 
 
 ### Pre-release version
