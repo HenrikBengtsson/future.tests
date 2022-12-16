@@ -1,10 +1,8 @@
-# CRAN submission future.tests 0.4.0
+# CRAN submission future.tests 0.5.0
 
-on 2022-11-21
+on 2022-12-15
 
-This submission fixes check errors on MS Windows.
-
-Thanks in advance
+Thank you
 
 
 ## Notes not sent to CRAN
@@ -13,16 +11,16 @@ Thanks in advance
 
 The package has been verified using `R CMD check --as-cran` on:
 
-| R version     | GitHub | R-hub  | mac/win-builder |
-| ------------- | ------ | ------ | --------------- |
-| 3.4.x         | L      |        |                 |
-| 3.6.x         | L      |        |                 |
-| 4.0.x         | L      |        |                 |
-| 4.1.x         | L      |        |                 |
-| 4.2.x         | L M W  | L M W  | M1 W            |
-| devel         | L M W  | L      |    W            |
+| R version | GitHub | R-hub  | mac/win-builder |
+| --------- | ------ | ------ | --------------- |
+| 3.4.x     | L      |        |                 |
+| 3.6.x     | L      |        |                 |
+| 4.0.x     | L      |        |                 |
+| 4.1.x     | L M W  |   M    |                 |
+| 4.2.x     | L M W  | L   W  | M1 W            |
+| devel     | L M W  | L      | M1 W            |
 
-*Legend: OS: L = Linux, M = macOS, M1 = macOS M1, W = Windows*
+_Legend: OS: L = Linux, M = macOS, M1 = macOS M1, W = Windows_
 
 
 R-hub checks:
@@ -41,48 +39,48 @@ print(res)
 gives
 
 ```
-── future.tests 0.4.0: OK
+── future.tests 0.5.0: OK
 
-  Build ID:   future.tests_0.4.0.tar.gz-56087839a7244fe2838b26e0e7d6e2ef
+  Build ID:   future.tests_0.5.0.tar.gz-2214029e90654147a2042359e8ea6994
   Platform:   Debian Linux, R-devel, clang, ISO-8859-15 locale
-  Submitted:  20m 7.3s ago
-  Build time: 20m 4.2s
+  Submitted:  27m 31s ago
+  Build time: 27m 25.9s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.4.0: OK
+── future.tests 0.5.0: OK
 
-  Build ID:   future.tests_0.4.0.tar.gz-d34153e91faf4ae1a6cc270aeafc81fc
+  Build ID:   future.tests_0.5.0.tar.gz-fae56b16b30843e2b376baf3d75e5434
   Platform:   Fedora Linux, R-devel, GCC
-  Submitted:  20m 7.3s ago
-  Build time: 14m 46.8s
+  Submitted:  27m 31s ago
+  Build time: 20m 4.5s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.4.0: OK
+── future.tests 0.5.0: OK
 
-  Build ID:   future.tests_0.4.0.tar.gz-038d204e46e6447fb1af73511ee0d8c4
+  Build ID:   future.tests_0.5.0.tar.gz-d93d8eb2b11849f8a69967ecb5a98311
   Platform:   Debian Linux, R-patched, GCC
-  Submitted:  20m 7.3s ago
-  Build time: 18m 49.9s
+  Submitted:  27m 31s ago
+  Build time: 25m 59.8s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.4.0: OK
+── future.tests 0.5.0: OK
 
-  Build ID:   future.tests_0.4.0.tar.gz-a93269329a4146f89862b6f44c19c982
+  Build ID:   future.tests_0.5.0.tar.gz-d2ba6a97e33d47e698efe1d7043069d1
   Platform:   macOS 10.13.6 High Sierra, R-release, CRAN's setup
-  Submitted:  20m 7.3s ago
-  Build time: 3m 49.8s
+  Submitted:  27m 31s ago
+  Build time: 4m 15.2s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.4.0: OK
+── future.tests 0.5.0: OK
 
-  Build ID:   future.tests_0.4.0.tar.gz-589d62db07ac40de80b37ee54bb43b14
+  Build ID:   future.tests_0.5.0.tar.gz-cf023d02b3de4b858e60ad0ea41fc95d
   Platform:   Windows Server 2022, R-release, 32/64 bit
-  Submitted:  20m 7.3s ago
-  Build time: 3m 20.2s
+  Submitted:  27m 31s ago
+  Build time: 3m 41s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
