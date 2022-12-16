@@ -2,13 +2,8 @@
 
 ## New Tests
 
- * Assert that `future()` does not update the RNG state.
-
- * Assert that `result()` does not update the RNG state.
-
- * Assert that `result()` does not update the RNG state.
-
- * Assert that `value()` does not update the RNG state.
+ * Assert that none of `future()`, `run()`, `result()` and `value()`
+   update the RNG state.
 
 
 # Version 0.4.0 [2022-11-21]
