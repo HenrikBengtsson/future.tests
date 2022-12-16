@@ -107,3 +107,81 @@ for (what in c("future", "%<-%")) {
     print(y3)
   }), substitute = FALSE)
 } ## for (what ...)
+
+
+
+make_test(title = 'Orchestration Stability - future() does not update RNG state', tags = c("orchestration", "rng", "seed", "stealth"), {
+  rng0 <- globalenv()$.Random.seed
+
+  f1 <- future(1)
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+
+  f2 <- future(2)
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+
+  v1 <- value(f1)
+  stopifnot(identical(v1, 1))
+  
+  v2 <- value(f2)
+  stopifnot(identical(v2, 2))
+})
+
+
+make_test(title = 'Orchestration Stability - run() does not update RNG state', tags = c("orchestration", "rng", "seed", "stealth"), {
+  f1 <- future(1, lazy = TRUE)
+  f2 <- future(2, lazy = TRUE)
+
+  rng0 <- globalenv()$.Random.seed
+
+  f1 <- run(f1)
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+
+  f2 <- run(f2)
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+
+  v1 <- value(f1)
+  stopifnot(identical(v1, 1))
+  
+  v2 <- value(f2)
+  stopifnot(identical(v2, 2))
+})
+
+
+make_test(title = 'Orchestration Stability - result() does not update RNG state', tags = c("orchestration", "rng", "seed", "stealth"), {
+  f1 <- future(1)
+  f2 <- future(2)
+
+  rng0 <- globalenv()$.Random.seed
+
+  r1 <- result(f1)
+  stopifnot(identical(r1$value, 1))
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+  
+  r2 <- result(f2)
+  stopifnot(identical(r2$value, 2))
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+})
+
+
+make_test(title = 'Orchestration Stability - value() does not update RNG state', tags = c("orchestration", "rng", "seed", "stealth"), {
+  f1 <- future(1)
+  f2 <- future(2)
+
+  rng0 <- globalenv()$.Random.seed
+
+  v1 <- value(f1)
+  stopifnot(identical(v1, 1))
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+  
+  v2 <- value(f2)
+  stopifnot(identical(v2, 2))
+  ## Assert RNG state is still the same
+  stopifnot(identical(globalenv()$.Random.seed, rng0))
+})

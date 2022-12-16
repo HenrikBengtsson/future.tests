@@ -1,3 +1,11 @@
+# Version 0.5.0 [2022-12-15]
+
+## New Tests
+
+ * Assert that none of `future()`, `run()`, `result()` and `value()`
+   update the RNG state.
+
+
 # Version 0.4.0 [2022-11-21]
 
 ## New Tests
