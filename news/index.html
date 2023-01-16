@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0-9006</span>
       </span>
     </div>
 
@@ -137,8 +137,17 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="version-development-version">Version (development version)<a class="anchor" aria-label="anchor" href="#version-development-version"></a></h2>
-<ul><li>…</li>
+<div class="section level3">
+<h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li><p>Now tests can be formally skipped by calling <code><a href="../reference/skip_test.html">future.tests::skip_test()</a></code> from within the test. Skipped tests are counted and reported in the summary.</p></li>
+<li><p>Now <code><a href="../reference/check_plan.html">check_plan()</a></code> outputs also the test iteration index.</p></li>
+<li><p>Now <code><a href="../reference/check_plan.html">check_plan()</a></code> outputs also the error message when there’s is a test error. Similarly, the reason for a test is being skipped is also outputted, if available.</p></li>
 </ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>Some tests assume that the future strategy tested has a <code>workers</code> argument, which is not true for all future backends. For example, ‘sequential’ does not take argument <code>workers</code>. Previously, we avoided this problem by only testing if the evaluator inherited <code>multiprocess</code>, but that is not sufficient, e.g. upcoming <code><a href="https://rdrr.io/pkg/future.redis/man/redis.html" class="external-link">future.redis::redis</a></code> inherits <code>multiprocess</code>, but still does not have a <code>workers</code> argument. Now we check for the <code>workers</code> argument instead.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="version-050">Version 0.5.0<small>2022-12-16</small><a class="anchor" aria-label="anchor" href="#version-050"></a></h2>
 <div class="section level3">
