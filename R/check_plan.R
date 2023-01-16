@@ -123,7 +123,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
 	  total["TIMEOUT"] <- total["TIMEOUT"] + 1L
         }
 
-        if (is.character(msg) && nzchar(msg) > 0) {
+        if (is.character(msg) && length(msg) > 0L && any(nzchar(msg) > 0L)) {
           msg <- unlist(strsplit(msg, split = "\n", fixed = TRUE))
           msg <- sprintf("    %s", msg)
           msg <- paste(msg, collapse = "\n")
