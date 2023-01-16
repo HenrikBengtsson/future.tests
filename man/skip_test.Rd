@@ -4,9 +4,13 @@
 \alias{skip_test}
 \title{Skip The Current Test}
 \usage{
-skip_test(message = "Test skipped", domain = NULL)
+skip_test(..., domain = NULL)
 }
 \arguments{
+\item{...}{zero or more objects which can be coerced to character
+    (and which are pasted together with no separator) or (for
+    \code{message} only) a single condition object.}
+
 \item{domain}{see \code{\link[base]{gettext}}.  If \code{NA}, messages will
     not be translated, see also the note in \code{\link[base]{stop}}.}
 }

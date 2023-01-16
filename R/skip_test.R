@@ -7,8 +7,8 @@
 #' @return (invisible) A [base::condition] of class `TestSkipped`.
 #'
 #' @export
-skip_test <- function(message = "Test skipped", domain = NULL) {
-  message <- .makeMessage(message, domain = domain)
+skip_test <- function(..., domain = NULL) {
+  message <- .makeMessage(..., domain = domain)
   call <- sys.call()
   cond <- structure(list(
     message = message,
