@@ -8,7 +8,11 @@
 #'
 #' @export
 skip_test <- function(..., domain = NULL) {
-  message <- .makeMessage(..., domain = domain)
+  message <- if (length(list(...)) == 0) {
+    .makeMessage("Test skipped", domain = domain)
+  } else {
+    .makeMessage(..., domain = domain)
+  }
   call <- sys.call()
   cond <- structure(list(
     message = message,

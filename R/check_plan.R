@@ -78,7 +78,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       dts[aa] <- difftime(result$time[length(result$time)], result$time[1], units = "secs")
 
       test_results[[tt]][[aa]] <- result
-    }
+    } ## for (aa ...)
 
     dt <- sum(dts, na.rm = TRUE)
     total_time <- cyan(sprintf("(%s)", pretty_sec(dt)))
@@ -105,19 +105,30 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       for (aa in seq_len(nrow(sets_of_args))) {
         args <- as.list(sets_of_args[aa, , drop = FALSE])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
+        msg <- NULL
 	if (status[aa] == "OK") {
           cat(sprintf("  %s %s\n", ok, args_tag))
 	  total["OK"] <- total["OK"] + 1L
 	} else if (status[aa] == "ERROR") {
           cat(sprintf("  %s %s\n", error, args_tag))
 	  total["ERROR"] <- total["ERROR"] + 1L
+          msg <- c("Error message:",
+                   conditionMessage(test_results[[tt]][[aa]]$error))
 	} else if (status[aa] == "SKIP") {
           cat(sprintf("  %s %s\n", skip, args_tag))
 	  total["SKIP"] <- total["SKIP"] + 1L
+          msg <- conditionMessage(test_results[[tt]][[aa]]$skipped)
 	} else if (status[aa] == "TIMEOUT") {
           cat(sprintf("  %s %s %s\n", timeout_error, args_tag, yellow(sprintf("(> %s)", pretty_sec(timeout)))))
 	  total["TIMEOUT"] <- total["TIMEOUT"] + 1L
-        }        
+        }
+
+        if (is.character(msg) && nzchar(msg) > 0) {
+          msg <- unlist(strsplit(msg, split = "\n", fixed = TRUE))
+          msg <- sprintf("    %s", msg)
+          msg <- paste(msg, collapse = "\n")
+          cat(sprintf("%s\n", msg))
+        }
       }
     }    
   } ## for (tt ...)

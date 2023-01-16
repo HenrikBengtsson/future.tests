@@ -8,6 +8,10 @@
    
  * Now `check_plan()` outputs also the test iteration index.
 
+ * Now `check_plan()` outputs also the error message when there's is a
+   test error.  Similarly, the reason for a test is being skipped is
+   also outputted, if available.
+
 ## Bug Fixes
 
  * Some tests assume that the future strategy tested has a `workers`
