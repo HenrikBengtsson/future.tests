@@ -147,9 +147,9 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   }
 
   timeouts <- if (total["TIMEOUT"] == 1L) {
-    red("1 timeout", symbol[["info"]])
+    yellow("1 timeout", timeout_error)
   } else {
-    red(total["TIMEOUT"], "timeouts", error)
+    yellow(total["TIMEOUT"], "timeouts", timeout_error)
   }
 
   cat(sprintf("\nResults: %s | %s | %s | %s\n\n", oks, skips, errors, timeouts))
