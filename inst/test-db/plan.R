@@ -8,7 +8,10 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
   current_plan <- plan()
 
   ## Does not have a 'workers' argument?
-  if (!"workers" %in% names(formals(current_plan))) return()
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
   
   ## FIXME: These tests only work for backends where 'workers' take
   ##        numeric values.
@@ -34,7 +37,10 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   current_plan <- plan()
 
   ## Does not have a 'workers' argument?
-  if (!"workers" %in% names(formals(current_plan))) return()
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
   
   n0 <- nbrOfWorkers()
 
@@ -64,7 +70,10 @@ make_test(title = "plan() - workers=<invalid>", args = list(), tags = c("plan", 
   current_plan <- plan()
 
   ## Does not have a 'workers' argument?
-  if (!"workers" %in% names(formals(current_plan))) return()
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
   
   ## Invalid number of workers or value on 'workers'
   res <- tryCatch({

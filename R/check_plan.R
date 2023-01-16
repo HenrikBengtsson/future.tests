@@ -10,7 +10,7 @@
 #'
 #' @return Nothing.
 #'
-#' @importFrom crayon cyan green red silver yellow
+#' @importFrom crayon blue cyan green red silver yellow
 #' @importFrom cli get_spinner rule symbol
 #' @importFrom prettyunits pretty_sec pretty_dt
 #' @export
@@ -20,6 +20,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   spinner <- silver(get_spinner("line")$frame)
   ok <- green(symbol[["tick"]])
   error <- red(symbol[["cross"]])
+  skip <- blue(symbol[["star"]])
   info <- symbol[["info"]]
   timeout_error <- yellow("T")
   note <- yellow("N")
@@ -39,7 +40,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     cat(sprintf("%s Package: ???\n", note))
   }  
 
-  total <- c(OK = 0L, ERROR = 0L, TIMEOUT = 0L)
+  total <- c(OK = 0L, ERROR = 0L, SKIP = 0L, TIMEOUT = 0L)
 
   time <- Sys.time()
   
@@ -67,7 +68,9 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       result <- suppressWarnings({
         run_test(test, args = args, defaults = defaults, timeout = timeout, envir = envir, local = local)
       })
-      if (inherits(result$error, "TimeoutError")) {
+      if (inherits(result$skipped, "TestSkipped")) {
+        status[[aa]] <- "SKIP"
+      } else if (inherits(result$error, "TimeoutError")) {
         status[[aa]] <- "TIMEOUT"
       } else if (inherits(result$error, "error")) {
         status[[aa]] <- "ERROR"
@@ -87,7 +90,18 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       cat(sprintf("%s %s %s %s\n", ok, text, count, total_time))
       total["OK"] <- total["OK"] + length(status)
     } else {
-      cat(sprintf("%s %s %s %s\n", error, text, count, total_time))
+      reason <- if (any(status == "ERROR")) {
+        "ERROR"
+      } else if (any(status == "TIMEOUT")) {
+        "TIMEOUT"
+      } else if (any(status == "SKIP")) {
+        "SKIP"
+      } else {
+        "OK"
+      }
+
+      reason <- c(OK = ok, ERROR = error, TIMEOUT = timeout_error, SKIP = skip)[reason]
+      cat(sprintf("%s %s %s %s\n", reason, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
         args <- as.list(sets_of_args[aa, , drop = FALSE])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
@@ -97,6 +111,9 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
 	} else if (status[aa] == "ERROR") {
           cat(sprintf("  %s %s\n", error, args_tag))
 	  total["ERROR"] <- total["ERROR"] + 1L
+	} else if (status[aa] == "SKIP") {
+          cat(sprintf("  %s %s\n", skip, args_tag))
+	  total["SKIP"] <- total["SKIP"] + 1L
 	} else if (status[aa] == "TIMEOUT") {
           cat(sprintf("  %s %s %s\n", timeout_error, args_tag, yellow(sprintf("(> %s)", pretty_sec(timeout)))))
 	  total["TIMEOUT"] <- total["TIMEOUT"] + 1L
@@ -114,24 +131,28 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
   } else {
     cat(sprintf("\nDuration: %s (including %s timeouts)\n", pretty_dt(dt), total["TIMEOUT"]))
   }
-  
-  if (total["ERROR"] == 0L) {
-    errors <- green("0 errors", ok)
-  } else if (total["ERROR"] == 1L) {
-    errors <- red("1 error", symbol[["cross"]])
+
+  oks <- green(total["OK"], "ok", ok)
+
+  skips <- if (total["SKIP"] == 1L) {
+    blue("1 skip", skip)
   } else {
-    errors <- red(total["ERROR"], "errors", error)
+    blue(total["SKIP"], "skips", skip)
   }
 
-  if (total["TIMEOUT"] == 0L) {
-    timeouts <- green("0 timeouts", symbol[["tick"]])
-  } else if (total["TIMEOUT"] == 1L) {
-    timeouts <- red("1 timeout", symbol[["info"]])
+  errors <- if (total["ERROR"] == 1L) {
+    red("1 error", error)
   } else {
-    timeouts <- red(total["TIMEOUT"], "timeouts", error)
+    red(total["ERROR"], "errors", error)
   }
 
-  cat(sprintf("\nResults: %s | %s\n\n", errors, timeouts))
+  timeouts <- if (total["TIMEOUT"] == 1L) {
+    red("1 timeout", symbol[["info"]])
+  } else {
+    red(total["TIMEOUT"], "timeouts", error)
+  }
+
+  cat(sprintf("\nResults: %s | %s | %s | %s\n\n", oks, skips, errors, timeouts))
 
   invisible(test_results)
 }

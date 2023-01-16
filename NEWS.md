@@ -1,5 +1,11 @@
 # Version (development version)
 
+## New Features
+
+ * Now tests can be formally skipped by calling
+   `future.tests::skip_test()` from within the test.  Skipped tests
+   are counted and reported in the summary.
+
 ## Bug Fixes
 
  * Some tests assume that the future strategy tested has a `workers`

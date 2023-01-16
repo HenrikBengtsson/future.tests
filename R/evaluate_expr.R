@@ -186,6 +186,8 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     }	
        
     ex
+  }, TestSkipped = function(cond) {
+    cond    
   })
 
   if (output != "none") {
@@ -197,6 +199,8 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
 
   if (inherits(result, "error")) {
     res$error <- result
+  } else if (inherits(result, "TestSkipped")) {
+    res$skipped <- result
   } else {
     res["value"] <- list(result$value)
     res$visible <- result$visible
