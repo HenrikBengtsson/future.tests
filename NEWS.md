@@ -5,6 +5,8 @@
  * Now tests can be formally skipped by calling
    `future.tests::skip_test()` from within the test.  Skipped tests
    are counted and reported in the summary.
+   
+ * Now `check_plan()` outputs also the test iteration index.
 
 ## Bug Fixes
 

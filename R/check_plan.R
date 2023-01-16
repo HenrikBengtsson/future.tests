@@ -87,7 +87,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     count <- silver(sprintf("(%d %s)", length(status), unit))
     perase()
     if (all(status == "OK")) {
-      cat(sprintf("%s %s %s %s\n", ok, text, count, total_time))
+      cat(sprintf("%s %2d. %s %s %s\n", ok, tt, text, count, total_time))
       total["OK"] <- total["OK"] + length(status)
     } else {
       reason <- if (any(status == "ERROR")) {
@@ -101,7 +101,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
       }
 
       reason <- c(OK = ok, ERROR = error, TIMEOUT = timeout_error, SKIP = skip)[reason]
-      cat(sprintf("%s %s %s %s\n", reason, text, count, total_time))
+      cat(sprintf("%s %2d. %s %s %s\n", reason, tt, text, count, total_time))
       for (aa in seq_len(nrow(sets_of_args))) {
         args <- as.list(sets_of_args[aa, , drop = FALSE])
         args_tag <- paste(sprintf("%s=%s", names(args), unlist(args)), collapse = ", ")
@@ -122,14 +122,16 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     }    
   } ## for (tt ...)
 
-  cat(sprintf("\nNumber of tests: %d\n", sum(total)))
+  cat("\n")
+  cat(sprintf("Number of tests: %d\n", length(tests)))
+  cat(sprintf("Number of test steps: %d\n", sum(total)))
 
   time <- c(time, Sys.time())
   dt <- difftime(time[length(time)], time[1], units = "secs")
   if (total["TIMEOUT"] == 0) {
-    cat(sprintf("\nDuration: %s\n", pretty_dt(dt)))
+    cat(sprintf("Duration: %s\n", pretty_dt(dt)))
   } else {
-    cat(sprintf("\nDuration: %s (including %s timeouts)\n", pretty_dt(dt), total["TIMEOUT"]))
+    cat(sprintf("Duration: %s (including %s timeouts)\n", pretty_dt(dt), total["TIMEOUT"]))
   }
 
   oks <- green(total["OK"], "ok", ok)
@@ -152,7 +154,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
     yellow(total["TIMEOUT"], "timeouts", timeout_error)
   }
 
-  cat(sprintf("\nResults: %s | %s | %s | %s\n\n", oks, skips, errors, timeouts))
+  cat(sprintf("Results: %s | %s | %s | %s\n\n", oks, skips, errors, timeouts))
 
   invisible(test_results)
 }
