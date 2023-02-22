@@ -24,7 +24,9 @@ make_test(title = "future() - preserve R options (ff)", tags = c("future", "opti
   info <- Sys.info()
   is_localhost <- value(future(identical(Sys.info(), info)))
   if (is_localhost && requireNamespace("ff")) {
+    library("ff")
     data <- ff::ff(1:12)
+    names <- grep("^ff", names(options()), value = TRUE)
     for (kk in 1:2) {
       stopifnot(is.character(getOption("fftempdir")))
       
