@@ -113,7 +113,7 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
           cat(sprintf("  %s %s\n", error, args_tag))
 	  total["ERROR"] <- total["ERROR"] + 1L
 	  ex <- test_results[[tt]][[aa]]$error
-          msg <- c("Error message:",
+          msg <- c(sprintf("Error of class %s with message:", sQuote(class(ex)[1])),
                    conditionMessage(ex))
           call <- conditionCall(ex)
 	  if (length(call) > 0) msg <- c(msg, "Call:", deparse(call))
