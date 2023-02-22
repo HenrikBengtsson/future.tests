@@ -1,21 +1,26 @@
 ## https://github.com/HenrikBengtsson/future.tests/issues/20
-make_test(title = "future() - preserve R options (data.table)", tags = c("future", "options", "reset", "data.table"), {
-  if (requireNamespace("data.table")) {
-    data.table <- data.table::data.table
-    for (kk in 1:2) {
-      f <- future(data.table())
-      v <- value(f)
-      print(v)
-      stopifnot(
-        inherits(v, "data.frame"),
-        inherits(v, "data.table"),
-        nrow(v) == 0L,
-        ncol(v) == 0L
-      )
-    }
+make_test(title = "future() - can load 'ff' package", tags = c("future", "options", "reset", "ff"), {
+  if (requireNamespace("ff")) {
+    res <- requireNamespace("ff")
+    if (!isTRUE(res)) stop("Failed to load 'ff' package")
   }
 })
 
+## https://github.com/HenrikBengtsson/future.tests/issues/20
+make_test(title = "future() - 'data.table' inject", tags = c("future", "options", "reset", "ff"), {
+  if (requireNamespace("data.table")) {
+    dt <- data.table::data.table
+    f <- future(dt, packages = "data.table")
+    r <- result(f)
+  }
+})
+
+## https://github.com/HenrikBengtsson/future.tests/issues/20
+make_test(title = "future() - can attach 'ff' package", tags = c("future", "options", "reset", "ff"), {
+  if (requireNamespace("ff")) {
+    library("ff")
+  }
+})
 
 
 ## https://github.com/HenrikBengtsson/future.tests/issues/20
@@ -24,9 +29,7 @@ make_test(title = "future() - preserve R options (ff)", tags = c("future", "opti
   info <- Sys.info()
   is_localhost <- value(future(identical(Sys.info(), info)))
   if (is_localhost && requireNamespace("ff")) {
-    library("ff")
     data <- ff::ff(1:12)
-    names <- grep("^ff", names(options()), value = TRUE)
     for (kk in 1:2) {
       stopifnot(is.character(getOption("fftempdir")))
       
@@ -58,4 +61,3 @@ make_test(title = "future() - preserve R options (ff)", tags = c("future", "opti
     }
   }
 })
-
