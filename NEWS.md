@@ -6,11 +6,12 @@
    `future.tests::skip_test()` from within the test.  Skipped tests
    are counted and reported in the summary.
    
- * Now `check_plan()` outputs also the test iteration index.
+ * Now `check_plan()` outputs the reason for a test is being skipped.
 
- * Now `check_plan()` outputs also the error message, error class, and
-   the call, whenever there's is a test error.  Similarly, the reason
-   for a test is being skipped is also outputted, if available.
+ * Now `check_plan()` outputs also the error message, error class, the
+   call, and any standard output, whenever there's is a test error.
+
+ * Now `check_plan()` outputs also the test iteration index.
 
  * Add `Rscript -e future.tests::check --version`.
 

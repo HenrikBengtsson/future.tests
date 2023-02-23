@@ -112,11 +112,13 @@ check_plan <- function(tests = test_db(), defaults = list(), timeout = getOption
 	} else if (status[aa] == "ERROR") {
           cat(sprintf("  %s %s\n", error, args_tag))
 	  total["ERROR"] <- total["ERROR"] + 1L
-	  ex <- test_results[[tt]][[aa]]$error
+	  result <- test_results[[tt]][[aa]]
+	  ex <- result$error
           msg <- c(sprintf("Error of class %s with message:", sQuote(class(ex)[1])),
                    conditionMessage(ex))
           call <- conditionCall(ex)
 	  if (length(call) > 0) msg <- c(msg, "Call:", deparse(call))
+	  if (length(result$output) > 0) msg <- c(msg, "Output:", result$output)
 	} else if (status[aa] == "SKIP") {
           cat(sprintf("  %s %s\n", skip, args_tag))
 	  total["SKIP"] <- total["SKIP"] + 1L
