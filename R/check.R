@@ -38,6 +38,7 @@
 #' Rscript -e future.tests::check --args --test-plan=sequential
 #' Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 #' Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
+#' Rscript -e future.tests::check --args --test-plan=future.callr::callr
 #' Rscript -e future.tests::check --args --test-plan=future.batchtools::batchtools_local
 #' }
 #' The exit code will be 0 if all tests passed, otherwise 1. You
@@ -134,6 +135,7 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
     cat(" Rscript -e future.tests::check --args --help\n")
     cat(" Rscript -e future.tests::check --args --test-plan=sequential\n")
     cat(" Rscript -e future.tests::check --args --test-plan=multisession,workers=4\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=future.callr::callr\n")
     cat(" Rscript -e future.tests::check --args --test-plan=future.batchtools::batchtools_local\n")
     
     return(invisible())
