@@ -18,6 +18,13 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   output <- match.arg(output)
   stopifnot(is.numeric(timeout), length(timeout) == 1L, timeout > 0)
   
+  ## WORKAROUND: To avoid 'R CMD check' NOTE on:
+  ## * checking R code for possible problems (4.2s)
+  ##   evaluate_expr: Error while checking: no local variable entry
+  ## due to a bug in codetools::checkUsage(), cf.
+  ## https://gitlab.com/luke-tierney/codetools/-/issues/7
+  local <- local
+  
   res <- list(
     expr = expr,
     local = local,
