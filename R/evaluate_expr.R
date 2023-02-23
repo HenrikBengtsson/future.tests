@@ -41,7 +41,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   )
 
   if ("options" %in% getOption("future.tests.undo")) {
-    on.exit({
+    on.exit(local({
       ## ----------------------------------------------------------------------
       ## 1. Undo options
       ## ----------------------------------------------------------------------
@@ -74,11 +74,11 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
 	identical(names, old_names),
 	identical(options()[names], old$options[names])
       )
-    }, add = TRUE)
+    }), add = TRUE)
   } ## if ("options" %in% ...)
 
   if ("envvars" %in% getOption("future.tests.undo")) {
-    on.exit({
+    on.exit(local({
       ## ----------------------------------------------------------------------
       ## 2. Undo environment variables
       ## ----------------------------------------------------------------------
@@ -122,11 +122,11 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
       } else {
 	stopifnot(identical(Sys.getenv(), old$envvars))
       }
-    }, add = TRUE)
+    }), add = TRUE)
   } ## if ("envvars" %in% ...)
   
   if ("rng" %in% getOption("future.tests.undo")) {
-    on.exit({
+    on.exit(local({
       ## ----------------------------------------------------------------------
       ## 3. Undo RNG state
       ## ----------------------------------------------------------------------
@@ -145,7 +145,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
       ## (c) Assert correctness
       stopifnot(identical(globalenv()$.Random.seed, old$seed))
       stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
-    }, add = TRUE)
+    }), add = TRUE)
   } ## if ("rng" %in% ...)
   
   if (output == "stdout") {
@@ -156,6 +156,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
         sink(type = "output")
         close(output_con)
       }
+      rm(list = "output_con")
     }, add = TRUE)
   } else if (output == "stdout+stderr") {
     output_con <- rawConnection(raw(), open = "w")
@@ -176,6 +177,7 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
         sink(type = "message")
         close(output_con)
       }
+      rm(list = "output_con")
     }, add = TRUE)
   }
 
