@@ -41,122 +41,122 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
   )
 
   if ("options" %in% getOption("future.tests.undo")) {
-  on.exit(add = TRUE, {
-    ## ----------------------------------------------------------------------
-    ## 1. Undo options
-    ## ----------------------------------------------------------------------
-    skip <- NULL
-    
-    ## (a) Remove added options
-    added <- setdiff(names(options()), names(old$options))
-    
-    ## SPECIAL CASE: Do not remove options specific to the 'ff' package, cf.
-    ## https://github.com/truecluster/ff/issues/14
-    skip <- c(skip, grep("^ff[[:alpha:]]+$", added, value = TRUE))
-    skip <- c(skip, grep("^datatable[.][[:alpha:]]+$", added, value = TRUE))
-    
-    added <- setdiff(added, skip)
-    opts <- structure(vector("list", length = length(added)), names = added)
-    options(opts)
-    
-    ## (b) Add back removed options
-    removed <- setdiff(names(old$options), names(options()))
-    opts <- old$options[removed]
-    options(opts)
+    on.exit({
+      ## ----------------------------------------------------------------------
+      ## 1. Undo options
+      ## ----------------------------------------------------------------------
+      skip <- NULL
 
-    ## (c) Undo modified options
-    old_names <- setdiff(names(old$options), skip)
-    options(old$options[old_names])
+      ## (a) Remove added options
+      added <- setdiff(names(options()), names(old$options))
 
-    ## (d) Assert correctness
-    names <- setdiff(names(options()), skip)
-    stopifnot(
-      identical(names, old_names),
-      identical(options()[names], old$options[names])
-    )
-  })
+      ## SPECIAL CASE: Do not remove options specific to the 'ff' package, cf.
+      ## https://github.com/truecluster/ff/issues/14
+      skip <- c(skip, grep("^ff[[:alpha:]]+$", added, value = TRUE))
+      skip <- c(skip, grep("^datatable[.][[:alpha:]]+$", added, value = TRUE))
+
+      added <- setdiff(added, skip)
+      opts <- structure(vector("list", length = length(added)), names = added)
+      options(opts)
+
+      ## (b) Add back removed options
+      removed <- setdiff(names(old$options), names(options()))
+      opts <- old$options[removed]
+      options(opts)
+
+      ## (c) Undo modified options
+      old_names <- setdiff(names(old$options), skip)
+      options(old$options[old_names])
+
+      ## (d) Assert correctness
+      names <- setdiff(names(options()), skip)
+      stopifnot(
+	identical(names, old_names),
+	identical(options()[names], old$options[names])
+      )
+    }, add = TRUE)
   } ## if ("options" %in% ...)
 
   if ("envvars" %in% getOption("future.tests.undo")) {
-  on.exit(add = TRUE, {
-    ## ----------------------------------------------------------------------
-    ## 2. Undo environment variables
-    ## ----------------------------------------------------------------------
-    ## (a) Remove added env vars
-    added <- setdiff(names(Sys.getenv()), names(old$envvars))
-    for (name in added) Sys.unsetenv(name)
+    on.exit({
+      ## ----------------------------------------------------------------------
+      ## 2. Undo environment variables
+      ## ----------------------------------------------------------------------
+      ## (a) Remove added env vars
+      added <- setdiff(names(Sys.getenv()), names(old$envvars))
+      for (name in added) Sys.unsetenv(name)
 
-    ## (b) Add back removed env vars
-    missing <- setdiff(names(old$envvars), names(Sys.getenv()))
-    if (length(missing) > 0) do.call(Sys.setenv, as.list(old$envvars[missing]))
+      ## (b) Add back removed env vars
+      missing <- setdiff(names(old$envvars), names(Sys.getenv()))
+      if (length(missing) > 0) do.call(Sys.setenv, as.list(old$envvars[missing]))
 
-    ## (c) Undo modified env vars
-    envs <- Sys.getenv()
-    for (name in intersect(names(envs), names(old$envvars))) {
-      ## WORKAROUND: On Linux Wine, base::Sys.getenv() may
-      ## return elements with empty names. /HB 2016-10-06
-      if (nchar(name) == 0L) next
-      if (!identical(envs[[name]], old$envvars[[name]])) {
-        do.call(Sys.setenv, as.list(old$envvars[name]))
+      ## (c) Undo modified env vars
+      envs <- Sys.getenv()
+      for (name in intersect(names(envs), names(old$envvars))) {
+	## WORKAROUND: On Linux Wine, base::Sys.getenv() may
+	## return elements with empty names. /HB 2016-10-06
+	if (nchar(name) == 0L) next
+	if (!identical(envs[[name]], old$envvars[[name]])) {
+	  do.call(Sys.setenv, as.list(old$envvars[name]))
+	}
       }
-    }
-    
-    ## (d) Assert correctness
-    if (.Platform$OS.type == "windows") {
-      ## Note: On MS Windows, one cannot unset environment variables,
-      ## only set them to an empty value, i.e. Sys.unsetenv("FOO")
-      ## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
-      ## a new environment variable is added during a test, it will
-      ## remain afterwards with an empty value.
-      ## (a) We can only assert that environment variables common
-      ##     before and after are set:
-      common <- intersect(names(Sys.getenv()), names(old$envvars))
-      stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
-      ## (b) Everything else
-      all <- union(names(Sys.getenv()), names(old$envvars))
-      left <- setdiff(all, common)
-      stopifnot(
-        all(is.na(Sys.getenv()[left])),
-        all(!is.na(old$envvars[left]))
-      )
-    } else {
-      stopifnot(identical(Sys.getenv(), old$envvars))
-    }
-  })
+
+      ## (d) Assert correctness
+      if (.Platform$OS.type == "windows") {
+	## Note: On MS Windows, one cannot unset environment variables,
+	## only set them to an empty value, i.e. Sys.unsetenv("FOO")
+	## is the same as Sys.setenv(FOO = "") on MS Windows. So, if
+	## a new environment variable is added during a test, it will
+	## remain afterwards with an empty value.
+	## (a) We can only assert that environment variables common
+	##     before and after are set:
+	common <- intersect(names(Sys.getenv()), names(old$envvars))
+	stopifnot(identical(Sys.getenv()[common], old$envvars[common]))
+	## (b) Everything else
+	all <- union(names(Sys.getenv()), names(old$envvars))
+	left <- setdiff(all, common)
+	stopifnot(
+	  all(is.na(Sys.getenv()[left])),
+	  all(!is.na(old$envvars[left]))
+	)
+      } else {
+	stopifnot(identical(Sys.getenv(), old$envvars))
+      }
+    }, add = TRUE)
   } ## if ("envvars" %in% ...)
   
   if ("rng" %in% getOption("future.tests.undo")) {
-  on.exit(add = TRUE, {
-    ## ----------------------------------------------------------------------
-    ## 3. Undo RNG state
-    ## ----------------------------------------------------------------------
-    ## (b) Undo RNG kind
-    args <- as.list(old$rngkind)
-    names(args) <- names(formals(RNGkind))
-    do.call(RNGkind, args = args)
-            
-    ## (a) Undo .Random.seed
-    if (is.null(old$seed)) {
-      rm(list = ".Random.seed", envir = globalenv())
-    } else {
-      assign(".Random.seed", value = old$seed, envir = globalenv())
-    }
+    on.exit({
+      ## ----------------------------------------------------------------------
+      ## 3. Undo RNG state
+      ## ----------------------------------------------------------------------
+      ## (b) Undo RNG kind
+      args <- as.list(old$rngkind)
+      names(args) <- names(formals(RNGkind))
+      do.call(RNGkind, args = args)
 
-    ## (c) Assert correctness
-    stopifnot(identical(globalenv()$.Random.seed, old$seed))
-    stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
-  })
+      ## (a) Undo .Random.seed
+      if (is.null(old$seed)) {
+	rm(list = ".Random.seed", envir = globalenv())
+      } else {
+	assign(".Random.seed", value = old$seed, envir = globalenv())
+      }
+
+      ## (c) Assert correctness
+      stopifnot(identical(globalenv()$.Random.seed, old$seed))
+      stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
+    }, add = TRUE)
   } ## if ("rng" %in% ...)
   
   if (output == "stdout") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
-    on.exit(add = TRUE, {
+    on.exit({
       if (inherits(output_con, "connection")) {
         sink(type = "output")
         close(output_con)
       }
-    })
+    }, add = TRUE)
   } else if (output == "stdout+stderr") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
@@ -170,20 +170,20 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     ## WORKAROUND: Because of this, we use a suppressMessages() when running
     ## the tests.  It was specifically introduced due to 'future.clustermq'.
     sink(output_con, type = "message")
-    on.exit(add = TRUE, {
+    on.exit({
       if (inherits(output_con, "connection")) {
         sink(type = "output")
         sink(type = "message")
         close(output_con)
       }
-    })
+    }, add = TRUE)
   }
 
   if (timeout < Inf) {
     setTimeLimit(cpu = timeout, elapsed = timeout, transient = TRUE)
-    on.exit(add = TRUE, {
+    on.exit({
       setTimeLimit(cpu = Inf, elapsed = Inf, transient = FALSE)
-    })
+    }, add = TRUE)
   }
 
   suppress_messages <- getOption("future.tests.suppress_messages", TRUE)
