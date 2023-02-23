@@ -39,13 +39,23 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     seed    = globalenv()$.Random.seed,
     rngkind = RNGkind()
   )
-  
-  on.exit({
+
+  if ("options" %in% getOption("future.tests.undo")) {
+  on.exit(add = TRUE, {
     ## ----------------------------------------------------------------------
     ## 1. Undo options
     ## ----------------------------------------------------------------------
-    ## (a) Removed added options
+    skip <- NULL
+    
+    ## (a) Remove added options
     added <- setdiff(names(options()), names(old$options))
+    
+    ## SPECIAL CASE: Do not remove options specific to the 'ff' package, cf.
+    ## https://github.com/truecluster/ff/issues/14
+    skip <- c(skip, grep("^ff[[:alpha:]]+$", added, value = TRUE))
+    skip <- c(skip, grep("^datatable[.][[:alpha:]]+$", added, value = TRUE))
+    
+    added <- setdiff(added, skip)
     opts <- structure(vector("list", length = length(added)), names = added)
     options(opts)
     
@@ -55,15 +65,24 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     options(opts)
 
     ## (c) Undo modified options
-    options(old$options)
+    old_names <- setdiff(names(old$options), skip)
+    options(old$options[old_names])
 
     ## (d) Assert correctness
-    stopifnot(identical(options(), old$options))
-    
+    names <- setdiff(names(options()), skip)
+    stopifnot(
+      identical(names, old_names),
+      identical(options()[names], old$options[names])
+    )
+  })
+  } ## if ("options" %in% ...)
+
+  if ("envvars" %in% getOption("future.tests.undo")) {
+  on.exit(add = TRUE, {
     ## ----------------------------------------------------------------------
     ## 2. Undo environment variables
     ## ----------------------------------------------------------------------
-    ## (a) Removed added env vars
+    ## (a) Remove added env vars
     added <- setdiff(names(Sys.getenv()), names(old$envvars))
     for (name in added) Sys.unsetenv(name)
 
@@ -103,7 +122,11 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     } else {
       stopifnot(identical(Sys.getenv(), old$envvars))
     }
-
+  })
+  } ## if ("envvars" %in% ...)
+  
+  if ("rng" %in% getOption("future.tests.undo")) {
+  on.exit(add = TRUE, {
     ## ----------------------------------------------------------------------
     ## 3. Undo RNG state
     ## ----------------------------------------------------------------------
@@ -123,16 +146,17 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     stopifnot(identical(globalenv()$.Random.seed, old$seed))
     stopifnot(identical(RNGkind()[1:2], old$rngkind[1:2]))
   })
+  } ## if ("rng" %in% ...)
   
   if (output == "stdout") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
-    on.exit({
+    on.exit(add = TRUE, {
       if (inherits(output_con, "connection")) {
         sink(type = "output")
         close(output_con)
       }
-    }, add = TRUE)
+    })
   } else if (output == "stdout+stderr") {
     output_con <- rawConnection(raw(), open = "w")
     sink(output_con, type = "output")
@@ -146,20 +170,20 @@ evaluate_expr <- function(expr, envir = parent.frame(), local = TRUE, output = c
     ## WORKAROUND: Because of this, we use a suppressMessages() when running
     ## the tests.  It was specifically introduced due to 'future.clustermq'.
     sink(output_con, type = "message")
-    on.exit({
+    on.exit(add = TRUE, {
       if (inherits(output_con, "connection")) {
         sink(type = "output")
         sink(type = "message")
         close(output_con)
       }
-    }, add = TRUE)
+    })
   }
 
   if (timeout < Inf) {
     setTimeLimit(cpu = timeout, elapsed = timeout, transient = TRUE)
-    on.exit({
+    on.exit(add = TRUE, {
       setTimeLimit(cpu = Inf, elapsed = Inf, transient = FALSE)
-    }, add = TRUE)
+    })
   }
 
   suppress_messages <- getOption("future.tests.suppress_messages", TRUE)

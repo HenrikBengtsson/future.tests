@@ -59,6 +59,7 @@ db_state <- local({
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo graphics devices
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      if ("graphics" %in% getOption("future.tests.undo")) {
       added <- setdiff(dev.list(), state$devs)
       if (length(added) > 0) {
 	if (debug) {
@@ -68,12 +69,23 @@ db_state <- local({
 	}
         lapply(added, FUN = dev.off)
       }
+      } ## if ("graphics" %in% ...)
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo options
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      if ("options" %in% getOption("future.tests.undo")) {
+      skip <- NULL
+      
       ## If new options were added, then remove them
       added <- setdiff(names(options()), names(state$opts))
+      
+      ## SPECIAL CASE: Do not remove options specific to the 'ff' package, cf.
+      ## https://github.com/truecluster/ff/issues/14
+      skip <- c(skip, grep("^ff[[:alpha:]]+$", added, value = TRUE))
+      skip <- c(skip, grep("^datatable[.][[:alpha:]]+$", added, value = TRUE))
+    
+      added <- setdiff(added, skip)
       if (length(added) > 0) {
         opts <- vector("list", length = length(added))
         names(opts) <- added
@@ -98,10 +110,12 @@ db_state <- local({
       ## NOTE: This is not possible, because not all options can be unset,
       ## e.g. 'warnPartialMatchArgs' (see above)
       ## stop_if_not(identical(options(), state$opts))
+      } ## if ("options" %in% ...)
 
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo system environment variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      if ("envvars" %in% getOption("future.tests.undo")) {
       ## If new env vars were added, then remove them
       envs <- Sys.getenv()
       added <- setdiff(names(envs), names(state$envs))
@@ -149,11 +163,13 @@ db_state <- local({
       } else {
         stop_if_not(identical(Sys.getenv(), state$envs))
       }
+      } ## if ("envvars" %in% ...)
 
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+      if ("objects" %in% getOption("future.tests.undo")) {
       ## If new objects were added, then remove them
       added <- c(setdiff(ls(envir = state$envir), state$vars))
       if (length(added) > 0) {
@@ -176,6 +192,8 @@ db_state <- local({
           state$vars[[name]]
         ))
       }
+      } ## if ("objects" %in% ...)
+      
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo future strategy
