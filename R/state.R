@@ -59,7 +59,7 @@ db_state <- local({
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo graphics devices
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if ("graphics" %in% getOption("future.tests.undo")) {
+      if ("graphics" %in% getOption("future.tests.undo")) local({
 	added <- setdiff(dev.list(), state$devs)
 	if (length(added) > 0) {
 	  if (debug) {
@@ -69,12 +69,13 @@ db_state <- local({
 	  }
 	  lapply(added, FUN = dev.off)
 	}
-      } ## if ("graphics" %in% ...)
-      
+      }) ## if ("graphics" %in% ...)
+
+
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo options
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if ("options" %in% getOption("future.tests.undo")) {
+      if ("options" %in% getOption("future.tests.undo")) local({
 	skip <- NULL
 
 	## If new options were added, then remove them
@@ -110,12 +111,13 @@ db_state <- local({
 	## NOTE: This is not possible, because not all options can be unset,
 	## e.g. 'warnPartialMatchArgs' (see above)
 	## stop_if_not(identical(options(), state$opts))
-      } ## if ("options" %in% ...)
+      }) ## if ("options" %in% ...)
+
 
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo system environment variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if ("envvars" %in% getOption("future.tests.undo")) {
+      if ("envvars" %in% getOption("future.tests.undo")) local({
 	## If new env vars were added, then remove them
 	envs <- Sys.getenv()
 	added <- setdiff(names(envs), names(state$envs))
@@ -125,7 +127,7 @@ db_state <- local({
 		   paste(sQuote(added), collapse = ", "))
 	  }
 	  for (name in added) Sys.unsetenv(name)
-	}	
+	}
 
 	## If env vars were dropped, add then back
 	missing <- setdiff(names(state$envs), names(envs))
@@ -163,13 +165,13 @@ db_state <- local({
 	} else {
 	  stop_if_not(identical(Sys.getenv(), state$envs))
 	}
-      } ## if ("envvars" %in% ...)
+      }) ## if ("envvars" %in% ...)
 
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       ## Undo variables
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      if ("objects" %in% getOption("future.tests.undo")) {
+      if ("objects" %in% getOption("future.tests.undo")) local({
 	## If new objects were added, then remove them
 	added <- c(setdiff(ls(envir = state$envir), state$vars))
 	if (length(added) > 0) {
@@ -192,7 +194,7 @@ db_state <- local({
 	    state$vars[[name]]
 	  ))
 	}
-      } ## if ("objects" %in% ...)
+      }) ## if ("objects" %in% ...)
       
       
       ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
