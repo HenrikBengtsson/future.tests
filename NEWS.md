@@ -12,6 +12,8 @@
    the call, whenever there's is a test error.  Similarly, the reason
    for a test is being skipped is also outputted, if available.
 
+ * Add `Rscript -e future.tests::check --version`.
+
 ## Bug Fixes
 
  * Some tests assume that the future strategy tested has a `workers`
