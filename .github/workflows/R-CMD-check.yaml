@@ -98,6 +98,7 @@ jobs:
       - name: Check (Windows)
         if: runner.os == 'Windows'
         run: |
+          remotes::install_github("HenrikBengtsson/future", ref = "develop")
           rcmdcheck::rcmdcheck(
             args = c("--no-manual", "--as-cran"),
             check_dir = "check"

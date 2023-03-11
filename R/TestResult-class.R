@@ -59,6 +59,8 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
   s <- c(s, sprintf("- Result:"))
   if (inherits(x$error, "error")) {
     s <- c(s, sprintf("  - Error: %s", conditionMessage(x$error)))
+  } else if (inherits(x$skipped, "TestSkipped")) {
+    s <- c(s, sprintf("  - Skipped: %s", conditionMessage(x$skipped)))
   } else {
     s <- c(s, sprintf("  - Value: %s", hpaste(deparse(x$value))))
     s <- c(s, sprintf("  - Visible: %s", x$visible))
@@ -75,7 +77,9 @@ print.TestResult <- function(x, head = Inf, tail = head, ...) {
     s <- c(s, "    <none>")
   }
 
-  s <- c(s, sprintf("- Success: %s", !inherits(x$error, "error")))
+  success <- !inherits(x$error, "error")
+  if (inherits(x$skipped, "TestSkipped")) success <- NA
+  s <- c(s, sprintf("- Success: %s", success))
 
   dt <- difftime(x$time[length(x$time)], x$time[1])
   s <- c(s, sprintf("- Processing time: %s", sprintf("%.3f %s", dt, attr(dt, "units"))))

@@ -1,3 +1,32 @@
+# Version 0.6.0 [2023-03-11]
+
+## New Features
+
+ * Now tests can be formally skipped by calling
+   `future.tests::skip_test()` from within the test.  Skipped tests
+   are counted and reported in the summary.
+   
+ * Now `check_plan()` outputs the reason for a test is being skipped.
+
+ * Now `check_plan()` outputs also the error message, error class, the
+   call, and any standard output, whenever there's is a test error.
+
+ * Now `check_plan()` outputs also the test iteration index.
+
+ * Add `Rscript -e future.tests::check --version`.
+
+## Bug Fixes
+
+ * Some tests assume that the future strategy tested has a `workers`
+   argument, which is not true for all future backends.  For example,
+   'sequential' does not take argument `workers`.  Previously, we
+   avoided this problem by only testing if the evaluator inherited
+   `multiprocess`, but that is not sufficient, e.g. upcoming
+   `future.redis::redis` inherits `multiprocess`, but still does not
+   have a `workers` argument.  Now we check for the `workers` argument
+   instead.
+
+
 # Version 0.5.0 [2022-12-15]
 
 ## New Tests

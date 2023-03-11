@@ -63,6 +63,8 @@ Here are some examples on how to call this function from the command line:
 Rscript -e future.tests::check --args --test-plan=sequential
 Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
+Rscript -e future.tests::check --args --test-plan=future.callr::callr
+Rscript -e future.tests::check --args --test-plan=future.batchtools::batchtools_local
 }
 The exit code will be 0 if all tests passed, otherwise 1. You
 can use for instance \verb{exit_code=$?} to retrieve the exit code of the

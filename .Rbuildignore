@@ -65,3 +65,4 @@ Rplots.pdf$
 ^screencast[.].*
 ^myrecording
 ^\.github/workflows/R-CMD-check\.yaml$
+^CRAN-SUBMISSION$

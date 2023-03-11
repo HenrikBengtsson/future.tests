@@ -24,6 +24,8 @@ jobs:
   future_tests:
     if: "! contains(github.event.head_commit.message, '[ci skip]')"    
 
+    timeout-minutes: 30
+    
     runs-on: ubuntu-20.04
 
     name: future.plan=${{ matrix.future.plan }}
@@ -52,13 +54,13 @@ jobs:
       R_FUTURE_RNG_ONMISUSE: error
       
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: release
-
-      - uses: r-lib/actions/setup-pandoc@master
 
       - name: Query R package dependencies
         run: |
@@ -68,7 +70,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
@@ -110,7 +112,7 @@ jobs:
 
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }}-r${{ matrix.future.plan }}-results
           path: check

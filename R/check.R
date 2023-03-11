@@ -38,6 +38,8 @@
 #' Rscript -e future.tests::check --args --test-plan=sequential
 #' Rscript -e future.tests::check --args --test-plan=multicore,workers=2
 #' Rscript -e future.tests::check --args --test-plan=sequential --test-plan=multicore,workers=2
+#' Rscript -e future.tests::check --args --test-plan=future.callr::callr
+#' Rscript -e future.tests::check --args --test-plan=future.batchtools::batchtools_local
 #' }
 #' The exit code will be 0 if all tests passed, otherwise 1. You
 #' can use for instance `exit_code=$?` to retrieve the exit code of the
@@ -81,22 +83,24 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
   ## Parse optional CLI arguments
   for (kk in seq_along(.args)) {
     arg <- .args[kk]
-    if (grepl("--help", arg)) {
+    if (grepl("^--help$", arg)) {
       action <- "help"
-    } else if (grepl("--test-timeout=.*", arg)) {
+    } else if (grepl("^--version$", arg)) {
+      action <- "version"
+    } else if (grepl("^--test-timeout=.*", arg)) {
       timeout <- as.numeric(gsub("--test-timeout=", "", arg))
       stopifnot(!is.na(timeout), timeout > 0)
-    } else if (grepl("--test-plan=.*", arg)) {
-      value <- gsub("--test-plan=", "", arg)
+    } else if (grepl("^--test-plan=.*", arg)) {
+      value <- gsub("^--test-plan=", "", arg)
       stopifnot(nzchar(value))
       plan <- c(plan, value)
-    } else if (grepl("--test-tags=.*", arg)) {
-      tags_kk <- gsub("--test-tags=", "", arg)
+    } else if (grepl("^--test-tags=.*", arg)) {
+      tags_kk <- gsub("^--test-tags=", "", arg)
       tags_kk <- unlist(strsplit(tags_kk, split = ",", fixed = TRUE))
       tags <- unique(c(tags, tags_kk))
-    } else if ("--session-info" == arg) {
+    } else if ("^--session-info" == arg) {
       session_info <- TRUE
-    } else if ("--debug" == arg) {
+    } else if ("^--debug" == arg) {
       debug <- TRUE
     }
   }
@@ -112,7 +116,7 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
   }
 
   test_plans <- test_plans()
-  if (length(test_plans) == 0L) {
+  if (action == "check" && length(test_plans) == 0L) {
     action <- "help"
   }
 
@@ -120,17 +124,25 @@ check <- function(plan = NULL, tags = character(), timeout = NULL, settings = TR
     cat("Usage: Rscript -e future.tests::check --args <options>\n")
     cat("\n")
     cat("Options:\n")
+    cat(" --version                Version of package\n")
     cat(" --help                   Display this help\n")
     cat(" --test-timeout=<seconds> Sets per-test timeout in seconds\n")
     cat(" --test-tags=<tags>       Comma-separated tags specifying tests to include\n")
     cat(" --test-plan=<plan>       Future plan to test against\n")
     cat(" --session-info           Output session information at the end\n")
     cat("\n")
-    cat("Example:\n")
+    cat("Examples:\n")
     cat(" Rscript -e future.tests::check --args --help\n")
     cat(" Rscript -e future.tests::check --args --test-plan=sequential\n")
     cat(" Rscript -e future.tests::check --args --test-plan=multisession,workers=4\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=future.callr::callr\n")
+    cat(" Rscript -e future.tests::check --args --test-plan=future.batchtools::batchtools_local\n")
     
+    return(invisible())
+  }
+
+  if (action == "version") {
+    cat(as.character(packageVersion(.packageName)), "\n", sep = "")
     return(invisible())
   }
 

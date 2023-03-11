@@ -7,9 +7,12 @@ make_test(title = "plan()", args = list(), tags = c("plan"), {
 make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", "workers"), {
   current_plan <- plan()
 
-  ## Not a multiprocess backend?
-  if (!inherits(current_plan, "multiprocess")) return()
-
+  ## Does not have a 'workers' argument?
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
+  
   ## FIXME: These tests only work for backends where 'workers' take
   ##        numeric values.
   plan(current_plan, workers = 1L)
@@ -32,10 +35,14 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
 
 make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan", "workers"), {
   current_plan <- plan()
-  n0 <- nbrOfWorkers()
 
-  ## Not a multiprocess backend?
-  if (!inherits(current_plan, "multiprocess")) return()
+  ## Does not have a 'workers' argument?
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
+  
+  n0 <- nbrOfWorkers()
 
   ## Use the exact same value as 
   workers_value <- eval(formals(current_plan)$workers)
@@ -62,9 +69,12 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
 make_test(title = "plan() - workers=<invalid>", args = list(), tags = c("plan", "workers", "exceptions"), {
   current_plan <- plan()
 
-  ## Not a multiprocess backend?
-  if (!inherits(current_plan, "multiprocess")) return()
-
+  ## Does not have a 'workers' argument?
+  if (!"workers" %in% names(formals(current_plan))) {
+    future.tests::skip_test()
+    return()
+  }
+  
   ## Invalid number of workers or value on 'workers'
   res <- tryCatch({
     plan(current_plan, workers = 0L)

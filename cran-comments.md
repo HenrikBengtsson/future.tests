@@ -1,6 +1,6 @@
-# CRAN submission future.tests 0.5.0
+# CRAN submission future.tests 0.6.0
 
-on 2022-12-15
+on 2023-03-11
 
 Thank you
 
@@ -39,48 +39,48 @@ print(res)
 gives
 
 ```
-── future.tests 0.5.0: OK
+── future.tests 0.6.0: OK
 
-  Build ID:   future.tests_0.5.0.tar.gz-2214029e90654147a2042359e8ea6994
+  Build ID:   future.tests_0.6.0.tar.gz-3921eee4d9374b2aa2448fce2d4bb157
   Platform:   Debian Linux, R-devel, clang, ISO-8859-15 locale
-  Submitted:  27m 31s ago
-  Build time: 27m 25.9s
+  Submitted:  1h 39m 46.5s ago
+  Build time: 20m 43.8s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.5.0: OK
+── future.tests 0.6.0: OK
 
-  Build ID:   future.tests_0.5.0.tar.gz-fae56b16b30843e2b376baf3d75e5434
+  Build ID:   future.tests_0.6.0.tar.gz-0ebd4baf495341198dc7c9ae6e07bd2e
   Platform:   Fedora Linux, R-devel, GCC
-  Submitted:  27m 31s ago
-  Build time: 20m 4.5s
+  Submitted:  1h 39m 46.5s ago
+  Build time: 15m 44.8s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.5.0: OK
+── future.tests 0.6.0: OK
 
-  Build ID:   future.tests_0.5.0.tar.gz-d93d8eb2b11849f8a69967ecb5a98311
+  Build ID:   future.tests_0.6.0.tar.gz-e9f7df55be1f4403a7439c2d0514dea9
   Platform:   Debian Linux, R-patched, GCC
-  Submitted:  27m 31s ago
-  Build time: 25m 59.8s
+  Submitted:  1h 39m 46.5s ago
+  Build time: 19m 48.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.5.0: OK
+── future.tests 0.6.0: OK
 
-  Build ID:   future.tests_0.5.0.tar.gz-d2ba6a97e33d47e698efe1d7043069d1
+  Build ID:   future.tests_0.6.0.tar.gz-db3bd114678647e6977b87ef00e1b121
   Platform:   macOS 10.13.6 High Sierra, R-release, CRAN's setup
-  Submitted:  27m 31s ago
-  Build time: 4m 15.2s
+  Submitted:  1h 39m 46.5s ago
+  Build time: 3m 48.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-── future.tests 0.5.0: OK
+── future.tests 0.6.0: OK
 
-  Build ID:   future.tests_0.5.0.tar.gz-cf023d02b3de4b858e60ad0ea41fc95d
+  Build ID:   future.tests_0.6.0.tar.gz-5f294a956fb74fc280754aa6b6f930ee
   Platform:   Windows Server 2022, R-release, 32/64 bit
-  Submitted:  27m 31s ago
-  Build time: 3m 41s
+  Submitted:  1h 39m 46.6s ago
+  Build time: 4m 0.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
