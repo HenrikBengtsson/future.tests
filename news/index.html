@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0-9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0-9000</span>
       </span>
     </div>
 
@@ -137,8 +137,11 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="version-development-version">Version (development version)<a class="anchor" aria-label="anchor" href="#version-development-version"></a></h2>
+<ul><li>…</li></ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.0" id="version-060">Version 0.6.0<a class="anchor" aria-label="anchor" href="#version-060"></a></h2>
 <div class="section level3">
-<h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-6-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
 <ul><li><p>Now tests can be formally skipped by calling <code><a href="../reference/skip_test.html">future.tests::skip_test()</a></code> from within the test. Skipped tests are counted and reported in the summary.</p></li>
 <li><p>Now <code><a href="../reference/check_plan.html">check_plan()</a></code> outputs the reason for a test is being skipped.</p></li>
 <li><p>Now <code><a href="../reference/check_plan.html">check_plan()</a></code> outputs also the error message, error class, the call, and any standard output, whenever there’s is a test error.</p></li>
@@ -146,7 +149,7 @@
 <li><p>Add <code>Rscript -e future.tests::check --version</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-6-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0"></a></h3>
 <ul><li>Some tests assume that the future strategy tested has a <code>workers</code> argument, which is not true for all future backends. For example, ‘sequential’ does not take argument <code>workers</code>. Previously, we avoided this problem by only testing if the evaluator inherited <code>multiprocess</code>, but that is not sufficient, e.g. upcoming <code><a href="https://rdrr.io/pkg/future.redis/man/redis.html" class="external-link">future.redis::redis</a></code> inherits <code>multiprocess</code>, but still does not have a <code>workers</code> argument. Now we check for the <code>workers</code> argument instead.</li></ul></div>
 </div>
     <div class="section level2">
