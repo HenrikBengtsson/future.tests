@@ -17,7 +17,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
   ##        numeric values.
   plan(current_plan, workers = 1L)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 1L)
   ## Assert that future works
   f <- future(42L)
@@ -25,7 +25,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
 
   plan(current_plan, workers = 2L)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 2L)
   ## Assert that future works
   f <- future(42L)
@@ -49,7 +49,7 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   workers <- function() workers_value
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == n0)
   ## Assert that future works
   f <- future(42L)
@@ -58,7 +58,7 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   workers <- function() 1L
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 1L)
   ## Assert that future works
   f <- future(42L)

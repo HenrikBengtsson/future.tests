@@ -1,6 +1,12 @@
 # Version (development version)
 
- * ...
+## Bug Fixes
+
+ * Tests that asserts correctness of `nbrOfWorkers()` could produce an
+   "invalid format '%d'; use format %f, %e, %g or %a for numeric
+   objects" error when trying to produce an assertion error on
+   `nbrOfWorkers()` having an incorrect value. This could happen if
+   `nbrOfWorkers()` returned a non-integer value, e.g. `+Inf`.
 
 
 # Version 0.6.0 [2023-03-11]
