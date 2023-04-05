@@ -33,7 +33,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
 })
 
 
-make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan", "workers"), {
+make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan", "workers", "function"), {
   current_plan <- plan()
 
   ## Does not have a 'workers' argument?
@@ -43,14 +43,16 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   }
   
   n0 <- nbrOfWorkers()
+  cat(sprintf("Number of initial workers: %g\n", n0))
 
   ## Use the exact same value as 
   workers_value <- eval(formals(current_plan)$workers)
   workers <- function() workers_value
+  cat(sprintf("Number of workers according to plan(): %g\n", workers()))
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
   cat(sprintf("Number of workers: %g\n", n))
-  stopifnot(n == n0)
+  stopifnot(n == workers())
   ## Assert that future works
   f <- future(42L)
   stopifnot(value(f) == 42L)
