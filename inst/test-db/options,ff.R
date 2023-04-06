@@ -1,12 +1,4 @@
 ## https://github.com/HenrikBengtsson/future.tests/issues/20
-make_test(title = "future() - can load 'ff' package", tags = c("future", "options", "reset", "ff"), {
-  if (requireNamespace("ff")) {
-    res <- requireNamespace("ff")
-    if (!isTRUE(res)) stop("Failed to load 'ff' package")
-  }
-})
-
-## https://github.com/HenrikBengtsson/future.tests/issues/20
 make_test(title = "future() - 'data.table' inject", tags = c("future", "options", "reset", "ff"), {
   if (requireNamespace("data.table")) {
     dt <- data.table::data.table
@@ -16,9 +8,22 @@ make_test(title = "future() - 'data.table' inject", tags = c("future", "options"
 })
 
 ## https://github.com/HenrikBengtsson/future.tests/issues/20
+make_test(title = "future() - can load 'ff' package", tags = c("future", "options", "reset", "ff"), {
+  if (requireNamespace("ff")) {
+    f <- future(requireNamespace("ff"))
+    v <- value(f)
+    message(sprintf("Package 'ff' loaded on worker: %s", v))
+    if (!isTRUE(v)) stop("Failed to load 'ff' package")
+  }
+})
+
+## https://github.com/HenrikBengtsson/future.tests/issues/20
 make_test(title = "future() - can attach 'ff' package", tags = c("future", "options", "reset", "ff"), {
   if (requireNamespace("ff")) {
-    library("ff")
+    f <- future(require("ff"))
+    v <- value(f)
+    message(sprintf("Package 'ff' attached on worker: %s", v))
+    if (!isTRUE(v)) stop("Failed to attach 'ff' package")
   }
 })
 
@@ -35,24 +40,24 @@ make_test(title = "future() - preserve R options (ff)", tags = c("future", "opti
       
       f <- future(data[4])
       v <- value(f)
-      print(v)
+      message(sprintf("v = %s", v))
       stopifnot(is.character(getOption("fftempdir")))
-      
+
       f <- future(requireNamespace("ff"))
       v <- value(f)
-      print(v)
+      message(sprintf("Package 'ff' loaded on worker: %s", v))
       if (!isTRUE(v)) stop("Failing to load 'ff' package in future")
       stopifnot(is.character(getOption("fftempdir")))
-      
+
       f <- future(require("ff"))
       v <- value(f)
-      print(v)
+      message(sprintf("Package 'ff' attached on worker: %s", v))
       if (!isTRUE(v)) stop("Failing to attach 'ff' package in future")
       stopifnot(is.character(getOption("fftempdir")))
-      
+
       f <- future(data[4], packages = "ff")
       v <- value(f)
-      print(v)
+      message(sprintf("v = %s", v))
       stopifnot(
         is.integer(v),
         length(v) == 1L,
