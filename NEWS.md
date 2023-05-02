@@ -17,6 +17,12 @@
    `cluster` backend defaults to the character vector
    `parallelly::availableWorkers()`.
 
+ * Test asserting that lazy futures would be automatically launched
+   and resolved relied on a legacy version of the Future API, where
+   calling `resolved()` on a lazy future could leave it in a lazy
+   state, which is no longer correct. A lazy future will always be
+   launched if one calls `resolved()` on it.
+
 
 # Version 0.6.0 [2023-03-11]
 

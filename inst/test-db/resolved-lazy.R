@@ -38,15 +38,8 @@ make_test(title = "resolved() - assert non-blocking while launching lazy futures
         stopifnot(rs[[kk]])
         stopifnot(ss[[kk]] == "finished")
       } else if (inherits(fs[[kk]], "MultiprocessFuture")) {
-        ## str(list("(ff,kk)"=c(ff,kk), rs=rs, ss=ss, nbrOfWorkers=nbrOfWorkers(), nbrOfFinished=nbrOfFinished, check=(ss[[kk]] == "running")))
-        
-        if (nbrOfWorkers() + ff - 1L + nbrOfFinished >= kk) {
-          stopifnot(ss[[kk]] == "running")
-        } else {
-          stop("INTERNAL ERROR: This should never happend; it's a legacy")
-          stopifnot(ss[[kk]] == "created")
-        }
         stopifnot(!rs[[kk]])
+        stopifnot(ss[[kk]] == "running")
       }
     } ## for (kk ...)
 

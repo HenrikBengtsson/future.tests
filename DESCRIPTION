@@ -1,6 +1,6 @@
 Package: future.tests
 Title: Test Suite for 'Future API' Backends
-Version: 0.6.0-9005
+Version: 0.6.0-9006
 Authors@R: c(
   person("Henrik", "Bengtsson", role = c("aut", "cre", "cph"), email = "henrikb@braju.com"),
   person(family = "The R Consortium", comment = "Project was awared an Infrastructure Steering Committee (ISC) grant in 2017", role = "fnd"))
