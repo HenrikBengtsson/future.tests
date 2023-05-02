@@ -41,8 +41,6 @@ make_test(title = "resolved() - assert non-blocking while launching lazy futures
         ## str(list("(ff,kk)"=c(ff,kk), rs=rs, ss=ss, nbrOfWorkers=nbrOfWorkers(), nbrOfFinished=nbrOfFinished, check=(ss[[kk]] == "running")))
         
         if (nbrOfWorkers() + ff - 1L + nbrOfFinished >= kk) {
-          ## Failed for 'multicore' when running full set of tests or
-          ## with --test-tags="lazy". Why?!?  /HB 2019-11-11
           stopifnot(ss[[kk]] == "running")
         } else {
           stop("INTERNAL ERROR: This should never happend; it's a legacy")
