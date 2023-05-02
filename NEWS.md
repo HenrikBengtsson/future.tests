@@ -12,6 +12,11 @@
    not always work if testing with a hardcoded number of workers
    according to `plan()`.
 
+ * Test asserting that the `workers` argument can be a function would
+   not if the backend's default value was non-numeric, e.g. the
+   `cluster` backend defaults to the character vector
+   `parallelly::availableWorkers()`.
+
 
 # Version 0.6.0 [2023-03-11]
 

@@ -48,15 +48,22 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   ## Use the exact same value as 
   workers_value <- eval(formals(current_plan)$workers)
   workers <- function() workers_value
-  cat(sprintf("Number of workers according to plan(): %g\n", workers()))
+  if (is.character(workers_value)) {
+    nworkers <- length(workers_value)
+  } else {
+    nworkers <- workers_value
+  }
+  cat(sprintf("Number of workers according to plan(): %g\n", nworkers))
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
   cat(sprintf("Number of workers: %g\n", n))
-  stopifnot(n == workers())
+  stopifnot(n == nworkers)
   ## Assert that future works
   f <- future(42L)
   stopifnot(value(f) == 42L)
 
+  ## FIXME: These tests only work for backends where 'workers' take
+  ##        numeric values.
   workers <- function() 1L
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
