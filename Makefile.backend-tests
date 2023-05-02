@@ -14,7 +14,7 @@ backend_results/%.out:
 	test_plan=$*; \
 	$(UNBUFFER) $(R_SCRIPT) -e "future.tests::check" --args --test-plan=$${test_plan/,/::} | tee backend_results/$*.out
 
-backend_results/all: backend_results/future,sequential.out backend_results/future,multicore.out backend_results/future,multisession.out backend_results/future,cluster.out backend_results/future.callr,callr.out backend_results/future.batchtools,batchtools_local.out
+backend_results/all: backend_results/future,sequential.out backend_results/future,multicore.out backend_results/future,multisession.out backend_results/future,cluster.out backend_results/future.callr,callr.out backend_results/future.batchtools,batchtools_local.out backend_results/future.mirai,mirai_multisession.out
 
 backend_results/summary:
 	cd backend_results; \
