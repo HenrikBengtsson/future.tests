@@ -23,6 +23,11 @@
    state, which is no longer correct. A lazy future will always be
    launched if one calls `resolved()` on it.
 
+ * Test asserting that the **ff** package worked across multiple
+   futures assumed that the package is loaded automatically by the
+   future, which it is not.  The could cause the test to fail for
+   some future backends.
+
 
 # Version 0.6.0 [2023-03-11]
 
