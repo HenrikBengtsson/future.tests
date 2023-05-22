@@ -1,7 +1,7 @@
-future.batchtools,batchtools_local	1m 59.2s	[32m95 ok [32m✔[32m[39m	[34m3 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
-future.callr,callr	1m 6.1s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
-future,cluster	42.6s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
-future.mirai,mirai_multisession	26.8s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
-future,multicore	12.9s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
-future,multisession	41s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+future.batchtools,batchtools_local	1m 47.7s	[32m95 ok [32m✔[32m[39m	[34m3 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+future.callr,callr	57.2s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+future,cluster	43.4s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+future.mirai,mirai_multisession	56.4s (including 1 timeouts)	[32m97 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m1 timeout [33mT[33m[39m
+future,multicore	13s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+future,multisession	42.1s	[32m98 ok [32m✔[32m[39m	[34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
 future,sequential	9s	[32m95 ok [32m✔[32m[39m	[34m3 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m

@@ -7,64 +7,65 @@
 - Timeout                   : N/A
 
 [36m──[39m [36mRunning 54 test sets with plan(future.mirai::mirai_multisession)[39m [36m────────────[39m
-ℹ Backend package: future.mirai 0.0.0.9006
-[32m✔[39m  1. future() - conditions [90m(1 test)[39m [36m(142ms)[39m
+ℹ Backend package: future.mirai 0.0.0.9012
+[32m✔[39m  1. future() - conditions [90m(1 test)[39m [36m(139ms)[39m
 [32m✔[39m  2. %<-% - conditions [90m(1 test)[39m [36m(109ms)[39m
 [32m✔[39m  3. future() - muffle conditions [90m(1 test)[39m [36m(119ms)[39m
-[32m✔[39m  4. Argument '...' [90m(1 test)[39m [36m(109ms)[39m
-[32m✔[39m  5. Argument '...' from parent function [90m(1 test)[39m [36m(110ms)[39m
-[32m✔[39m  6. Argument '...' - non existing [90m(1 test)[39m [36m(118ms)[39m
-[32m✔[39m  7. Argument '...' - exception [90m(1 test)[39m [36m(111ms)[39m
-[32m✔[39m  8. Early signaling of errors [90m(4 tests)[39m [36m(435ms)[39m
-[32m✔[39m  9. Early signaling of warnings [90m(4 tests)[39m [36m(441ms)[39m
-[32m✔[39m 10. Early signaling of messages [90m(4 tests)[39m [36m(442ms)[39m
-[32m✔[39m 11. %<-% - local evaluation [90m(2 tests)[39m [36m(222ms)[39m
-[32m✔[39m 12. %<-% - local evaluation & global variable [90m(2 tests)[39m [36m(216ms)[39m
-[32m✔[39m 13. %<-% - errors [90m(2 tests)[39m [36m(222ms)[39m
-[32m✔[39m 14. %<-% - errors and listenv [90m(2 tests)[39m [36m(467ms)[39m
-[32m✔[39m 15. %<-% & %->% [90m(2 tests)[39m [36m(444ms)[39m
-[32m✔[39m 16. %<-% - nested [90m(1 test)[39m [36m(227ms)[39m
-[32m✔[39m 17. futureAssign() - lazy evaluation [90m(2 tests)[39m [36m(221ms)[39m
-[32m✔[39m 18. futureAssign() - potential task name clashes [90m(1 test)[39m [36m(115ms)[39m
-[32m✔[39m 19. futureAssign() - global variables with and without lazy evaluation [90m(2 tests)[39m [36m(458ms)[39m
-[32m✔[39m 20. futureAssign() - lazy evaluation via disposable option [90m(2 tests)[39m [36m(221ms)[39m
-[32m✔[39m 21. futureCall() [90m(4 tests)[39m [36m(1.4s)[39m
-[32m✔[39m 22. futureCall() - globals = list(a = 3) [90m(2 tests)[39m [36m(227ms)[39m
-[32m✔[39m 23. futureCall() - globals = "a" [90m(2 tests)[39m [36m(221ms)[39m
-[32m✔[39m 24. future() - rm() a global variable [90m(2 tests)[39m [36m(219ms)[39m
-[32m✔[39m 25. future() - non-exported package objects [90m(1 test)[39m [36m(147ms)[39m
-[32m✔[39m 26. future() - NSE '...' [90m(1 test)[39m [36m(223ms)[39m
-[32m✔[39m 27. resolved() on lazy futures [90m(1 test)[39m [36m(109ms)[39m
-[32m✔[39m 28. demo("mandelbrot", package = "future") [90m(2 tests)[39m [36m(225ms)[39m
+[32m✔[39m  4. Argument '...' [90m(1 test)[39m [36m(112ms)[39m
+[32m✔[39m  5. Argument '...' from parent function [90m(1 test)[39m [36m(108ms)[39m
+[32m✔[39m  6. Argument '...' - non existing [90m(1 test)[39m [36m(111ms)[39m
+[32m✔[39m  7. Argument '...' - exception [90m(1 test)[39m [36m(108ms)[39m
+[32m✔[39m  8. Early signaling of errors [90m(4 tests)[39m [36m(429ms)[39m
+[32m✔[39m  9. Early signaling of warnings [90m(4 tests)[39m [36m(438ms)[39m
+[32m✔[39m 10. Early signaling of messages [90m(4 tests)[39m [36m(436ms)[39m
+[32m✔[39m 11. %<-% - local evaluation [90m(2 tests)[39m [36m(218ms)[39m
+[32m✔[39m 12. %<-% - local evaluation & global variable [90m(2 tests)[39m [36m(223ms)[39m
+[32m✔[39m 13. %<-% - errors [90m(2 tests)[39m [36m(221ms)[39m
+[32m✔[39m 14. %<-% - errors and listenv [90m(2 tests)[39m [36m(471ms)[39m
+[32m✔[39m 15. %<-% & %->% [90m(2 tests)[39m [36m(440ms)[39m
+[32m✔[39m 16. %<-% - nested [90m(1 test)[39m [36m(225ms)[39m
+[32m✔[39m 17. futureAssign() - lazy evaluation [90m(2 tests)[39m [36m(214ms)[39m
+[32m✔[39m 18. futureAssign() - potential task name clashes [90m(1 test)[39m [36m(112ms)[39m
+[32m✔[39m 19. futureAssign() - global variables with and without lazy evaluation [90m(2 tests)[39m [36m(455ms)[39m
+[32m✔[39m 20. futureAssign() - lazy evaluation via disposable option [90m(2 tests)[39m [36m(217ms)[39m
+[32m✔[39m 21. futureCall() [90m(4 tests)[39m [36m(1.5s)[39m
+[32m✔[39m 22. futureCall() - globals = list(a = 3) [90m(2 tests)[39m [36m(224ms)[39m
+[32m✔[39m 23. futureCall() - globals = "a" [90m(2 tests)[39m [36m(219ms)[39m
+[32m✔[39m 24. future() - rm() a global variable [90m(2 tests)[39m [36m(218ms)[39m
+[32m✔[39m 25. future() - non-exported package objects [90m(1 test)[39m [36m(144ms)[39m
+[32m✔[39m 26. future() - NSE '...' [90m(1 test)[39m [36m(220ms)[39m
+[32m✔[39m 27. resolved() on lazy futures [90m(1 test)[39m [36m(108ms)[39m
+[32m✔[39m 28. demo("mandelbrot", package = "future") [90m(2 tests)[39m [36m(232ms)[39m
 [32m✔[39m 29. nbrOfWorkers() [90m(1 test)[39m [36m(1ms)[39m
-[32m✔[39m 30. future() - preserve R options (data.table) [90m(1 test)[39m [36m(266ms)[39m
-[32m✔[39m 31. future() - 'data.table' inject [90m(1 test)[39m [36m(126ms)[39m
-[32m✔[39m 32. future() - can load 'ff' package [90m(1 test)[39m [36m(132ms)[39m
-[32m✔[39m 33. future() - can attach 'ff' package [90m(1 test)[39m [36m(116ms)[39m
-[32m✔[39m 34. future() - preserve R options (ff) [90m(1 test)[39m [36m(1s)[39m
+[32m✔[39m 30. future() - preserve R options (data.table) [90m(1 test)[39m [36m(375ms)[39m
+[32m✔[39m 31. future() - 'data.table' inject [90m(1 test)[39m [36m(118ms)[39m
+[32m✔[39m 32. future() - can load 'ff' package [90m(1 test)[39m [36m(123ms)[39m
+[32m✔[39m 33. future() - can attach 'ff' package [90m(1 test)[39m [36m(113ms)[39m
+[33mT[39m 34. future() - preserve R options (ff) [90m(1 test)[39m [36m(30.4s)[39m
+  [33mT[39m lazy=FALSE, globals=TRUE, stdout=TRUE [33m(> 30s)[39m
 [32m✔[39m 35. plan() [90m(1 test)[39m [36m(2ms)[39m
-[32m✔[39m 36. plan() - workers=<numeric> [90m(1 test)[39m [36m(1.2s)[39m
-[32m✔[39m 37. plan() - workers=<function> [90m(1 test)[39m [36m(2.8s)[39m
-[32m✔[39m 38. plan() - workers=<invalid> [90m(1 test)[39m [36m(5ms)[39m
+[32m✔[39m 36. plan() - workers=<numeric> [90m(1 test)[39m [36m(1.1s)[39m
+[32m✔[39m 37. plan() - workers=<function> [90m(1 test)[39m [36m(3s)[39m
+[32m✔[39m 38. plan() - workers=<invalid> [90m(1 test)[39m [36m(2ms)[39m
 [32m✔[39m 39. resolve() [90m(8 tests)[39m [36m(4.6s)[39m
-[32m✔[39m 40. resolve() - run-time exception [90m(8 tests)[39m [36m(133ms)[39m
-[32m✔[39m 41. resolve(<list of futures and values>) [90m(2 tests)[39m [36m(39ms)[39m
-[32m✔[39m 42. resolve(<list of futures>) [90m(2 tests)[39m [36m(41ms)[39m
-[32m✔[39m 43. resolve(<named matrix list of futures and values>) - time ordering [90m(1 test)[39m [36m(521ms)[39m
+[32m✔[39m 40. resolve() - run-time exception [90m(8 tests)[39m [36m(132ms)[39m
+[32m✔[39m 41. resolve(<list of futures and values>) [90m(2 tests)[39m [36m(38ms)[39m
+[32m✔[39m 42. resolve(<list of futures>) [90m(2 tests)[39m [36m(45ms)[39m
+[32m✔[39m 43. resolve(<named matrix list of futures and values>) - time ordering [90m(1 test)[39m [36m(520ms)[39m
 [32m✔[39m 44. resolved() - assert non-blocking while launching lazy futures [90m(1 test)[39m [36m(4s)[39m
-[32m✔[39m 45. Random Number Generation (RNG) - seeds and preserving RNGkind [90m(1 test)[39m [36m(7ms)[39m
-[32m✔[39m 46. Random Number Generation (RNG) - future [90m(2 tests)[39m [36m(406ms)[39m
+[32m✔[39m 45. Random Number Generation (RNG) - seeds and preserving RNGkind [90m(1 test)[39m [36m(8ms)[39m
+[32m✔[39m 46. Random Number Generation (RNG) - future [90m(2 tests)[39m [36m(400ms)[39m
 [32m✔[39m 47. Random Number Generation (RNG) - %<-% [90m(2 tests)[39m [36m(1.3s)[39m
 [32m✔[39m 48. Orchestration Stability - future() does not update RNG state [90m(1 test)[39m [36m(113ms)[39m
-[32m✔[39m 49. Orchestration Stability - run() does not update RNG state [90m(1 test)[39m [36m(109ms)[39m
+[32m✔[39m 49. Orchestration Stability - run() does not update RNG state [90m(1 test)[39m [36m(113ms)[39m
 [32m✔[39m 50. Orchestration Stability - result() does not update RNG state [90m(1 test)[39m [36m(114ms)[39m
 [32m✔[39m 51. Orchestration Stability - value() does not update RNG state [90m(1 test)[39m [36m(115ms)[39m
-[32m✔[39m 52. future() - standard output [90m(2 tests)[39m [36m(256ms)[39m
-[32m✔[39m 53. %<-% - standard output [90m(2 tests)[39m [36m(222ms)[39m
-[32m✔[39m 54. value() - visibility [90m(1 test)[39m [36m(222ms)[39m
+[32m✔[39m 52. future() - standard output [90m(2 tests)[39m [36m(255ms)[39m
+[32m✔[39m 53. %<-% - standard output [90m(2 tests)[39m [36m(219ms)[39m
+[32m✔[39m 54. value() - visibility [90m(1 test)[39m [36m(214ms)[39m
 
 Number of tests: 54
 Number of test steps: 98
-Duration: 26.8s
-Results: [32m98 ok [32m✔[32m[39m | [34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m0 timeouts [33mT[33m[39m
+Duration: 56.4s (including 1 timeouts)
+Results: [32m97 ok [32m✔[32m[39m | [34m0 skips [34m★[34m[39m | [31m0 errors [31m✖[31m[39m | [33m1 timeout [33mT[33m[39m
 

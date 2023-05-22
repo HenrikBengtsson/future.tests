@@ -13,7 +13,7 @@
    according to `plan()`.
 
  * Test asserting that the `workers` argument can be a function would
-   not if the backend's default value was non-numeric, e.g. the
+   not work if the backend's default value was non-numeric, e.g. the
    `cluster` backend defaults to the character vector
    `parallelly::availableWorkers()`.
 
