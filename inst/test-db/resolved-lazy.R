@@ -1,7 +1,12 @@
 make_test(title = "resolved() - assert non-blocking while launching lazy futures", args = list(), tags = c("resolved", "lazy"), reset_workers = TRUE, {
   message("Creating lazy futures:")
 
-  n <- min(3, nbrOfWorkers() + 1L)
+  if (!is.finite(nbrOfWorkers())) {
+    future.tests::skip_test("Test requires a finite number of workers")
+  }
+
+  ## Create at most three futures (two if a uniprocess future)
+  n <- min(3L, nbrOfWorkers() + 1L)
   xs <- as.list(1:n)
   fs <- lapply(xs, FUN = function(kk) {
     future({
@@ -9,36 +14,39 @@ make_test(title = "resolved() - assert non-blocking while launching lazy futures
       kk
     }, lazy = TRUE)
   })
-  
+
   vs <- vector("list", length = length(fs))
   ss <- vapply(fs, FUN = function(f) f$state, NA_character_)
   print(ss)
   stopifnot(all(ss == "created"))
-  rs <- rep(NA, times = length(fs))
+  ## cat("[OK] None of the created futures have launched\n")
 
+  rs <- rep(NA, times = length(fs))
   for (ff in seq_along(fs)) {
     for (kk in ff:length(fs)) {
+      ## cat(sprintf("Checking if future #%d of %d is resolved:\n", kk, length(fs)))
       message(sprintf("Checking if future #%d is resolved:", kk))
+      ## resolved() should launch the future, if it is not yet launched
       rs[[kk]] <- resolved(fs[[kk]])
+      
       ss <- vapply(fs, FUN = function(f) f$state, NA_character_)
       print(ss)
       nbrOfFinished <- sum(ss == "finished")
       if (inherits(fs[[kk]], "UniprocessFuture")) {
+        ## As lazy *uniprocess* future will be launched *and* resolved
+        ## in one go when we call resolved() above
         stopifnot(rs[[kk]])
         stopifnot(ss[[kk]] == "finished")
       } else if (inherits(fs[[kk]], "MultiprocessFuture")) {
-        if (nbrOfWorkers() + ff - 1L + nbrOfFinished >= kk) {
-          ## Failed for 'multicore' when running full set of tests or
-          ## with --test-tags="lazy". Why?!?  /HB 2019-11-11
-          stopifnot(ss[[kk]] == "running")
-##        R.utils::cstr(list(c(ff,kk), rs=rs, ss=ss, check=(ss[[kk]] == "running")))
-        } else {
-          stopifnot(ss[[kk]] == "created")
-        }
         stopifnot(!rs[[kk]])
+        stopifnot(ss[[kk]] == "running")
       }
     } ## for (kk ...)
-  
+
+    if (ff == 1L && inherits(fs[[1]], "MultiprocessFuture")) {
+      stopifnot(all(!rs[[kk]]))
+    }
+
     message(sprintf("Waiting for future #%d to finish ... ", ff), appendLF = FALSE)
     vs[[ff]] <- value(fs[[ff]])
     message("done")

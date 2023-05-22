@@ -1,3 +1,34 @@
+# Version 0.7.0 [2023-05-20]
+
+## Bug Fixes
+
+ * Tests asserting correctness of `nbrOfWorkers()` could produce an
+   "invalid format '%d'; use format %f, %e, %g or %a for numeric
+   objects" error when trying to produce an assertion error on
+   `nbrOfWorkers()` having an incorrect value. This could happen if
+   `nbrOfWorkers()` returned a non-integer value, e.g. `+Inf`.
+
+ * Test asserting that the `workers` argument can be a function would
+   not always work if testing with a hardcoded number of workers
+   according to `plan()`.
+
+ * Test asserting that the `workers` argument can be a function would
+   not work if the backend's default value was non-numeric, e.g. the
+   `cluster` backend defaults to the character vector
+   `parallelly::availableWorkers()`.
+
+ * Test asserting that lazy futures would be automatically launched
+   and resolved relied on a legacy version of the Future API, where
+   calling `resolved()` on a lazy future could leave it in a lazy
+   state, which is no longer correct. A lazy future will always be
+   launched if one calls `resolved()` on it.
+
+ * Test asserting that the **ff** package worked across multiple
+   futures assumed that the package is loaded automatically by the
+   future, which it is not.  The could cause the test to fail for
+   some future backends.
+
+
 # Version 0.6.0 [2023-03-11]
 
 ## New Features

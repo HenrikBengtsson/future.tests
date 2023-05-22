@@ -17,7 +17,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
   ##        numeric values.
   plan(current_plan, workers = 1L)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 1L)
   ## Assert that future works
   f <- future(42L)
@@ -25,7 +25,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
 
   plan(current_plan, workers = 2L)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 2L)
   ## Assert that future works
   f <- future(42L)
@@ -33,7 +33,7 @@ make_test(title = "plan() - workers=<numeric>", args = list(), tags = c("plan", 
 })
 
 
-make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan", "workers"), {
+make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan", "workers", "function"), {
   current_plan <- plan()
 
   ## Does not have a 'workers' argument?
@@ -43,22 +43,31 @@ make_test(title = "plan() - workers=<function>", args = list(), tags = c("plan",
   }
   
   n0 <- nbrOfWorkers()
+  cat(sprintf("Number of initial workers: %g\n", n0))
 
   ## Use the exact same value as 
   workers_value <- eval(formals(current_plan)$workers)
   workers <- function() workers_value
+  if (is.character(workers_value)) {
+    nworkers <- length(workers_value)
+  } else {
+    nworkers <- workers_value
+  }
+  cat(sprintf("Number of workers according to plan(): %g\n", nworkers))
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
-  stopifnot(n == n0)
+  cat(sprintf("Number of workers: %g\n", n))
+  stopifnot(n == nworkers)
   ## Assert that future works
   f <- future(42L)
   stopifnot(value(f) == 42L)
 
+  ## FIXME: These tests only work for backends where 'workers' take
+  ##        numeric values.
   workers <- function() 1L
   plan(current_plan, workers = workers)
   n <- nbrOfWorkers()
-  cat(sprintf("Number of workers: %d\n", n))
+  cat(sprintf("Number of workers: %g\n", n))
   stopifnot(n == 1L)
   ## Assert that future works
   f <- future(42L)
