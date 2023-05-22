@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0-9007</span>
       </span>
     </div>
 
@@ -137,9 +137,17 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="version-development-version">Version (development version)<a class="anchor" aria-label="anchor" href="#version-development-version"></a></h2>
-<ul><li>…</li></ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li><p>Tests asserting correctness of <code>nbrOfWorkers()</code> could produce an “invalid format ‘%d’; use format %f, %e, %g or %a for numeric objects” error when trying to produce an assertion error on <code>nbrOfWorkers()</code> having an incorrect value. This could happen if <code>nbrOfWorkers()</code> returned a non-integer value, e.g. <code>+Inf</code>.</p></li>
+<li><p>Test asserting that the <code>workers</code> argument can be a function would not always work if testing with a hardcoded number of workers according to <code>plan()</code>.</p></li>
+<li><p>Test asserting that the <code>workers</code> argument can be a function would not work if the backend’s default value was non-numeric, e.g. the <code>cluster</code> backend defaults to the character vector <code><a href="https://parallelly.futureverse.org/reference/availableWorkers.html" class="external-link">parallelly::availableWorkers()</a></code>.</p></li>
+<li><p>Test asserting that lazy futures would be automatically launched and resolved relied on a legacy version of the Future API, where calling <code>resolved()</code> on a lazy future could leave it in a lazy state, which is no longer correct. A lazy future will always be launched if one calls <code>resolved()</code> on it.</p></li>
+<li><p>Test asserting that the <strong>ff</strong> package worked across multiple futures assumed that the package is loaded automatically by the future, which it is not. The could cause the test to fail for some future backends.</p></li>
+</ul></div>
+</div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.6.0" id="version-060">Version 0.6.0<a class="anchor" aria-label="anchor" href="#version-060"></a></h2>
+<h2 class="page-header" data-toc-text="0.6.0" id="version-060">Version 0.6.0<small>2023-03-11</small><a class="anchor" aria-label="anchor" href="#version-060"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-6-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
 <ul><li><p>Now tests can be formally skipped by calling <code><a href="../reference/skip_test.html">future.tests::skip_test()</a></code> from within the test. Skipped tests are counted and reported in the summary.</p></li>
@@ -150,13 +158,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-6-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0"></a></h3>
-<ul><li>Some tests assume that the future strategy tested has a <code>workers</code> argument, which is not true for all future backends. For example, ‘sequential’ does not take argument <code>workers</code>. Previously, we avoided this problem by only testing if the evaluator inherited <code>multiprocess</code>, but that is not sufficient, e.g. upcoming <code><a href="https://rdrr.io/pkg/future.redis/man/redis.html" class="external-link">future.redis::redis</a></code> inherits <code>multiprocess</code>, but still does not have a <code>workers</code> argument. Now we check for the <code>workers</code> argument instead.</li></ul></div>
+<ul><li>Some tests assume that the future strategy tested has a <code>workers</code> argument, which is not true for all future backends. For example, ‘sequential’ does not take argument <code>workers</code>. Previously, we avoided this problem by only testing if the evaluator inherited <code>multiprocess</code>, but that is not sufficient, e.g. upcoming <code><a href="https://rdrr.io/pkg/future.redis/man/redis.html" class="external-link">future.redis::redis</a></code> inherits <code>multiprocess</code>, but still does not have a <code>workers</code> argument. Now we check for the <code>workers</code> argument instead.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="version-050">Version 0.5.0<small>2022-12-16</small><a class="anchor" aria-label="anchor" href="#version-050"></a></h2>
 <div class="section level3">
 <h3 id="new-tests-0-5-0">New Tests<a class="anchor" aria-label="anchor" href="#new-tests-0-5-0"></a></h3>
-<ul><li>Assert that none of <code>future()</code>, <code>run()</code>, <code>result()</code> and <code>value()</code> update the RNG state.</li></ul></div>
+<ul><li>Assert that none of <code>future()</code>, <code>run()</code>, <code>result()</code> and <code>value()</code> update the RNG state.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="version-040">Version 0.4.0<small>2022-11-22</small><a class="anchor" aria-label="anchor" href="#version-040"></a></h2>
@@ -193,7 +203,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-3-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-0"></a></h3>
-<ul><li>Tests on <code>resolve()</code> would use deprecated argument <code>value</code>.</li></ul></div>
+<ul><li>Tests on <code>resolve()</code> would use deprecated argument <code>value</code>.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.1" id="version-021">Version 0.2.1<small>2020-03-20</small><a class="anchor" aria-label="anchor" href="#version-021"></a></h2>
@@ -205,12 +216,14 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="version-020">Version 0.2.0<a class="anchor" aria-label="anchor" href="#version-020"></a></h2>
-<ul><li>First version released on CRAN.</li></ul></div>
+<ul><li>First version released on CRAN.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.1" id="version-011">Version 0.1.1<a class="anchor" aria-label="anchor" href="#version-011"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-1"></a></h3>
-<ul><li>Assert that <code>resolved()</code> will launch lazy futures.</li></ul></div>
+<ul><li>Assert that <code>resolved()</code> will launch lazy futures.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="version-010">Version 0.1.0<a class="anchor" aria-label="anchor" href="#version-010"></a></h2>
@@ -222,7 +235,8 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.0.0-9000" id="version-000-9000">Version 0.0.0-9000<a class="anchor" aria-label="anchor" href="#version-000-9000"></a></h2>
-<ul><li>Created package stub.</li></ul></div>
+<ul><li>Created package stub.</li>
+</ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

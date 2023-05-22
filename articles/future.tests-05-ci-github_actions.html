@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">future.tests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0-9007</span>
       </span>
     </div>
 
@@ -164,11 +164,13 @@
 
       
 
-      </header><script src="future.tests-05-ci-github_actions_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>future.tests: Continuous Integration on GitHub Actions</h1>
-                        <h4 data-toc-skip class="author">Henrik Bengtsson</h4>
+      <h1 data-toc-skip>future.tests: Continuous Integration on GitHub
+Actions</h1>
+                        <h4 data-toc-skip class="author">Henrik
+Bengtsson</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/HenrikBengtsson/future.tests/blob/HEAD/vignettes/future.tests-05-ci-github_actions.md" class="external-link"><code>vignettes/future.tests-05-ci-github_actions.md</code></a></small>
@@ -190,109 +192,117 @@
 %\VignetteKeyword{GitHub Actions}
 %\VignetteEngine{future.tests::selfonly}
 -->
-<p>We can use continuous integration (CI) services such as GitHub Action and Travis CI to automatically validate <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> backends via the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong> test suite.</p>
-<p>Here is an example of a <code>.github/workflow/future.tests.yaml</code> file that configures GitHub Actions to check several backends via the <strong>future.tests</strong> test suite.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> future_tests</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a><span class="at">  </span><span class="fu">future_tests</span><span class="kw">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="at">    </span><span class="fu">if</span><span class="kw">:</span><span class="at"> </span><span class="st">"! contains(github.event.head_commit.message, '[ci skip]')"</span><span class="at">    </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="at">    </span><span class="fu">timeout-minutes</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="at">    </span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-20.04</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> future.plan=${{ matrix.future.plan }}</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a><span class="at">    </span><span class="fu">strategy</span><span class="kw">:</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="at">      </span><span class="fu">fail-fast</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="at">      </span><span class="fu">matrix</span><span class="kw">:</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a><span class="at">        </span><span class="fu">future</span><span class="kw">:</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'cluster'</span><span class="at">                             </span><span class="kw">}</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'multicore'</span><span class="at">                           </span><span class="kw">}</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'multisession'</span><span class="at">                        </span><span class="kw">}</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'sequential'</span><span class="at">                          </span><span class="kw">}</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'future.batchtools::batchtools_local'</span><span class="at"> </span><span class="kw">}</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'future.callr::callr'</span><span class="at">                 </span><span class="kw">}</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a><span class="at">    </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a><span class="at">      </span><span class="fu">GITHUB_PAT</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a><span class="at">      </span><span class="fu">RSPM</span><span class="kw">:</span><span class="at"> https://packagemanager.rstudio.com/cran/__linux__/focal/latest</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a><span class="at">      </span><span class="fu">R_REMOTES_NO_ERRORS_FROM_WARNINGS</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a><span class="co">      ## R CMD check</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a><span class="at">      </span><span class="fu">_R_CHECK_LENGTH_1_CONDITION_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a><span class="at">      </span><span class="fu">_R_CHECK_LENGTH_1_LOGIC2_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a><span class="at">      </span><span class="fu">_R_CHECK_MATRIX_DATA_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a><span class="at">      </span><span class="fu">_R_CHECK_CRAN_INCOMING_</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true"></a><span class="co">      ## Specific to futures</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true"></a><span class="at">      </span><span class="fu">R_FUTURE_RNG_ONMISUSE</span><span class="kw">:</span><span class="at"> error</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true"></a><span class="at">      </span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-pandoc@v2</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@v2</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true"></a><span class="at">          </span><span class="fu">r-version</span><span class="kw">:</span><span class="at"> release</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Query R package dependencies</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true"></a>          install.packages('remotes')</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true"></a>          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true"></a>          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Cache R packages</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/cache@v3</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.R_LIBS_USER }}</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install R package system dependencies (Linux)</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'Linux'</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true"></a><span class="at">          </span><span class="fu">RHUB_PLATFORM</span><span class="kw">:</span><span class="at"> linux-x86_64-ubuntu-gcc</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true"></a>          Rscript -e "remotes::install_github('r-hub/sysreqs')"</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true"></a>          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true"></a>          sudo -s eval "$sysreqs"</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install R package dependencies</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true"></a>          remotes::install_deps(dependencies = TRUE)</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true"></a>          install.packages(".", repos=NULL, type="source")  ## needed by parallel workers</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true"></a><span class="at">          </span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install 'future.tests' and any backend R packages</span></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true"></a>          remotes::install_cran("future.tests")</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true"></a>          if (grepl("::", plan &lt;- "${{ matrix.future.plan }}") &amp;&amp; nzchar(pkg &lt;- sub("::.*", "", plan))) install.packages(pkg)</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Session info</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true"></a>          options(width = 100)</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true"></a>          pkgs &lt;- installed.packages()[, "Package"]</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true"></a>          sessioninfo::session_info(pkgs, include_base = TRUE)</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true"></a><span class="at">    </span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check future backend '${{ matrix.future.plan }}'</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true"></a>          R CMD build --no-build-vignettes --no-manual . </span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true"></a>          R CMD INSTALL *.tar.gz </span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true"></a>          Rscript -e future.tests::check --args --test-plan=${{ matrix.future.plan }}</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload check results</span></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> failure()</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v3</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r${{ matrix.future.plan }}-results</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> check</span></span></code></pre></div>
-<p>For real-world examples, see the GitHub repositories of <a href="https://github.com/HenrikBengtsson/future" class="external-link"><strong>future</strong></a>, <a href="https://github.com/HenrikBengtsson/future.batchtools" class="external-link"><strong>future.batchtools</strong></a>, and <a href="https://github.com/HenrikBengtsson/future.callr" class="external-link"><strong>future.callr</strong></a>.</p>
+<p>We can use continuous integration (CI) services such as GitHub Action
+and Travis CI to automatically validate <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong>
+backends via the <strong><a href="https://cran.r-project.org/package=future.tests" class="external-link">future.tests</a></strong>
+test suite.</p>
+<p>Here is an example of a
+<code>.github/workflow/future.tests.yaml</code> file that configures
+GitHub Actions to check several backends via the
+<strong>future.tests</strong> test suite.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> future_tests</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  </span><span class="fu">future_tests</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">    </span><span class="fu">if</span><span class="kw">:</span><span class="at"> </span><span class="st">"! contains(github.event.head_commit.message, '[ci skip]')"</span><span class="at">    </span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">    </span><span class="fu">timeout-minutes</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-20.04</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> future.plan=${{ matrix.future.plan }}</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">    </span><span class="fu">strategy</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">      </span><span class="fu">fail-fast</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">      </span><span class="fu">matrix</span><span class="kw">:</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">        </span><span class="fu">future</span><span class="kw">:</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'cluster'</span><span class="at">                             </span><span class="kw">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'multicore'</span><span class="at">                           </span><span class="kw">}</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'multisession'</span><span class="at">                        </span><span class="kw">}</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'sequential'</span><span class="at">                          </span><span class="kw">}</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'future.batchtools::batchtools_local'</span><span class="at"> </span><span class="kw">}</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="kw">{</span><span class="at"> </span><span class="fu">plan</span><span class="kw">:</span><span class="at"> </span><span class="st">'future.callr::callr'</span><span class="at">                 </span><span class="kw">}</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="at">    </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="at">      </span><span class="fu">GITHUB_PAT</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="at">      </span><span class="fu">RSPM</span><span class="kw">:</span><span class="at"> https://packagemanager.rstudio.com/cran/__linux__/focal/latest</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="at">      </span><span class="fu">R_REMOTES_NO_ERRORS_FROM_WARNINGS</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">      ## R CMD check</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="at">      </span><span class="fu">_R_CHECK_LENGTH_1_CONDITION_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="at">      </span><span class="fu">_R_CHECK_LENGTH_1_LOGIC2_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="at">      </span><span class="fu">_R_CHECK_MATRIX_DATA_</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="at">      </span><span class="fu">_R_CHECK_CRAN_INCOMING_</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">      ## Specific to futures</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="at">      </span><span class="fu">R_FUTURE_RNG_ONMISUSE</span><span class="kw">:</span><span class="at"> error</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-pandoc@v2</span></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> r-lib/actions/setup-r@v2</span></span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="at">          </span><span class="fu">r-version</span><span class="kw">:</span><span class="at"> release</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Query R package dependencies</span></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a>          install.packages('remotes')</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a>          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)</span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Cache R packages</span></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/cache@v3</span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> ${{ env.R_LIBS_USER }}</span></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="at">          </span><span class="fu">key</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}</span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="at">          </span><span class="fu">restore-keys</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-</span></span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install R package system dependencies (Linux)</span></span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> runner.os == 'Linux'</span></span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="at">          </span><span class="fu">RHUB_PLATFORM</span><span class="kw">:</span><span class="at"> linux-x86_64-ubuntu-gcc</span></span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a>          Rscript -e "remotes::install_github('r-hub/sysreqs')"</span>
+<span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a>          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")</span>
+<span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a>          sudo -s eval "$sysreqs"</span>
+<span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install R package dependencies</span></span>
+<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a>          remotes::install_deps(dependencies = TRUE)</span>
+<span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a>          install.packages(".", repos=NULL, type="source")  ## needed by parallel workers</span>
+<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a><span class="at">          </span></span>
+<span id="cb1-76"><a href="#cb1-76" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install 'future.tests' and any backend R packages</span></span>
+<span id="cb1-77"><a href="#cb1-77" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-78"><a href="#cb1-78" tabindex="-1"></a>          remotes::install_cran("future.tests")</span>
+<span id="cb1-79"><a href="#cb1-79" tabindex="-1"></a>          if (grepl("::", plan &lt;- "${{ matrix.future.plan }}") &amp;&amp; nzchar(pkg &lt;- sub("::.*", "", plan))) install.packages(pkg)</span>
+<span id="cb1-80"><a href="#cb1-80" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb1-81"><a href="#cb1-81" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Session info</span></span>
+<span id="cb1-83"><a href="#cb1-83" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-84"><a href="#cb1-84" tabindex="-1"></a>          options(width = 100)</span>
+<span id="cb1-85"><a href="#cb1-85" tabindex="-1"></a>          pkgs &lt;- installed.packages()[, "Package"]</span>
+<span id="cb1-86"><a href="#cb1-86" tabindex="-1"></a>          sessioninfo::session_info(pkgs, include_base = TRUE)</span>
+<span id="cb1-87"><a href="#cb1-87" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb1-88"><a href="#cb1-88" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb1-89"><a href="#cb1-89" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check future backend '${{ matrix.future.plan }}'</span></span>
+<span id="cb1-90"><a href="#cb1-90" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb1-91"><a href="#cb1-91" tabindex="-1"></a>          R CMD build --no-build-vignettes --no-manual . </span>
+<span id="cb1-92"><a href="#cb1-92" tabindex="-1"></a>          R CMD INSTALL *.tar.gz </span>
+<span id="cb1-93"><a href="#cb1-93" tabindex="-1"></a>          Rscript -e future.tests::check --args --test-plan=${{ matrix.future.plan }}</span>
+<span id="cb1-94"><a href="#cb1-94" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload check results</span></span>
+<span id="cb1-96"><a href="#cb1-96" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> failure()</span></span>
+<span id="cb1-97"><a href="#cb1-97" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v3</span></span>
+<span id="cb1-98"><a href="#cb1-98" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb1-99"><a href="#cb1-99" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ${{ runner.os }}-r${{ matrix.future.plan }}-results</span></span>
+<span id="cb1-100"><a href="#cb1-100" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> check</span></span></code></pre></div>
+<p>For real-world examples, see the GitHub repositories of <a href="https://github.com/HenrikBengtsson/future" class="external-link"><strong>future</strong></a>,
+<a href="https://github.com/HenrikBengtsson/future.batchtools" class="external-link"><strong>future.batchtools</strong></a>,
+and <a href="https://github.com/HenrikBengtsson/future.callr" class="external-link"><strong>future.callr</strong></a>.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
