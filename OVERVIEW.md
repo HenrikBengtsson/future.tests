@@ -2,7 +2,7 @@ The **[future]** package defines the Future API which consists of a small number
 
 > Write once, run anywhere
 
-In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the [Future API Backend Specification].  A future backend with A 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
+In order for such code to work regardless of which future backend the end-user choose, it is critical that the backend fully complies with the [Future API Backend Specification].  A future backend with a 100% compliance rate guarantees that the code will work equally well there as in sequential mode.
 
 This R package - **[future.tests]** - provides a test suite for validation that a future backend complies with the Future API.
 
